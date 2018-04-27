@@ -277,16 +277,18 @@ class Certificados extends CI_Controller
         if ($hashCertificado) {
             $idCertificado = $this->certificados_model->existeHash($hashCertificado);
             $data['certificado'] = $this->certificados_model->recuperaCertificado($idCertificado);
+            $data['fundo'] = $this->config->item('upload_path') . 'modelos/' . $data['certificado']->nm_fundo;
 
-            if (($data['certificado'])) {
+            if ($data['certificado']) {
                 $html = $this->load->view('includes/templates/certificado_view', $data, TRUE);
                 if ($data['certificado']->de_texto_verso) {
                     $htmlVerso = $this->load->view('includes/templates/certificado_verso_view', $data, TRUE);
                     $html = $html . $htmlVerso;
                 }
+
                 if ($pdf) {
                     $this->load->helper('to_pdf');
-                    pdf_create($html, $hashCertificado, true, 'a4', 'landscape');
+                    pdf_create($html, $hashCertificado, true, 'A4', 'landscape');
                 } else {
                     echo $html;
                 }

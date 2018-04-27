@@ -353,8 +353,7 @@ class Certificados_model extends CI_Model
      * @param String $justificativa
      * @param String $status
      */
-    function registraHistoricoAlteracaoStatus($idCertificado, $justificativa,
-                                              $status)
+    function registraHistoricoAlteracaoStatus($idCertificado, $justificativa, $status)
     {
         $this->load->library('session');
 
@@ -366,7 +365,6 @@ class Certificados_model extends CI_Model
 
         $this->db->insert('historico_status_certificado', $data);
     }
-
 
     /**
      * Retorna o historico de alteracoes no status do certificado

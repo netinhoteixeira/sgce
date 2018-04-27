@@ -51,7 +51,6 @@ class modelos_certificados extends CI_Controller
         $this->gerenciador_de_acesso->usuarioAuth();
     }
 
-
     /**
      * Metodo padrao chamado quando invocada a controller.
      *
@@ -106,7 +105,6 @@ class modelos_certificados extends CI_Controller
 
         $data['corpo_pagina'] = "modelos_certificado_view";
         $this->load->view('includes/templates/template', $data);
-
     }
 
     /**
@@ -226,7 +224,6 @@ class modelos_certificados extends CI_Controller
         }
     }
 
-
     /**
      * Abre formulario para edicao de um registro de modelos_certificado.
      * @param Integer $id - Especifica o ID que sera editado.
@@ -268,7 +265,6 @@ class modelos_certificados extends CI_Controller
 
     }
 
-
     /**
      * Cancela a operacao corrente e retorna para a tela inicial
      */
@@ -304,12 +300,11 @@ class modelos_certificados extends CI_Controller
      * @param Array $arquivo - Dados do arquivo que deve ser enviado.
      * @return Booblean      - Especifica se o arquivo foi enviado corretamente.
      */
-
     function doUpload($arquivo)
     {
         if ($arquivo) {
-            $config['upload_path'] = $this->config->item('upload_path') . '/modelos';
-            $config['allowed_types'] = 'jpg|jpeg';
+            $config['upload_path'] = $this->config->item('upload_path') . '/modelos/';
+            $config['allowed_types'] = 'png|jpg|jpeg';
             $config['max_size'] = $this->config->item('max_size');
             $config['file_name'] = replaceAscii($_FILES[$arquivo]['name']);
 
@@ -327,7 +322,8 @@ class modelos_certificados extends CI_Controller
             } else {
                 return true;
             }
-
+        } else {
+            return false;
         }
     }
 
@@ -338,37 +334,35 @@ class modelos_certificados extends CI_Controller
         if ($idModelo) {
             $dadosCertificado = @$this->modelos_certificado_model->getById($idModelo);
             $data['certificado'] = @$dadosCertificado;
+
             if ($dadosCertificado) {
                 $html = $this->load->view('includes/templates/certificado_previa_view', $data, TRUE);
                 if ($dadosCertificado->de_texto_verso) {
                     $htmlVerso = $this->load->view('includes/templates/certificado_previa_verso_view', $data, TRUE);
                     $html = $html . $htmlVerso;
                 }
+
                 $this->load->helper('to_pdf');
                 pdf_create($html, 'modelo' . $idModelo, true, 'a4', 'landscape');
-
             }
         }
     }
-
 
     /**
      * Obtem colunas do texto no padrao.
      * @param type $texto
      * @return type
      */
-
     function getColunasTexto($texto)
     {
         $pattern = '/\b[A-Z]+_+(_*[A-Z]*)+\b/';
 
-        if (preg_match_all($pattern, $texto, $matches))
+        if (preg_match_all($pattern, $texto, $matches)) {
             return $matches[0];
-        else
+        } else {
             return null;
-
+        }
     }
-
 
     /**
      * Clona um modelo de certificado
@@ -377,8 +371,9 @@ class modelos_certificados extends CI_Controller
      */
     function clonar($idModelo)
     {
-        if (!$idModelo)
+        if (!$idModelo) {
             return null;
+        }
 
         $this->load->model('modelos_certificado_model');
         $modelo = $this->modelos_certificado_model->getById($idModelo);
@@ -425,8 +420,9 @@ class modelos_certificados extends CI_Controller
             else
                 $data['mensagem'] = "Ocorreu um erro ao clonar o modelo de certificado.<br />";
 
-        } else
+        } else {
             $data['mensagem'] = "Modelo de certificado não encontrado. <br />";
+        }
 
         $data['corpo_pagina'] = "resultado_clonagem_modelo_view";
         $this->load->view('includes/templates/template', $data);
@@ -448,9 +444,7 @@ class modelos_certificados extends CI_Controller
 
         $this->form_validation->set_message('numeric',
             'O campo <span class="message_field">%s</span> deve possuir somente valor num&eacute;rico.');
-
     }
-
 
     /**
      * Exibe o retorno de uma operacao, com a mensagem passada e a url de direcio
@@ -473,7 +467,6 @@ class modelos_certificados extends CI_Controller
      * @param type $hashCertificado
      * @return type
      */
-
     function _atualizaCertificado($hashCertificado)
     {
         $this->load->model('certificados_model');
@@ -486,6 +479,7 @@ class modelos_certificados extends CI_Controller
             $idCertificado = @$this->certificados_model->existeHash($hashCertificado);
             $dadosCertificado = @$this->certificados_model->recuperaCertificado($idCertificado);
             $atualizaCertificado = $this->_montaCertificado($dadosCertificado);
+
             return $atualizaCertificado;
         } else {
             return false;
@@ -499,13 +493,12 @@ class modelos_certificados extends CI_Controller
      * @param type $dadosCertificado
      * @return type
      */
-
-
     function _montaCertificado($dadosCertificado)
     {
         if (!$dadosCertificado) {
             return false;
         }
+
         $this->load->model('modelos_certificado_model');
         $this->load->model('certificados_model');
 
@@ -525,13 +518,10 @@ class modelos_certificados extends CI_Controller
         $textoVerso = $dados->de_texto_verso;
 
         foreach (array_keys($colunasCertificado) as $colunaModelo) {
-
             $textoCertificado = str_replace($colunaModelo, utf8_encode($colunasCertificado[$colunaModelo]),
                 $textoCertificado);
-
             $textoVerso = str_replace($colunaModelo, utf8_encode($colunasCertificado[$colunaModelo]),
                 $textoVerso);
-
         }
 
         // Monta matriz de gravacao de  certificado no banco de dados
@@ -539,6 +529,7 @@ class modelos_certificados extends CI_Controller
         $dataCert['de_texto_certificado'] = $textoCertificado;
         $dataCert['de_complementar'] = $textoVerso;
         $atualizacao = $this->certificados_model->atualizaCertificado($dataCert);
+
         return $atualizacao;
     }
 

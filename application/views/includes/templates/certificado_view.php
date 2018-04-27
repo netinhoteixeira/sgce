@@ -19,64 +19,68 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xml:lang="pt-br" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xml:lang="pt-br" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="<?php echo  base_url()?>application/views/includes/css/certificado/<?php echo $certificado->nm_fonte?>.css" />
-        <link rel="stylesheet" href="<?php echo  base_url()?>application/views/includes/css/certificado/certificado.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet"
+              href="<?php echo base_url() ?>application/views/includes/css/certificado/<?php echo $certificado->nm_fonte ?>.css"/>
+        <link rel="stylesheet"
+              href="<?php echo base_url() ?>application/views/includes/css/certificado/certificado.css"/>
     </head>
-    <body>
-        <div class="pagina"
-             style="background-image: url('<?php echo  base_url()?>uploads/modelos/<?php echo $certificado->nm_fundo?>');
-                    background-repeat: no-repeat;
-                    /*background-attachment: fixed;*/
-                    background-position:center center;">
-            
-            <br /><br />
-            <div class="titulo" 
-                 style="padding-top: <?php echo @$certificado->de_posicao_titulo?>%;
-                        float: <?php echo @$certificado->de_alinhamento_titulo?>;
-                        text-align:<?php echo @$certificado->de_alin_texto_titulo?>;
-                        color: <?php echo @$certificado->de_cor_texto_titulo?>;
-                        font-size: <?php echo @$certificado->de_tamanho_titulo?>pt;">
+<body>
+    <div class="pagina">
+        <div style="position:fixed;left:0;top:-45px;right:0;bottom:0;text-align:center;z-index:-1000;">
+            <img src="<?php echo $fundo; ?>" style="height: 793px; width: 1122px;">
+        </div>
 
-                <p><b><?php echo $certificado->de_titulo?></b></p>
+        <div style="z-index: 1000;">
+            <br/><br/>
+            <div class="titulo"
+                 style="padding-top: <?php echo @$certificado->de_posicao_titulo ?>%;
+                         float: <?php echo @$certificado->de_alinhamento_titulo ?>;
+                         text-align:<?php echo @$certificado->de_alin_texto_titulo ?>;
+                         color: <?php echo @$certificado->de_cor_texto_titulo ?>;
+                         font-size: <?php echo @$certificado->de_tamanho_titulo ?>pt;">
+
+                <p><b><?php echo $certificado->de_titulo ?></b></p>
             </div>
             <div class="corpo"
-                 style="padding-top: <?php echo @$certificado->de_posicao_texto?>%;
-                        float: <?php echo @$certificado->de_alinhamento_texto?>;
-                        text-align:<?php echo @$certificado->de_alin_texto_texto?>;
-                        color: <?php echo @$certificado->de_cor_texto_texto?>;
-                        font-size: <?php echo @$certificado->de_tamanho_texto?>pt;">
+                 style="padding-top: <?php echo @$certificado->de_posicao_texto ?>%;
+                         float: <?php echo @$certificado->de_alinhamento_texto ?>;
+                         text-align:<?php echo @$certificado->de_alin_texto_texto ?>;
+                         color: <?php echo @$certificado->de_cor_texto_texto ?>;
+                         font-size: <?php echo @$certificado->de_tamanho_texto ?>pt;">
 
-                <p><?php echo $certificado->de_texto_certificado?></p>
-                <? if (@$certificado->fl_ativo=='P'): ?>
+                <p><?php echo $certificado->de_texto_certificado ?></p>
+                <? if (@$certificado->fl_ativo == 'P'): ?>
                     <div style="color: #FF0000;
                          font-size: 20px;">
                         <p align="center">
                             DOCUMENTO DE TESTE - A VALIDADE DEVE SER DESCONSIDERADA
                         </p>
-                    </div>                
+                    </div>
                 <? endif; ?>
-                
+
             </div>
-            <br /><br />
+            <br/><br/>
             <div class="linha_validacao"
-                 style="padding-top: <?php echo @$certificado->de_posicao_validacao?>%;
-                        float: <?php echo @$certificado->de_alinhamento_validacao?>;
-                        text-align:<?php echo @$certificado->de_alin_texto_validacao?>;
-                        color: <?php echo @$certificado->de_cor_texto_validacao?>;">
+                 style="padding-top: <?php echo @$certificado->de_posicao_validacao ?>%;
+                         float: <?php echo @$certificado->de_alinhamento_validacao ?>;
+                         text-align:<?php echo @$certificado->de_alin_texto_validacao ?>;
+                         color: <?php echo @$certificado->de_cor_texto_validacao ?>;">
                 <br/><br/><br/>
                 <p>
-                    <? if (@$certificado->fl_ativo!='P'): ?>
+                    <? if (@$certificado->fl_ativo != 'P'): ?>
                         a autenticidade deste documento pode ser verificada através da URL:<br/>
-                        <?php echo URL_CERTIFICADO.ENDERECO_VALIDACAO.$certificado->de_hash?>
-                    <?endif ?>
+                        <?php echo URL_CERTIFICADO . ENDERECO_VALIDACAO . $certificado->de_hash ?>
+                    <? endif ?>
                 </p>
             </div>
         </div>
-    <? if (!@$certificado->de_texto_verso) :?>
+    </div>
+<? if (!@$certificado->de_texto_verso) : ?>
     </body>
-</html>
-<?endif; ?>
+    </html>
+<? endif; ?>

@@ -157,14 +157,14 @@ INSERT INTO `eventos` (`id_evento`, `nm_evento`, `sg_evento`, `de_periodo`, `de_
 -- Dumping structure for table sgce.historico_status_certificado
 DROP TABLE IF EXISTS `historico_status_certificado`;
 CREATE TABLE IF NOT EXISTS `historico_status_certificado` (
-  `id_certificado` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_historico_status_certificado` bigint(20) NOT NULL AUTO_INCREMENT,
   `ip_usuario` text NOT NULL,
   `nm_usuario` text NOT NULL,
   `fl_status_certificado` text NOT NULL,
   `de_justificativa` text NOT NULL,
   `dt_alteracao` datetime DEFAULT NULL,
-  `id_historico_status_certificado` int(11) NOT NULL,
-  PRIMARY KEY (`id_certificado`),
+  `id_certificado` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_historico_status_certificado`),
   CONSTRAINT `fk_certificados_participante` FOREIGN KEY (`id_certificado`) REFERENCES `certificados_participante` (`id_certificado`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Histórico das Situações do Certificado';
 
