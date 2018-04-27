@@ -43,7 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 /* Constantes do sistema */
 define('SIGLA_SISTEMA','SGCE');
 define('NOME_SISTEMA', 'Sistema de Gestão de Certificados Eletrônicos');
-define('VERSAO_SISTEMA', '1.0.2');
+define('VERSAO_SISTEMA', '1.0.3');
 define('LIMITE_PESQUISA_PAGINA', 15);
 
 /* Configuracao exclusiva do sistema de certificados */
