@@ -188,6 +188,20 @@ CREATE TABLE IF NOT EXISTS `log_importacao` (
 /*!40000 ALTER TABLE `log_importacao` DISABLE KEYS */;
 /*!40000 ALTER TABLE `log_importacao` ENABLE KEYS */;
 
+-- Dumping structure for table sgce.log_importacao_detalhes
+DROP TABLE IF EXISTS `log_importacao_detalhes`;
+CREATE TABLE IF NOT EXISTS `log_importacao_detalhes` (
+  `id_log_detalhe` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_log` bigint(20) NOT NULL,
+  `nr_linha` integer,
+  `de_descricao` text,
+  PRIMARY KEY (`id_log_detalhe`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Detalhes do Registro das Importações';
+
+-- Dumping data for table sgce.log_importacao_detalhes: ~0 rows (approximately)
+/*!40000 ALTER TABLE `log_importacao_detalhes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `log_importacao_detalhes` ENABLE KEYS */;
+
 -- Dumping structure for table sgce.organizadores
 DROP TABLE IF EXISTS `organizadores`;
 CREATE TABLE IF NOT EXISTS `organizadores` (
