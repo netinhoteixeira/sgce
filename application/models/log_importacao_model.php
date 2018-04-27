@@ -24,20 +24,22 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @author Sergio Jr    <sergiojunior@unipampa.edu.br>
  * @copyright NTIC Unipampa 2010
  *
- * @var $table   - variavel que indica a tabela padrao para operacao.
- * @var $schema  - variavel para configuracao do esquema de banco de dados.
+ * @var $table - variavel que indica a tabela padrao para operacao.
+ * @var $schema - variavel para configuracao do esquema de banco de dados.
  *
  */
-class Log_importacao_model extends CI_Model {
+class Log_importacao_model extends CI_Model
+{
+
     public $table = 'log_importacao';
-    
+
     /**
      * Construtor da Classe
      *
      * Inicializa o Model de banco de dados
      */
-
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -49,9 +51,11 @@ class Log_importacao_model extends CI_Model {
      *
      * @param array $dados
      */
-    function insert($dados) {        
+    function insert($dados)
+    {
+        $dados['dt_log'] = date('Y-m-d H:i:s');
         $ins = $this->db->insert($this->table, $dados);
-        if($ins) {
+        if ($ins) {
             return $this->db->insert_id();
         } else {
             return null;
@@ -60,18 +64,19 @@ class Log_importacao_model extends CI_Model {
 
     /**
      * Insere registro na tabela de detalhes do log
-     * 
+     *
      * @param Integer $idLog
      * @param Integer $idLinha
      * @param String $descricao
-     * @return Integer 
+     * @return Integer
      */
-    function insertDetalhe($idLog, $idLinha, $descricao) {
-        $dados['id_log']       = $idLog;
-        $dados['nr_linha']     = $idLinha;
+    function insertDetalhe($idLog, $idLinha, $descricao)
+    {
+        $dados['id_log'] = $idLog;
+        $dados['nr_linha'] = $idLinha;
         $dados['de_descricao'] = $descricao;
         $ins = $this->db->insert('log_importacao_detalhes', $dados);
-        if($ins) {
+        if ($ins) {
             return $this->db->insert_id();
         } else {
             return null;
@@ -81,15 +86,16 @@ class Log_importacao_model extends CI_Model {
 
     /**
      * Obtem o log de importacao do modelo
-     * 
+     *
      * @param Integer $idModelo
-     * @return Array 
+     * @return Array
      */
-    function listarLogModelo($idModelo) {
+    function listarLogModelo($idModelo)
+    {
         $this->db->where('id_certificado_modelo', $idModelo);
         $this->db->order_by('dt_log');
         $query = $this->db->get($this->table);
-        return $query->result(); 
+        return $query->result();
     }
 
 
@@ -99,10 +105,11 @@ class Log_importacao_model extends CI_Model {
      * @param Integer $idLog
      * @return Array
      */
-    function obtemDetalhesLog($idLog) {
+    function obtemDetalhesLog($idLog)
+    {
         $this->db->where('id_log', $idLog);
         $query = $this->db->get('log_importacao_detalhes');
-        return $query->result();         
+        return $query->result();
     }
 
     /**
@@ -110,7 +117,8 @@ class Log_importacao_model extends CI_Model {
      * @param Integer $id - ID a buscar.
      * @return Array      - Dados recuperados.
      */
-    function getById($id) {
+    function getById($id)
+    {
         $record = '';
         if (isset($id)) {
             $this->db->where('id_log', $id);

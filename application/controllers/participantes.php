@@ -53,7 +53,6 @@ class Participantes extends CI_Controller
         $this->gerenciador_de_acesso->usuarioAuth();
     }
 
-
     /**
      * Metodo padrao chamado quando invocada a controller.
      *
@@ -72,7 +71,6 @@ class Participantes extends CI_Controller
     /**
      * Metodo chamado na pesquisa de registros da view, na paginacao e no index
      */
-
     function listar()
     {
         $resultado = array();
@@ -109,7 +107,6 @@ class Participantes extends CI_Controller
 
         $data['corpo_pagina'] = "participantes_view";
         $this->load->view('includes/templates/template', $data);
-
     }
 
     /**
@@ -163,14 +160,12 @@ class Participantes extends CI_Controller
                     $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'participantes');
                 }
             }
+        } elseif ($id) {
+            $this->editar($id, $errors);
         } else {
-            if ($id)
-                $this->editar($id, $errors);
-            else
-                $this->novo();
+            $this->novo();
         }
     }
-
 
     /**
      * Abre formulario para edicao de um registro de participantes.
@@ -209,9 +204,7 @@ class Participantes extends CI_Controller
                 $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'participantes');
             }
         }
-
     }
-
 
     /**
      * Cancela a operacao corrente e retorna para a tela inicial
@@ -243,7 +236,6 @@ class Participantes extends CI_Controller
         $this->listar();
     }
 
-
     /**
      * Metodo que executa a importacao da relacao de participantes, chamando
      * o metodo equivalente na camada de modelo. Apos, exibe na tela o resultado
@@ -256,6 +248,7 @@ class Participantes extends CI_Controller
     {
         $this->load->model('participantes_model');
         $this->load->model('modelos_certificado_model');
+
         if ($arquivoOrigem) {
             $this->load->library('CSVReader');
             $dados = $this->csvreader->parse_file($arquivoOrigem, true);
@@ -294,7 +287,6 @@ class Participantes extends CI_Controller
         direcionarURL($urlDestino);
     }
 
-
     /**
      * Apresenta o formulario de importacao de participantes
      */
@@ -304,7 +296,6 @@ class Participantes extends CI_Controller
         $data['corpo_pagina'] = 'cad_importador_view';
         $this->load->view('includes/templates/template', $data);
     }
-
 
     /**
      * Action executada na submissao do formulario de importacao de participantes.
@@ -322,17 +313,19 @@ class Participantes extends CI_Controller
         $this->form_validation->set_rules('txtEvento', 'Evento', 'required');
         $this->form_validation->set_rules('txtModelo', 'Modelo', 'required');
         $this->_configureFormErrorMessage();
-        $this->removeArquivo($dados["txtModelo"]);
+        $this->removeArquivo($dados['txtModelo']);
 
         if ($this->form_validation->run() == TRUE) {
-            $data['corpo_pagina'] = "progresso_execucao_view";
+            $data['corpo_pagina'] = 'progresso_execucao_view';
             $view = $this->load->view('includes/templates/template', $data, true);
             descarregaBufferProgressoExecucao($view);
             $_FILES['txtArquivo']['name'] = $_POST['txtModelo'] . '.csv';
             $txtArquivo = $_FILES;
-            $idModelo = $dados["txtModelo"];
+            $idModelo = $dados['txtModelo'];
+
             if ($_FILES) {
                 $resultado = $this->doUpload('txtArquivo');
+
                 if ($resultado) {
                     $nomeArq = $this->config->item('upload_path') . $_FILES['txtArquivo']['name'];
                     $tipoArq = $_FILES['txtArquivo']['type'];
@@ -350,10 +343,10 @@ class Participantes extends CI_Controller
                     direcionarURL($urlDestino);
                 }
             }
-        } else
+        } else {
             $this->formImporta();
+        }
     }
-
 
     /**
      * Executa upload do arquivo passado
@@ -362,7 +355,7 @@ class Participantes extends CI_Controller
      */
     function doUpload($arquivo)
     {
-        if ($arquivo) {
+        if (!empty($arquivo)) {
             $config['upload_path'] = $this->config->item('upload_path');
             $config['allowed_types'] = $this->config->item('allowed_types');
             $config['max_size'] = $this->config->item('max_size');
@@ -402,7 +395,6 @@ class Participantes extends CI_Controller
      *
      * @param Integer $modelo - ID do Modelo
      */
-
     function repetirImportacao($idModelo = null)
     {
         if ($idModelo) {
@@ -434,7 +426,6 @@ class Participantes extends CI_Controller
             'O campo <span class="message_field">%s</span> deve possuir somente valor num&eacute;rico.');
 
     }
-
 
     /**
      * Gera log de importacao de participantes, chamando o metodo equivalente
@@ -508,7 +499,6 @@ class Participantes extends CI_Controller
         $data['titulo_pagina'] = "Histórico de Importações";
         $this->load->view('historico_importacao_view', $data);
     }
-
 
     /**
      * Carrega os detalhes do log de importacao, acionado por ajax.
@@ -610,7 +600,6 @@ class Participantes extends CI_Controller
             }
         }
     }
-
 
     /**
      * Exibe o retorno de uma operacao, com a mensagem passada e a url de direcio
