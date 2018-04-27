@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -36,6 +36,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	var $ar_like				= array();
 	var $ar_groupby				= array();
 	var $ar_having				= array();
+	var $ar_keys				= array();
 	var $ar_limit				= FALSE;
 	var $ar_offset				= FALSE;
 	var $ar_order				= FALSE;
@@ -46,7 +47,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	var $ar_store_array			= array();
 
 	// Active Record Caching variables
-	var $ar_caching 			= FALSE;
+	var $ar_caching				= FALSE;
 	var $ar_cache_exists		= array();
 	var $ar_cache_select		= array();
 	var $ar_cache_from			= array();
@@ -399,18 +400,6 @@ class CI_DB_active_record extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
-	 * orwhere() is an alias of or_where()
-	 * this function is here for backwards compatibility, as
-	 * orwhere() has been deprecated
-	 */
-	function orwhere($key, $value = NULL, $escape = TRUE)
-	{
-		return $this->or_where($key, $value, $escape);
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Where
 	 *
 	 * Called by where() or orwhere()
@@ -672,18 +661,6 @@ class CI_DB_active_record extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
-	 * orlike() is an alias of or_like()
-	 * this function is here for backwards compatibility, as
-	 * orlike() has been deprecated
-	 */
-	function orlike($field, $match = '', $side = 'both')
-	{
-		return $this->or_like($field, $match, $side);
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Like
 	 *
 	 * Called by like() or orlike()
@@ -711,19 +688,19 @@ class CI_DB_active_record extends CI_DB_driver {
 
 			if ($side == 'before')
 			{
-				$like_statement = $prefix." $k $not ILIKE '%{$v}'";
+				$like_statement = $prefix." $k $not LIKE '%{$v}'";
 			}
 			elseif ($side == 'after')
 			{
-				$like_statement = $prefix." $k $not ILIKE '{$v}%'";
+				$like_statement = $prefix." $k $not LIKE '{$v}%'";
 			}
 			else
 			{
-				$like_statement = $prefix." $k $not ILIKE '%{$v}%'";
+				$like_statement = $prefix." $k $not LIKE '%{$v}%'";
 			}
 
 			// some platforms require an escape sequence definition for LIKE wildcards
-			if (isset($this->_like_escape_char) && $this->_like_escape_str != '')
+			if ($this->_like_escape_str != '')
 			{
 				$like_statement = $like_statement.sprintf($this->_like_escape_str, $this->_like_escape_chr);
 			}
@@ -776,18 +753,6 @@ class CI_DB_active_record extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
-	 * groupby() is an alias of group_by()
-	 * this function is here for backwards compatibility, as
-	 * groupby() has been deprecated
-	 */
-	function groupby($by)
-	{
-		return $this->group_by($by);
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
 	 * Sets the HAVING value
 	 *
 	 * Separates multiple calls with AND
@@ -802,18 +767,6 @@ class CI_DB_active_record extends CI_DB_driver {
 		return $this->_having($key, $value, 'AND ', $escape);
 	}
 
-	// --------------------------------------------------------------------
-
-	/**
-	 * orhaving() is an alias of or_having()
-	 * this function is here for backwards compatibility, as
-	 * orhaving() has been deprecated
-	 */
-
-	function orhaving($key, $value = '', $escape = TRUE)
-	{
-		return $this->or_having($key, $value, $escape);
-	}
 	// --------------------------------------------------------------------
 
 	/**
@@ -934,18 +887,6 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 
 		return $this;
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * orderby() is an alias of order_by()
-	 * this function is here for backwards compatibility, as
-	 * orderby() has been deprecated
-	 */
-	function orderby($orderby, $direction = '')
-	{
-		return $this->order_by($orderby, $direction);
 	}
 
 	// --------------------------------------------------------------------
@@ -1126,13 +1067,121 @@ class CI_DB_active_record extends CI_DB_driver {
 	// --------------------------------------------------------------------
 
 	/**
-	 * getwhere() is an alias of get_where()
-	 * this function is here for backwards compatibility, as
-	 * getwhere() has been deprecated
+	 * Insert_Batch
+	 *
+	 * Compiles batch insert strings and runs the queries
+	 *
+	 * @access	public
+	 * @param	string	the table to retrieve the results from
+	 * @param	array	an associative array of insert values
+	 * @return	object
 	 */
-	function getwhere($table = '', $where = null, $limit = null, $offset = null)
+	function insert_batch($table = '', $set = NULL)
 	{
-		return $this->get_where($table, $where, $limit, $offset);
+		if ( ! is_null($set))
+		{
+			$this->set_insert_batch($set);
+		}
+
+		if (count($this->ar_set) == 0)
+		{
+			if ($this->db_debug)
+			{
+				//No valid data array.  Folds in cases where keys and values did not match up
+				return $this->display_error('db_must_use_set');
+			}
+			return FALSE;
+		}
+
+		if ($table == '')
+		{
+			if ( ! isset($this->ar_from[0]))
+			{
+				if ($this->db_debug)
+				{
+					return $this->display_error('db_must_set_table');
+				}
+				return FALSE;
+			}
+
+			$table = $this->ar_from[0];
+		}
+
+		// Batch this baby
+		for ($i = 0, $total = count($this->ar_set); $i < $total; $i = $i + 100)
+		{
+
+			$sql = $this->_insert_batch($this->_protect_identifiers($table, TRUE, NULL, FALSE), $this->ar_keys, array_slice($this->ar_set, $i, 100));
+
+			//echo $sql;
+
+			$this->query($sql);
+		}
+
+		$this->_reset_write();
+
+
+		return TRUE;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * The "set_insert_batch" function.  Allows key/value pairs to be set for batch inserts
+	 *
+	 * @access	public
+	 * @param	mixed
+	 * @param	string
+	 * @param	boolean
+	 * @return	object
+	 */
+
+	function set_insert_batch($key, $value = '', $escape = TRUE)
+	{
+		$key = $this->_object_to_array_batch($key);
+
+		if ( ! is_array($key))
+		{
+			$key = array($key => $value);
+		}
+
+		$keys = array_keys(current($key));
+		sort($keys);
+
+		foreach ($key as $row)
+		{
+			if (count(array_diff($keys, array_keys($row))) > 0 OR count(array_diff(array_keys($row), $keys)) > 0)
+			{
+				// batch function above returns an error on an empty array
+				$this->ar_set[] = array();
+				return;
+			}
+		
+			ksort($row); // puts $row in the same order as our keys
+
+			if ($escape === FALSE)
+			{
+				$this->ar_set[] =  '('.implode(',', $row).')';
+			}
+			else
+			{
+				$clean = array();
+
+				foreach($row as $value)
+				{
+					$clean[] = $this->escape($value);
+				}
+
+				$this->ar_set[] =  '('.implode(',', $clean).')';
+			}
+		}
+
+		foreach ($keys as $k)
+		{
+			$this->ar_keys[] = $this->_protect_identifiers($k);
+		}
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -1178,6 +1227,42 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 
 		$sql = $this->_insert($this->_protect_identifiers($table, TRUE, NULL, FALSE), array_keys($this->ar_set), array_values($this->ar_set));
+
+		$this->_reset_write();
+		return $this->query($sql);
+	}
+
+	function replace($table = '', $set = NULL)
+	{
+		if ( ! is_null($set))
+		{
+			$this->set($set);
+		}
+
+		if (count($this->ar_set) == 0)
+		{
+			if ($this->db_debug)
+			{
+				return $this->display_error('db_must_use_set');
+			}
+			return FALSE;
+		}
+
+		if ($table == '')
+		{
+			if ( ! isset($this->ar_from[0]))
+			{
+				if ($this->db_debug)
+				{
+					return $this->display_error('db_must_set_table');
+				}
+				return FALSE;
+			}
+
+			$table = $this->ar_from[0];
+		}
+
+		$sql = $this->_replace($this->_protect_identifiers($table, TRUE, NULL, FALSE), array_keys($this->ar_set), array_values($this->ar_set));
 
 		$this->_reset_write();
 		return $this->query($sql);
@@ -1243,6 +1328,133 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		$this->_reset_write();
 		return $this->query($sql);
+	}
+
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Update_Batch
+	 *
+	 * Compiles an update string and runs the query
+	 *
+	 * @access	public
+	 * @param	string	the table to retrieve the results from
+	 * @param	array	an associative array of update values
+	 * @param	string	the where key
+	 * @return	object
+	 */
+	function update_batch($table = '', $set = NULL, $index = NULL)
+	{
+		// Combine any cached components with the current statements
+		$this->_merge_cache();
+
+		if (is_null($index))
+		{
+			if ($this->db_debug)
+			{
+				return $this->display_error('db_myst_use_index');
+			}
+
+			return FALSE;
+		}
+
+		if ( ! is_null($set))
+		{
+			$this->set_update_batch($set, $index);
+		}
+
+		if (count($this->ar_set) == 0)
+		{
+			if ($this->db_debug)
+			{
+				return $this->display_error('db_must_use_set');
+			}
+
+			return FALSE;
+		}
+
+		if ($table == '')
+		{
+			if ( ! isset($this->ar_from[0]))
+			{
+				if ($this->db_debug)
+				{
+					return $this->display_error('db_must_set_table');
+				}
+				return FALSE;
+			}
+
+			$table = $this->ar_from[0];
+		}
+
+		// Batch this baby
+		for ($i = 0, $total = count($this->ar_set); $i < $total; $i = $i + 100)
+		{
+			$sql = $this->_update_batch($this->_protect_identifiers($table, TRUE, NULL, FALSE), array_slice($this->ar_set, $i, 100), $this->_protect_identifiers($index), $this->ar_where);
+
+			$this->query($sql);
+		}
+
+		$this->_reset_write();
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * The "set_update_batch" function.  Allows key/value pairs to be set for batch updating
+	 *
+	 * @access	public
+	 * @param	array
+	 * @param	string
+	 * @param	boolean
+	 * @return	object
+	 */
+
+	function set_update_batch($key, $index = '', $escape = TRUE)
+	{
+		$key = $this->_object_to_array_batch($key);
+
+		if ( ! is_array($key))
+		{
+			// @todo error
+		}
+
+		foreach ($key as $k => $v)
+		{
+			$index_set = FALSE;
+			$clean = array();
+
+			foreach($v as $k2 => $v2)
+			{
+				if ($k2 == $index)
+				{
+					$index_set = TRUE;
+				}
+				else
+				{
+					$not[] = $k.'-'.$v;
+				}
+
+				if ($escape === FALSE)
+				{
+					$clean[$this->_protect_identifiers($k2)] = $v2;
+				}
+				else
+				{
+					$clean[$this->_protect_identifiers($k2)] = $this->escape($v2);
+				}
+			}
+
+			if ($index_set == FALSE)
+			{
+				return $this->display_error('db_batch_missing_index');
+			}
+
+			$this->ar_set[] = $clean;
+		}
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -1633,9 +1845,49 @@ class CI_DB_active_record extends CI_DB_driver {
 		foreach (get_object_vars($object) as $key => $val)
 		{
 			// There are some built in keys we need to ignore for this conversion
-			if ( ! is_object($val) && ! is_array($val) && $key != '_parent_name' && $key != '_ci_scaffolding' && $key != '_ci_scaff_table')
+			if ( ! is_object($val) && ! is_array($val) && $key != '_parent_name')
 			{
 				$array[$key] = $val;
+			}
+		}
+
+		return $array;
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Object to Array
+	 *
+	 * Takes an object as input and converts the class variables to array key/vals
+	 *
+	 * @access	public
+	 * @param	object
+	 * @return	array
+	 */
+	function _object_to_array_batch($object)
+	{
+		if ( ! is_object($object))
+		{
+			return $object;
+		}
+
+		$array = array();
+		$out = get_object_vars($object);
+		$fields = array_keys($out);
+
+		foreach ($fields as $val)
+		{
+			// There are some built in keys we need to ignore for this conversion
+			if ($val != '_parent_name')
+			{
+
+				$i = 0;
+				foreach ($out[$val] as $data)
+				{
+					$array[$i][$val] = $data;
+					$i++;
+				}
 			}
 		}
 
@@ -1794,7 +2046,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	/**
 	 * Resets the active record "write" values.
 	 *
-	 * Called by the insert() update() and delete() functions
+	 * Called by the insert() update() insert_batch() update_batch() and delete() functions
 	 *
 	 * @access	private
 	 * @return	void
@@ -1807,6 +2059,7 @@ class CI_DB_active_record extends CI_DB_driver {
 								'ar_where'		=> array(),
 								'ar_like'		=> array(),
 								'ar_orderby'	=> array(),
+								'ar_keys'		=> array(),
 								'ar_limit'		=> FALSE,
 								'ar_order'		=> FALSE
 								);

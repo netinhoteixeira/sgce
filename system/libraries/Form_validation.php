@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 4.3.2 or newer
+ * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2009, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -34,14 +34,13 @@ class CI_Form_validation {
 	var $_error_prefix			= '<p>';
 	var $_error_suffix			= '</p>';
 	var $error_string			= '';
-	var $_safe_form_data 		= FALSE;
+	var $_safe_form_data		= FALSE;
 
 
 	/**
 	 * Constructor
-	 *
 	 */
-	function CI_Form_validation($rules = array())
+	public function __construct($rules = array())
 	{
 		$this->CI =& get_instance();
 
@@ -78,7 +77,7 @@ class CI_Form_validation {
 		// No reason to set rules if we have no POST data
 		if (count($_POST) == 0)
 		{
-			return;
+			return $this;
 		}
 
 		// If an array was passed via the first parameter instead of indidual string
@@ -99,13 +98,13 @@ class CI_Form_validation {
 				// Here we go!
 				$this->set_rules($row['field'], $label, $row['rules']);
 			}
-			return;
+			return $this;
 		}
 
 		// No fields? Nothing to do...
 		if ( ! is_string($field) OR  ! is_string($rules) OR $field == '')
 		{
-			return;
+			return $this;
 		}
 
 		// If the field label wasn't passed we use the field name
@@ -133,7 +132,7 @@ class CI_Form_validation {
 		}
 		else
 		{
-			$indexes 	= array();
+			$indexes	= array();
 			$is_array	= FALSE;
 		}
 
@@ -147,6 +146,8 @@ class CI_Form_validation {
 											'postdata'			=> NULL,
 											'error'				=> ''
 											);
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -170,6 +171,8 @@ class CI_Form_validation {
 		}
 
 		$this->_error_messages = array_merge($this->_error_messages, $lang);
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -188,6 +191,8 @@ class CI_Form_validation {
 	{
 		$this->_error_prefix = $prefix;
 		$this->_error_suffix = $suffix;
+
+		return $this;
 	}
 
 	// --------------------------------------------------------------------
@@ -571,7 +576,7 @@ class CI_Form_validation {
 			// Strip the parameter (if exists) from the rule
 			// Rules can contain a parameter: max_length[5]
 			$param = FALSE;
-			if (preg_match("/(.*?)\[(.*?)\]/", $rule, $match))
+			if (preg_match("/(.*?)\[(.*)\]/", $rule, $match))
 			{
 				$rule	= $match[1];
 				$param	= $match[2];
@@ -658,7 +663,7 @@ class CI_Form_validation {
 				// of another field?  If so we need to grab its "field label"
 				if (isset($this->_field_data[$param]) AND isset($this->_field_data[$param]['label']))
 				{
-					$param = $this->_field_data[$param]['label'];
+					$param = $this->_translate_fieldname($this->_field_data[$param]['label']);
 				}
 
 				// Build the error message
@@ -723,6 +728,13 @@ class CI_Form_validation {
 		if ( ! isset($this->_field_data[$field]))
 		{
 			return $default;
+		}
+
+		// If the data is an array output them one at a time.
+		//     E.g: form_input('name[]', set_value('name[]');
+		if (is_array($this->_field_data[$field]['postdata']))
+		{
+			return array_shift($this->_field_data[$field]['postdata']);
 		}
 
 		return $this->_field_data[$field]['postdata'];
@@ -879,6 +891,26 @@ class CI_Form_validation {
 		{
 			return ( ! empty($str));
 		}
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Performs a Regular Expression match test.
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	regex
+	 * @return	bool
+	 */
+	function regex_match($str, $regex)
+	{
+		if ( ! preg_match($regex, $str))
+		{
+			return FALSE;
+		}
+
+		return  TRUE;
 	}
 
 	// --------------------------------------------------------------------
@@ -1092,17 +1124,17 @@ class CI_Form_validation {
 
 	// --------------------------------------------------------------------
 
-    /**
-     * Is Numeric
-     *
-     * @access    public
-     * @param    string
-     * @return    bool
-     */
-    function is_numeric($str)
-    {
-        return ( ! is_numeric($str)) ? FALSE : TRUE;
-    }
+	/**
+	 * Is Numeric
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function is_numeric($str)
+	{
+		return ( ! is_numeric($str)) ? FALSE : TRUE;
+	}
 
 	// --------------------------------------------------------------------
 
@@ -1120,41 +1152,41 @@ class CI_Form_validation {
 
 	// --------------------------------------------------------------------
 
-    /**
-     * Is a Natural number  (0,1,2,3, etc.)
-     *
-     * @access	public
-     * @param	string
-     * @return	bool
-     */
-    function is_natural($str)
-    {
-   		return (bool)preg_match( '/^[0-9]+$/', $str);
-    }
+	/**
+	 * Is a Natural number  (0,1,2,3, etc.)
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
+	function is_natural($str)
+	{
+		return (bool)preg_match( '/^[0-9]+$/', $str);
+	}
 
 	// --------------------------------------------------------------------
 
-    /**
-     * Is a Natural number, but not a zero  (1,2,3, etc.)
-     *
-     * @access	public
-     * @param	string
-     * @return	bool
-     */
+	/**
+	 * Is a Natural number, but not a zero  (1,2,3, etc.)
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */
 	function is_natural_no_zero($str)
-    {
-    	if ( ! preg_match( '/^[0-9]+$/', $str))
-    	{
-    		return FALSE;
-    	}
+	{
+		if ( ! preg_match( '/^[0-9]+$/', $str))
+		{
+			return FALSE;
+		}
 
-    	if ($str == 0)
-    	{
-    		return FALSE;
-    	}
+		if ($str == 0)
+		{
+			return FALSE;
+		}
 
-   		return TRUE;
-    }
+		return TRUE;
+	}
 
 	// --------------------------------------------------------------------
 
@@ -1254,7 +1286,12 @@ class CI_Form_validation {
 	 */
 	function xss_clean($str)
 	{
-		return $this->CI->input->xss_clean($str);
+		if ( ! isset($this->CI->security))
+		{
+			$this->CI->load->library('security');
+		}
+
+		return $this->CI->security->xss_clean($str);
 	}
 
 	// --------------------------------------------------------------------
