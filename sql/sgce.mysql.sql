@@ -1,23 +1,13 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               5.7.21 - MySQL Community Server (GPL)
--- Server OS:                    Linux
--- HeidiSQL Version:             9.5.0.5196
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for sgce
 DROP DATABASE IF EXISTS `sgce`;
 CREATE DATABASE IF NOT EXISTS `sgce` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `sgce`;
 
--- Dumping structure for table sgce.certificados_modelo
 DROP TABLE IF EXISTS `certificados_modelo`;
 CREATE TABLE IF NOT EXISTS `certificados_modelo` (
   `id_certificado_modelo` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -50,11 +40,6 @@ CREATE TABLE IF NOT EXISTS `certificados_modelo` (
   PRIMARY KEY (`id_certificado_modelo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Modelos de Certificação';
 
--- Dumping data for table sgce.certificados_modelo: ~0 rows (approximately)
-/*!40000 ALTER TABLE `certificados_modelo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `certificados_modelo` ENABLE KEYS */;
-
--- Dumping structure for table sgce.certificados_participante
 DROP TABLE IF EXISTS `certificados_participante`;
 CREATE TABLE IF NOT EXISTS `certificados_participante` (
   `id_certificado` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -72,26 +57,17 @@ CREATE TABLE IF NOT EXISTS `certificados_participante` (
   UNIQUE KEY `uq_certificados_participante_de_hash` (`de_hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Certificados dos Participantes';
 
--- Dumping data for table sgce.certificados_participante: ~0 rows (approximately)
-/*!40000 ALTER TABLE `certificados_participante` DISABLE KEYS */;
-/*!40000 ALTER TABLE `certificados_participante` ENABLE KEYS */;
-
--- Dumping structure for table sgce.ci_sessions_sgce
 DROP TABLE IF EXISTS `ci_sessions_sgce`;
 CREATE TABLE IF NOT EXISTS `ci_sessions_sgce` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
-  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `ip_address` varchar(45) NOT NULL DEFAULT '0',
   `user_agent` varchar(120) NOT NULL,
   `last_activity` int(11) NOT NULL DEFAULT '0',
   `user_data` text,
-  PRIMARY KEY (`session_id`)
+  PRIMARY KEY (`session_id`),
+  INDEX `last_activity_idx` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Sessões do CodeIgniter';
 
--- Dumping data for table sgce.ci_sessions_sgce: ~0 rows (approximately)
-/*!40000 ALTER TABLE `ci_sessions_sgce` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ci_sessions_sgce` ENABLE KEYS */;
-
--- Dumping structure for table sgce.config_sistema
 DROP TABLE IF EXISTS `config_sistema`;
 CREATE TABLE IF NOT EXISTS `config_sistema` (
   `id_config_sistema` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -100,9 +76,103 @@ CREATE TABLE IF NOT EXISTS `config_sistema` (
   `vl_padrao` text,
   PRIMARY KEY (`id_config_sistema`),
   UNIQUE KEY `uq_config_sistema_nm_parametro` (`nm_parametro`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='Configurações do Sistema';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Configurações do Sistema';
 
--- Dumping data for table sgce.config_sistema: ~25 rows (approximately)
+DROP TABLE IF EXISTS `eventos`;
+CREATE TABLE IF NOT EXISTS `eventos` (
+  `id_evento` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nm_evento` varchar(255) NOT NULL,
+  `sg_evento` varchar(20) NOT NULL,
+  `de_periodo` text NOT NULL,
+  `de_carga` text NOT NULL,
+  `de_local` text NOT NULL,
+  `dt_inclusao` datetime NOT NULL,
+  `dt_alteracao` datetime NOT NULL,
+  `de_url` text,
+  `de_email` text,
+  PRIMARY KEY (`id_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Eventos';
+
+DROP TABLE IF EXISTS `historico_status_certificado`;
+CREATE TABLE IF NOT EXISTS `historico_status_certificado` (
+  `id_historico_status_certificado` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ip_usuario` text NOT NULL,
+  `nm_usuario` text NOT NULL,
+  `fl_status_certificado` text NOT NULL,
+  `de_justificativa` text NOT NULL,
+  `dt_alteracao` datetime DEFAULT NULL,
+  `id_certificado` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_historico_status_certificado`),
+  CONSTRAINT `fk_certificados_participante` FOREIGN KEY (`id_certificado`) REFERENCES `certificados_participante` (`id_certificado`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Histórico das Situações do Certificado';
+
+DROP TABLE IF EXISTS `log_importacao`;
+CREATE TABLE IF NOT EXISTS `log_importacao` (
+  `id_log` bigint(20) NOT NULL AUTO_INCREMENT,
+  `dt_log` datetime NOT NULL,
+  `nm_usuario` varchar(255) NOT NULL,
+  `ip_usuario` varchar(20) NOT NULL,
+  `msg_log` text,
+  `id_certificado_modelo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_log`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro das Importações';
+
+DROP TABLE IF EXISTS `log_importacao_detalhes`;
+CREATE TABLE IF NOT EXISTS `log_importacao_detalhes` (
+  `id_log_detalhe` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_log` bigint(20) NOT NULL,
+  `nr_linha` integer,
+  `de_descricao` text,
+  PRIMARY KEY (`id_log_detalhe`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Detalhes do Registro das Importações';
+
+DROP TABLE IF EXISTS `organizadores`;
+CREATE TABLE IF NOT EXISTS `organizadores` (
+  `id_organizador` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nm_organizador` varchar(50) NOT NULL,
+  `nr_documento` varchar(15) NOT NULL,
+  `de_email` varchar(255) DEFAULT NULL,
+  `nr_telefone` varchar(50) DEFAULT NULL,
+  `dt_inclusao` datetime NOT NULL,
+  `dt_alteracao` datetime NOT NULL,
+  `de_usuario` varchar(255) NOT NULL,
+  `fl_admin` char(1) DEFAULT 'N',
+  `de_senha` varchar(50) DEFAULT NULL,
+  `fl_controlador` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`id_organizador`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Organizadores';
+
+DROP TABLE IF EXISTS `organizadores_evento`;
+CREATE TABLE IF NOT EXISTS `organizadores_evento` (
+  `id_organizadores_evento` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_organizador` bigint(20) NOT NULL,
+  `id_evento` bigint(20) NOT NULL,
+  `fl_controlador` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`id_organizadores_evento`),
+  UNIQUE KEY `uq_organizadores_evento` (`id_organizador`,`id_evento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Eventos dos Organizadores';
+
+DROP TABLE IF EXISTS `participantes`;
+CREATE TABLE IF NOT EXISTS `participantes` (
+  `id_participante` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nm_participante` text NOT NULL,
+  `de_email` varchar(255) NOT NULL,
+  `nr_documento` varchar(20) DEFAULT NULL,
+  `dt_inclusao` datetime NOT NULL,
+  `dt_alteracao` datetime NOT NULL,
+  PRIMARY KEY (`id_participante`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Participantes';
+
+DROP TABLE IF EXISTS `rsenha_organizador`;
+CREATE TABLE IF NOT EXISTS `rsenha_organizador` (
+  `id_organizador` bigint(20) NOT NULL AUTO_INCREMENT,
+  `de_senha_md5` varchar(100) NOT NULL,
+  `id_acesso` varchar(100) NOT NULL,
+  `dt_inclusao` datetime NOT NULL,
+  `dt_alteracao` datetime NOT NULL,
+  PRIMARY KEY (`id_organizador`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Acessos do Organizador';
+
 /*!40000 ALTER TABLE `config_sistema` DISABLE KEYS */;
 INSERT INTO `config_sistema` (`id_config_sistema`, `nm_parametro`, `vl_parametro`, `vl_padrao`) VALUES
 	(1, 'upload_path', './uploads/', './uploads/'),
@@ -132,146 +202,20 @@ INSERT INTO `config_sistema` (`id_config_sistema`, `nm_parametro`, `vl_parametro
 	(34, 'email_from_address', 'nao.responder@empresa.com.br', 'nao.responder@empresa.com.br');
 /*!40000 ALTER TABLE `config_sistema` ENABLE KEYS */;
 
--- Dumping structure for table sgce.eventos
-DROP TABLE IF EXISTS `eventos`;
-CREATE TABLE IF NOT EXISTS `eventos` (
-  `id_evento` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nm_evento` varchar(255) NOT NULL,
-  `sg_evento` varchar(20) NOT NULL,
-  `de_periodo` text NOT NULL,
-  `de_carga` text NOT NULL,
-  `de_local` text NOT NULL,
-  `dt_inclusao` datetime NOT NULL,
-  `dt_alteracao` datetime NOT NULL,
-  `de_url` text,
-  `de_email` text,
-  PRIMARY KEY (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Eventos';
-
--- Dumping data for table sgce.eventos: ~0 rows (approximately)
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
 INSERT INTO `eventos` (`id_evento`, `nm_evento`, `sg_evento`, `de_periodo`, `de_carga`, `de_local`, `dt_inclusao`, `dt_alteracao`, `de_url`, `de_email`) VALUES
 	(1, 'Evento de Treinamento', 'ETREINA', '21/09/2011', '1 hora', 'Webconf', '2011-09-19 00:00:00', '2011-12-06 00:00:00', '', 'admin@empresa.com.br');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 
--- Dumping structure for table sgce.historico_status_certificado
-DROP TABLE IF EXISTS `historico_status_certificado`;
-CREATE TABLE IF NOT EXISTS `historico_status_certificado` (
-  `id_historico_status_certificado` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ip_usuario` text NOT NULL,
-  `nm_usuario` text NOT NULL,
-  `fl_status_certificado` text NOT NULL,
-  `de_justificativa` text NOT NULL,
-  `dt_alteracao` datetime DEFAULT NULL,
-  `id_certificado` bigint(20) NOT NULL,
-  PRIMARY KEY (`id_historico_status_certificado`),
-  CONSTRAINT `fk_certificados_participante` FOREIGN KEY (`id_certificado`) REFERENCES `certificados_participante` (`id_certificado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Histórico das Situações do Certificado';
-
--- Dumping data for table sgce.historico_status_certificado: ~0 rows (approximately)
-/*!40000 ALTER TABLE `historico_status_certificado` DISABLE KEYS */;
-/*!40000 ALTER TABLE `historico_status_certificado` ENABLE KEYS */;
-
--- Dumping structure for table sgce.log_importacao
-DROP TABLE IF EXISTS `log_importacao`;
-CREATE TABLE IF NOT EXISTS `log_importacao` (
-  `id_log` bigint(20) NOT NULL AUTO_INCREMENT,
-  `dt_log` datetime NOT NULL,
-  `nm_usuario` varchar(255) NOT NULL,
-  `ip_usuario` varchar(20) NOT NULL,
-  `msg_log` text,
-  `id_certificado_modelo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_log`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Registro das Importações';
-
--- Dumping data for table sgce.log_importacao: ~0 rows (approximately)
-/*!40000 ALTER TABLE `log_importacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `log_importacao` ENABLE KEYS */;
-
--- Dumping structure for table sgce.log_importacao_detalhes
-DROP TABLE IF EXISTS `log_importacao_detalhes`;
-CREATE TABLE IF NOT EXISTS `log_importacao_detalhes` (
-  `id_log_detalhe` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_log` bigint(20) NOT NULL,
-  `nr_linha` integer,
-  `de_descricao` text,
-  PRIMARY KEY (`id_log_detalhe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Detalhes do Registro das Importações';
-
--- Dumping data for table sgce.log_importacao_detalhes: ~0 rows (approximately)
-/*!40000 ALTER TABLE `log_importacao_detalhes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `log_importacao_detalhes` ENABLE KEYS */;
-
--- Dumping structure for table sgce.organizadores
-DROP TABLE IF EXISTS `organizadores`;
-CREATE TABLE IF NOT EXISTS `organizadores` (
-  `id_organizador` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nm_organizador` varchar(50) NOT NULL,
-  `nr_documento` varchar(15) NOT NULL,
-  `de_email` varchar(255) DEFAULT NULL,
-  `nr_telefone` varchar(50) DEFAULT NULL,
-  `dt_inclusao` datetime NOT NULL,
-  `dt_alteracao` datetime NOT NULL,
-  `de_usuario` varchar(255) NOT NULL,
-  `fl_admin` char(1) DEFAULT 'N',
-  `de_senha` varchar(50) DEFAULT NULL,
-  `fl_controlador` char(1) NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`id_organizador`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Organizadores';
-
--- Dumping data for table sgce.organizadores: ~0 rows (approximately)
 /*!40000 ALTER TABLE `organizadores` DISABLE KEYS */;
 INSERT INTO `organizadores` (`id_organizador`, `nm_organizador`, `nr_documento`, `de_email`, `nr_telefone`, `dt_inclusao`, `dt_alteracao`, `de_usuario`, `fl_admin`, `de_senha`, `fl_controlador`) VALUES
 	(1, 'Administrador', '000', 'admin@empresa.com.br', '55', '2011-02-01 08:49:35', '2011-11-21 00:00:00', 'admin', 'S', '21232f297a57a5a743894a0e4a801fc3', 'S');
 /*!40000 ALTER TABLE `organizadores` ENABLE KEYS */;
 
--- Dumping structure for table sgce.organizadores_evento
-DROP TABLE IF EXISTS `organizadores_evento`;
-CREATE TABLE IF NOT EXISTS `organizadores_evento` (
-  `id_organizadores_evento` bigint(20) NOT NULL AUTO_INCREMENT,
-  `id_organizador` bigint(20) NOT NULL,
-  `id_evento` bigint(20) NOT NULL,
-  `fl_controlador` char(1) NOT NULL DEFAULT 'N',
-  PRIMARY KEY (`id_organizadores_evento`),
-  UNIQUE KEY `uq_organizadores_evento` (`id_organizador`,`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Eventos dos Organizadores';
-
--- Dumping data for table sgce.organizadores_evento: ~0 rows (approximately)
 /*!40000 ALTER TABLE `organizadores_evento` DISABLE KEYS */;
 INSERT INTO `organizadores_evento` (`id_organizadores_evento`, `id_organizador`, `id_evento`, `fl_controlador`) VALUES
 	(1, 1, 1, 'S');
 /*!40000 ALTER TABLE `organizadores_evento` ENABLE KEYS */;
-
--- Dumping structure for table sgce.participantes
-DROP TABLE IF EXISTS `participantes`;
-CREATE TABLE IF NOT EXISTS `participantes` (
-  `id_participante` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nm_participante` text NOT NULL,
-  `de_email` varchar(255) NOT NULL,
-  `nr_documento` varchar(20) DEFAULT NULL,
-  `dt_inclusao` datetime NOT NULL,
-  `dt_alteracao` datetime NOT NULL,
-  PRIMARY KEY (`id_participante`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Participantes';
-
--- Dumping data for table sgce.participantes: ~0 rows (approximately)
-/*!40000 ALTER TABLE `participantes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `participantes` ENABLE KEYS */;
-
--- Dumping structure for table sgce.rsenha_organizador
-DROP TABLE IF EXISTS `rsenha_organizador`;
-CREATE TABLE IF NOT EXISTS `rsenha_organizador` (
-  `id_organizador` bigint(20) NOT NULL AUTO_INCREMENT,
-  `de_senha_md5` varchar(100) NOT NULL,
-  `id_acesso` varchar(100) NOT NULL,
-  `dt_inclusao` datetime NOT NULL,
-  `dt_alteracao` datetime NOT NULL,
-  PRIMARY KEY (`id_organizador`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Acessos do Organizador';
-
--- Dumping data for table sgce.rsenha_organizador: ~0 rows (approximately)
-/*!40000 ALTER TABLE `rsenha_organizador` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rsenha_organizador` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
