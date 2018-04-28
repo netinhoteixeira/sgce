@@ -31,18 +31,18 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  *
  */
 ?>
-<script type="text/javascript" src='<?php echo base_url() ?>application/views/includes/js/eventos.js'></script>
+<script type="text/javascript" src='<?php echo base_url() ?>assets/js/eventos.js'></script>
 
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 <?php echo form_open_multipart(base_url() . 'eventos/salvar'); ?>
 <div class="botoes_left">
     <button type="submit" id="botao_salvar" name="botao_salvar">
-        <img src='<?php echo base_url() ?>application/views/includes/images/salvar_32.png'
+        <img src='<?php echo base_url() ?>assets/images/salvar_32.png'
              alt="Salvar"/><br>&nbsp;&nbsp;Salvar&nbsp;&nbsp;
     </button>
 
     <button onclick="parent.location='<?php echo base_url() ?>eventos/cancelar'" type="button" id="botao_cancelar">
-        <img src='<?php echo base_url() ?>application/views/includes/images/cancel_32.png'
+        <img src='<?php echo base_url() ?>assets/images/cancel_32.png'
              alt="Novo"/><br>Cancelar
     </button>
 
@@ -101,7 +101,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
             <?php if (@$evento->id_evento > 0) : ?>
             <a href="javascript:exibeFormOrganizadores('<?php echo base_url() ?>');"
                id="link_add_Organizadores">
-                <img src="<?php echo base_url() ?>application/views/includes/images/more_16.png"
+                <img src="<?php echo base_url() ?>assets/images/more_16.png"
                      alt="Adicionar Organizadores ao Evento" height="15" width="15"/><b>Adicionar Organizadores</b>
             </a><br/>
 
@@ -109,7 +109,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         <p>
             <label for='txtOrganizadores'>Organizadores*:
                 <img id="loading_organizadores"
-                     src='<?php echo base_url() ?>application/views/includes/images/ajax-loader-branco.gif'/>
+                     src='<?php echo base_url() ?>assets/images/ajax-loader-branco.gif'/>
             </label>
             <br/>
             <select name='txtOrganizadores[]' id='txtOrganizadores'
@@ -121,12 +121,12 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
             <button type="button" onClick="javascript:addOrganizadoresTable(document.getElementById('txtId').value,
                     document.getElementById('txtOrganizadores'),
                     '<?php echo base_url() ?>');">
-                <img src='<?php echo base_url() ?>application/views/includes/images/disponivel_16.png'
+                <img src='<?php echo base_url() ?>assets/images/disponivel_16.png'
                      alt="Adicionar" height="15" width="15"/>Adicionar
             </button>
 
             <button type="button" onClick="javascript:cancelFormOrganizadores();">
-                <img src='<?php echo base_url() ?>application/views/includes/images/cancel_16.png'
+                <img src='<?php echo base_url() ?>assets/images/cancel_16.png'
                      alt="Cancelar" height="15" width="15"/>Cancelar
             </button>
         </p>

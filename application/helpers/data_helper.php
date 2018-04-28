@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -104,7 +104,6 @@ function daysDiff($date_ini, $date_end, $round = 3)
  */
 function isValidDate($value, $format = 'dd.mm.yyyy')
 {
-
     if (strlen($value) >= 6 && strlen($format) == 10) {
         // find separator. Remove all other characters from $format
         $separator_only = str_replace(array('m', 'd', 'y'), '', $format);
@@ -128,9 +127,9 @@ function isValidDate($value, $format = 'dd.mm.yyyy')
             }
         }
     }
+
     return false;
 }
-
 
 /**
  * Converte data brasileira pra padrao mySql
@@ -158,3 +157,6 @@ function dataSQL($databr)
     }
     return $novadata;
 }
+
+/* End of file data_helper.php */
+/* Location: ./application/helpers/data_helper.php */

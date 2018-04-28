@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -176,9 +176,7 @@ class Eventos_model extends CI_Model
 
         $query = $this->db->get($this->table, $maximo, $inicio);
         return $query->result();
-
     }
-
 
     /**
      * Obtem o total de registros da tabela
@@ -258,7 +256,6 @@ class Eventos_model extends CI_Model
             return false;
         }
     }
-
 
     /**
      * Lista as linhas de fornecimento associadas ao fornecedor
@@ -359,3 +356,6 @@ class Eventos_model extends CI_Model
     }
 
 }
+
+/* End of file eventos_model.php */
+/* Location: ./application/models/eventos_model.php */

@@ -31,20 +31,20 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 ?>
 
     <script type="text/javascript"
-            src='<?php echo base_url() ?>application/views/includes/js/organizadores.js'></script>
+            src='<?php echo base_url() ?>assets/js/organizadores.js'></script>
 
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 <?php $atributos = array('onSubmit' => 'return validaFornecedor()') ?>
 <?php echo form_open_multipart(base_url() . 'organizadores/salvar', $atributos); ?>
     <div class="botoes_left">
         <button type="submit" id="botao_salvar" name="botao_salvar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/salvar_32.png'
+            <img src='<?php echo base_url() ?>assets/images/salvar_32.png'
                  alt="Salvar"/><br>&nbsp;&nbsp;Salvar&nbsp;&nbsp;
         </button>
 
         <button onclick="parent.location='<?php echo base_url() ?>organizadores/cancelar'" type="button"
                 id="botao_cancelar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/cancel_32.png'
+            <img src='<?php echo base_url() ?>assets/images/cancel_32.png'
                  alt="Novo"/><br>Cancelar
         </button>
     </div>
@@ -112,10 +112,10 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                            id="txtUsuario" size="20"/>
                     <br/><br/>
 
-                    <? if (($this->config->item('tipo_de_autenticacao') != 'ldap')
+                    <?php if (($this->config->item('tipo_de_autenticacao') != 'ldap')
                         && (($operacao == 'novo')
                             || ($this->session->userdata('admin') == '1')
-                            || ($this->session->userdata('uid') == @$organizador->de_usuario))): // apenas administradores e o proprio usuario podem alterar senha ?>
+                            || ($this->session->userdata('uid') == @$organizador->de_usuario))) { // apenas administradores e o proprio usuario podem alterar senha ?>
 
                         <label for='txtSenha'>Senha: </label>
                         <input name="txtSenha" type="password"
@@ -123,9 +123,9 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                                maxlength="20"/>
                         <span class="instrucao_campo"><b>NOTA:</b>Use até 20 caracteres. Deixe a senha em branco caso não queira alterá-la no banco de dados.</span>
                         <br/><br/>
-                    <? endif; ?>
+                    <?php } ?>
 
-                    <? if ($this->session->userdata('admin') == '1'): ?>
+                    <?php if ($this->session->userdata('admin') == '1') { ?>
                         <label for='txtFlAdmin'>Adm. Sistema*: </label>
                         <select name='txtFlAdmin' id='txtFlAdmin'>
                             <option value='S' <?php echo (@$organizador->fl_admin == 'S') ? 'selected' : ''; ?> >Sim
@@ -148,10 +148,10 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                             </option>
                         </select>
                         <br/><br/>
-                    <? else: //Administradores limitados nao podem atribuir administradores/controladores globais ?>
+                    <?php } else { //Administradores limitados nao podem atribuir administradores/controladores globais ?>
                         <input type="hidden" name="txtFlAdmin" value="N"/>
                         <input type="hidden" name="txtFlControlador" value="N"/>
-                    <? endif; ?>
+                    <?php } ?>
                 </p>
             </fieldset>
 

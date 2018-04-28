@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -155,7 +155,6 @@ class Eventos extends CI_Controller
 
         $data['corpo_pagina'] = "eventos_view";
         $this->load->view('includes/templates/template', $data);
-
     }
 
     /**
@@ -173,7 +172,6 @@ class Eventos extends CI_Controller
         } else {
             redirect('sistema/bloqueado');
         }
-
     }
 
     /**
@@ -248,11 +246,10 @@ class Eventos extends CI_Controller
                     $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'eventos/editar/' . $regInsert);
                 }
             }
+        } elseif ($id) {
+            $this->editar($id, $errors);
         } else {
-            if ($id)
-                $this->editar($id, $errors);
-            else
-                $this->novo();
+            $this->novo();
         }
     }
 
@@ -272,7 +269,6 @@ class Eventos extends CI_Controller
 
         $this->form_validation->set_message('numeric',
             'O campo <span class="message_field">%s</span> deve possuir somente valor num&eacute;rico.');
-
     }
 
     /**
@@ -296,7 +292,6 @@ class Eventos extends CI_Controller
      * @param integer $idOrganizador - ID do organizador
      * @return Boolean
      */
-
     function gravaPrimeiroOrganizador($idEvento, $idOrganizador)
     {
         if ($idEvento && $idOrganizador) {
@@ -348,6 +343,7 @@ class Eventos extends CI_Controller
         if ((!$id) && (@$_POST['txtEvento'])) {
             $id = $_POST['txtEvento'];
         }
+
         if (($id > 0)) {
             $permitido = $this->buscarPermissaoControle($id);
             if ($permitido) {
@@ -381,9 +377,11 @@ class Eventos extends CI_Controller
         if ($admin == '1') {
             return true;
         }
+
         if ($controladorGlobal == '1') {
             return true;
         }
+
         if ($admin != '1') {
             $eventosControlador = $this->session->userdata('eventos_controlador');
             foreach ($eventosControlador as $evento) {
@@ -392,6 +390,7 @@ class Eventos extends CI_Controller
                 }
             }
         }
+
         return $retorno;
     }
 
@@ -441,7 +440,6 @@ class Eventos extends CI_Controller
                 $this->load->view('includes/templates/template', $data);
             }
         }
-
     }
 
     /**
@@ -489,7 +487,6 @@ class Eventos extends CI_Controller
             }
             echo geraTabelaOrganizadores(@$arrayOrg, $idEvento);
         }
-
     }
 
     /**
@@ -503,7 +500,6 @@ class Eventos extends CI_Controller
         foreach ($res as $organizador) {
             echo retornaOptionCombo($organizador->id_organizador,
                 $organizador->nm_organizador);
-
         }
     }
 
@@ -544,7 +540,6 @@ class Eventos extends CI_Controller
         } else {
             echo null;
         }
-
     }
 
     /**
@@ -598,6 +593,7 @@ class Eventos extends CI_Controller
     {
         $retorno = null;
         $controladorGlobal = $this->session->userdata('controlador');
+
         if ($controladorGlobal == '1') {
             $retorno = true;
         } else {
@@ -608,8 +604,11 @@ class Eventos extends CI_Controller
                 }
             }
         }
-        return $retorno;
 
+        return $retorno;
     }
 
 }
+
+/* End of file eventos.php */
+/* Location: ./application/controllers/eventos.php */

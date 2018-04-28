@@ -31,6 +31,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 class MY_Config extends CI_Config
 {
+
     /**
      * CodeIgniter instance
      *
@@ -44,7 +45,6 @@ class MY_Config extends CI_Config
      * @var string
      */
     private $table = 'config_sistema';
-
 
     public function __construct()
     {
@@ -65,7 +65,6 @@ class MY_Config extends CI_Config
         foreach ($query->result() as $row) {
             $this->set_item($row->nm_parametro, $row->vl_parametro);
         }
-
     }
 
     /**
@@ -105,4 +104,4 @@ class MY_Config extends CI_Config
 }
 
 /* End of file MY_Config.php */
-/* Location: ./application/libraries/MY_Config.php */
+/* Location: ./application/core/MY_Config.php */

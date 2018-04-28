@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -169,7 +169,6 @@ class Participantes_model extends CI_Model
 
     }
 
-
     /**
      * Obtem o total de registros da tabela
      * @param String $key - valor a ser pesquisado
@@ -195,18 +194,18 @@ class Participantes_model extends CI_Model
      */
     function filtrarPesquisa($key, $tipo)
     {
-
-        if (($tipo == "C") && (is_numeric($key)))
+        if (($tipo == "C") && (is_numeric($key))) {
             $this->db->where('participantes.id_participante', $key);
+        }
 
-        if ($tipo == "D")
+        if ($tipo == "D") {
             $this->db->like('participantes.nm_participante', $key);
+        }
 
         if ($tipo == "E") {
             $this->db->like('eventos.nm_evento', $key);
         }
     }
-
 
     /**
      * Busca do participante pelo numero de documento
@@ -224,9 +223,9 @@ class Participantes_model extends CI_Model
         if ($dados) {
             $existe = $dados->result();
         }
+
         return @$existe[0]->id_participante;
     }
-
 
     /**
      * Importacao dos participantes.
@@ -280,12 +279,13 @@ class Participantes_model extends CI_Model
                     $logImp[$i + 1] = "Participante já existe na linha $i:" . strip_tags(utf8_encode($participante['NOME_PARTICIPANTE']));
                 }
 
-                // mapeamento de colunas do arquivo para certificados....
+                // mapeamento de colunas do arquivo para certificados...
                 $dadosCertificado['id_participante'] = $idParticipante;
                 $dadosCertificado['id_modelo_certificado'] = $idModelo;
                 $dadosCertificado['baseTexto'] = $participante;
                 $dadosCertificado['baseTextoVerso'] = $participante;
                 $dadosCertificado['fl_ativo'] = 'P';  // colocado como 'PENDENTE' ou 'PROVA'
+
                 if ($this->montaCertificado($dadosCertificado, $colunasModelo, $flDuplicados)) {
                     $certGerados += 1;
                     $logImp[$i + 1] = "Certificado de participante gerado na linha $i:" . strip_tags(utf8_encode($participante['NOME_PARTICIPANTE']));
@@ -296,21 +296,21 @@ class Participantes_model extends CI_Model
             }
         }
 
-        if ($certGerados > 0)
+        if ($certGerados > 0) {
             $retorno['certGerados'] = $certGerados;
+        }
 
-        if ($totImp > 0)
+        if ($totImp > 0) {
             $retorno['totImp'] = $totImp;
+        }
 
-        if (count($linhasNaoImp) > 0)
+        if (count($linhasNaoImp) > 0) {
             $retorno['notImp'] = $linhasNaoImp;
+        }
 
         $retorno['logImp'] = $logImp;
 
-        if ($certGerados > 0 || $totImp > 0)
-            return $retorno;
-        else
-            return null;
+        return (($certGerados > 0) || ($totImp > 0)) ? $retorno : null;
     }
 
     /**
@@ -332,7 +332,6 @@ class Participantes_model extends CI_Model
         }
         return true;
     }
-
 
     /**
      * Funcao usada para retornar o certificado montado e enviar ao banco de dados
@@ -363,12 +362,10 @@ class Participantes_model extends CI_Model
 
             $dadosOrigemFrente[$colunaModelo] = utf8_encode($dadosCertificado['baseTexto'][$colunaModelo]);
             $dadosOrigemVerso[$colunaModelo] = utf8_encode($dadosCertificado['baseTextoVerso'][$colunaModelo]);
-
         }
 
         $dadosCertificado['de_texto'] = $textoCertificado;
         $dadosCertificado['de_complementar'] = $textoVerso;
-
 
         // Monta matriz de gravacao de  certificado no banco de dados
 
@@ -399,10 +396,7 @@ class Participantes_model extends CI_Model
 
         $this->db->where('id_certificado', $idCertificado);
 
-        if ($this->db->update('certificados_participante', $data))
-            return true;
-        else
-            return false;
+        return ($this->db->update('certificados_participante', $data)) ? true : false;
     }
 
 
@@ -417,7 +411,7 @@ class Participantes_model extends CI_Model
 
         if (!is_null($idCertificado)) {
             // Chave calculada por HMAC, com autenticacao de chave no final,
-            // usando a chave de encriptacao do config.
+            // usando a chave de encriptacao do config
             $retorno = strtoupper(crc32(hash_hmac('sha1', $idCertificado,
                 $this->config->item('encryption_key'))));
         }
@@ -426,3 +420,6 @@ class Participantes_model extends CI_Model
     }
 
 }
+
+/* End of file participantes_model.php */
+/* Location: ./application/models/participantes_model.php */

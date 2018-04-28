@@ -25,11 +25,11 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />        
         <META HTTP-EQUIV="pragma" CONTENT="no-cache" />
         <meta http-equiv="Cache-control" content="no-cache" />        
-        <link rel="stylesheet" href='<?php echo  base_url()?>application/views/includes/css/menu.css' type="text/css" />
-        <link rel="stylesheet" href='<?php echo  base_url()?>application/views/includes/css/estilo_admin.css' type="text/css" />
-        <script type="text/javascript" src='<?php echo  base_url()?>application/views/includes/js/jquery.js'></script>
-        <script type="text/javascript" src='<?php echo  base_url()?>application/views/includes/js/menu.js'></script>
-        <script type="text/javascript" src='<?php echo  base_url()?>application/views/includes/js/admin.js'></script>
+        <link rel="stylesheet" href='<?php echo  base_url()?>assets/css/menu.css' type="text/css" />
+        <link rel="stylesheet" href='<?php echo  base_url()?>assets/css/estilo_admin.css' type="text/css" />
+        <script type="text/javascript" src='<?php echo  base_url()?>assets/js/jquery.js'></script>
+        <script type="text/javascript" src='<?php echo  base_url()?>assets/js/menu.js'></script>
+        <script type="text/javascript" src='<?php echo  base_url()?>assets/js/admin.js'></script>
         
         <title><?php echo SIGLA_SISTEMA . ' - '. NOME_SISTEMA ?></title>
     </head>

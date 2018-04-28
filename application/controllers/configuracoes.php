@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -137,9 +137,9 @@ class Configuracoes extends CI_Controller
             $this->configuracoes_model->update($data);
             $this->_configurarSistema($data);
             $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'configuracoes/editar/');
-        } else
+        } else {
             $this->editar($errors);
-
+        }
     }
 
     function cancelar()
@@ -186,9 +186,7 @@ class Configuracoes extends CI_Controller
 
         $this->form_validation->set_message('is_natural_no_zero',
             'O campo <span class="message_field">%s</span> &eacute; obrigat&oacute;rio.');
-
     }
-
 
     /**
      * Exibe o retorno de uma operacao, com a mensagem passada e a url de direcio
@@ -206,3 +204,6 @@ class Configuracoes extends CI_Controller
     }
 
 }
+
+/* End of file configuracoes.php */
+/* Location: ./application/controllers/configuracoes.php */

@@ -35,13 +35,13 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <?php echo form_open_multipart(base_url() . 'participantes/salvar'); ?>
     <div class="botoes_left">
         <button type="submit" id="botao_salvar" name="botao_salvar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/salvar_32.png'
+            <img src='<?php echo base_url() ?>assets/images/salvar_32.png'
                  alt="Salvar"/><br>&nbsp;&nbsp;Salvar&nbsp;&nbsp;
         </button>
 
         <button onclick="parent.location='<?php echo base_url() ?>participantes/cancelar'" type="button"
                 id="botao_cancelar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/cancel_32.png'
+            <img src='<?php echo base_url() ?>assets/images/cancel_32.png'
                  alt="Novo"/><br>Cancelar
         </button>
     </div>

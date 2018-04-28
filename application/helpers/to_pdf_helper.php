@@ -19,3 +19,6 @@ function pdf_create($html, $filename, $stream = TRUE, $papersize = 'letter', $or
         write_file('./pdf/' . $filename . '.pdf', $dompdf->output());
     }
 }
+
+/* End of file to_pdf_helper.php */
+/* Location: ./application/helpers/to_pdf_helper.php */

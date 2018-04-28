@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -91,3 +91,6 @@ class Gerenciador_de_email extends CI_Email
     }
 
 }
+
+/* End of file Gerenciador_de_email.php */
+/* Location: ./application/libraries/Gerenciador_de_email.php */

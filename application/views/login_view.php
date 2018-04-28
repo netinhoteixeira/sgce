@@ -58,7 +58,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <br/>
 
     <button type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <img src='<?php echo base_url() ?>application/views/includes/images/ok_32.png'
+        <img src='<?php echo base_url() ?>assets/images/ok_32.png'
              alt="Entrar" height="15" width="15" border="0">&nbsp;Entrar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </button>
     <?php echo form_close(); ?>

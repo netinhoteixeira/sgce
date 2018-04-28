@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -28,3 +28,6 @@ function retornaOptionCombo($org)
     $option = "<option value=\"$org->id_organizador\">$org->nm_organizador</option>\n";
     return $option;
 }
+
+/* End of file combo_organizadores_helper.php */
+/* Location: ./application/helpers/combo_organizadores_helper.php */

@@ -23,8 +23,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <html xml:lang="pt-br" lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="<?php echo  base_url()?>application/views/includes/css/certificado/<?php echo $certificado->nm_fonte?>.css" />
-        <link rel="stylesheet" href="<?php echo  base_url()?>application/views/includes/css/certificado/certificado.css" />
+        <link rel="stylesheet" href="<?php echo  base_url()?>assets/css/certificado/<?php echo $certificado->nm_fonte?>.css" />
+        <link rel="stylesheet" href="<?php echo  base_url()?>assets/css/certificado/certificado.css" />
     </head>
     <body>
         <div class="pagina"
@@ -65,7 +65,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                 </p>
             </div>
         </div>
-    <? if (!@$certificado->de_texto_verso) :?>
+    <?php if (!@$certificado->de_texto_verso) { ?>
     </body>
 </html>
-<?endif; ?>
+<?php } ?>

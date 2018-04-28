@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -27,8 +27,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @var $schema  - variavel para configuracao do esquema de banco de dados.
  *
  */
-
 class modelos_certificado_model extends CI_Model {
+
     public $table = 'certificados_modelo';
     
     /**
@@ -225,7 +225,6 @@ class modelos_certificado_model extends CI_Model {
 
     }
 
-
     /**
      * Obtem o total de registros da tabela
      * @param String $key  - valor a ser pesquisado
@@ -284,7 +283,6 @@ class modelos_certificado_model extends CI_Model {
         return $query->result();
     }
 
-
     /**
      * Listagem dos modelos de ceritifcado associados ao evento informado.
      * 
@@ -298,7 +296,6 @@ class modelos_certificado_model extends CI_Model {
         $query = $this->db->get($this->table);
         return $query->result();
     }
-
 
     /**
      * Obtem a instrucao de importacao do modelo selecionado
@@ -317,8 +314,6 @@ class modelos_certificado_model extends CI_Model {
         else
             return null; 
     }
-
-
 
     /**
      * Obtem as colunas (campos que serao substituidos por valores)
@@ -344,4 +339,8 @@ class modelos_certificado_model extends CI_Model {
         else
             return null;
     }
+
 }
+
+/* End of file modelos_certificacao_model.php */
+/* Location: ./application/models/modelos_certificacao_model.php */

@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -34,3 +34,6 @@ function geraHtmlMail($texto)
              </html>";
     return $html;
 }
+
+/* End of file template_mail_helper.php */
+/* Location: ./application/helpers/template_mail_helper.php */

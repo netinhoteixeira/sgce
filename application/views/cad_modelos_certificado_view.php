@@ -31,17 +31,17 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 ?>
 
-    <link rel="stylesheet" href='<?php echo base_url() ?>application/views/includes/css/tabs.css'
+    <link rel="stylesheet" href='<?php echo base_url() ?>assets/css/tabs.css'
           type="text/css"/>
-    <script type="text/javascript" src='<?php echo base_url() ?>application/views/includes/js/tabs.js'></script>
+    <script type="text/javascript" src='<?php echo base_url() ?>assets/js/tabs.js'></script>
 
 <?php // Inicializacao de editor de texto ?>
     <script type="text/javascript"
-            src="<?php echo base_url() ?>application/views/includes/js/tiny_mce/tiny_mce.js">
+            src="<?php echo base_url() ?>assets/js/tiny_mce/tiny_mce.js">
     </script>
 
     <script type="text/javascript"
-            src="<?php echo base_url() ?>application/views/includes/js/editor_texto.js">
+            src="<?php echo base_url() ?>assets/js/editor_texto.js">
     </script>
 <?php // Fim de editor de texto ?>
 
@@ -49,21 +49,21 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <?php echo form_open_multipart(base_url() . 'modelos_certificados/salvar'); ?>
     <div class="botoes_left">
         <button type="submit" id="botao_salvar" name="botao_salvar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/salvar_32.png'
+            <img src='<?php echo base_url() ?>assets/images/salvar_32.png'
                  alt="Salvar"/><br>&nbsp;&nbsp;Salvar&nbsp;&nbsp;
         </button>
 
         <?php if ($operacao != 'novo'): ?>
             <button onclick="parent.location='<?php echo base_url() ?>modelos_certificados/verModelo/<?php echo @$modelo_certificado->id_certificado_modelo ?>'"
                     type="button" id="botao_ver">
-                <img src='<?php echo base_url() ?>application/views/includes/images/search_32.png'
+                <img src='<?php echo base_url() ?>assets/images/search_32.png'
                      alt="Visualizar"/><br>Visualizar
             </button>
         <?php endif; ?>
 
         <button onclick="parent.location='<?php echo base_url() ?>modelos_certificados/cancelar'" type="button"
                 id="botao_cancelar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/cancel_32.png'
+            <img src='<?php echo base_url() ?>assets/images/cancel_32.png'
                  alt="Cancelar"/><br>Cancelar
         </button>
 
@@ -177,8 +177,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <?php if (@$modelo_certificado->nm_fundo): ?>
                         <?php $fileName = base_url() . $this->config->item('upload_path') . 'modelos/' . $modelo_certificado->nm_fundo; ?>
                         <?php if (@file_get_contents($fileName, true)): ?>
-                            <a href="<?php echo $fileName ?>">
-                                <img src='<?php echo base_url() ?>application/views/includes/images/salvar_16.png'
+                            <a href="<?php echo $fileName ?>" target="_blank">
+                                <img src='<?php echo base_url() ?>assets/images/salvar_16.png'
                                      border="0"
                                      alt="Este modelo já possui uma imagem associada. Clique aqui para baixar o arquivo"
                                      title="Este modelo já possui uma imagem associada. Clique aqui para baixar o arquivo"/>

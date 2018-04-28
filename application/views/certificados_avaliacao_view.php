@@ -29,7 +29,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 ?>
 
 <script type="text/javascript"
-        src='<?php echo base_url() ?>application/views/includes/js/certificados.js'></script>
+        src='<?php echo base_url() ?>assets/js/certificados.js'></script>
 
 <div id="searchRegister" class="center_table">
     <div id="pesq_message" class="form_left">
@@ -41,7 +41,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         </select>
         <input type='text' name='txtPesquisa' id='txtPesquisa' size='40' class="big_input"/>
         <button type="submit">
-            <img src='<?php echo base_url() ?>application/views/includes/images/search.png'
+            <img src='<?php echo base_url() ?>assets/images/search.png'
                  alt="Executar pesquisa" height="15" width="15"/> Pesquisar
         </button>
         <i>(em branco para listar todos)</i>
@@ -64,13 +64,13 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 
 <div class="botoes_left">
     <button type="submit" id="botao_salvar" name="botao_salvar">
-        <img src='<?php echo base_url() ?>application/views/includes/images/salvar_32.png'
+        <img src='<?php echo base_url() ?>assets/images/salvar_32.png'
              alt="Salvar"/><br>&nbsp;&nbsp;Salvar&nbsp;&nbsp;
     </button>
 
     <button onclick="parent.location='<?php echo base_url() ?>certificados/cancelarAvaliacao'"
             type="button" id="botao_cancelar">
-        <img src='<?php echo base_url() ?>application/views/includes/images/seta_voltar_32.png'
+        <img src='<?php echo base_url() ?>assets/images/seta_voltar_32.png'
              alt="Voltar"/><br>Voltar
     </button>
 </div>
@@ -137,7 +137,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         </tr>
     <?php endif; ?>
 
-    <? $i = 0; ?>
+    <?php $i = 0; ?>
     <?php if (!@$mensagem): ?>
         <?php foreach ($certificados as $row): ?>
             <?php
@@ -171,7 +171,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <center>
                         <a href="javascript:abrirPopup('<?php echo base_url() ?>emitir/<?php echo $row->de_hash ?>', 900, 300);"
                            class="edit_command" title="Visualizar certificado finalizado">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/pdf_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/pdf_16.png'
                                  border="0" alt="Visualizar"
                                  title="Visualizar certificado finalizado"/>
                         </a>
@@ -181,7 +181,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <center>
                         <a href="javascript:abrirPopup('<?php echo base_url() ?>certificados/historicoStatus/<?php echo $row->id_certificado ?>', 900, 300);"
                            class="edit_command" title="Visualizar histórico de revogações e validações">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/historico_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/historico_16.png'
                                  border="0" alt="Histórico"
                                  title="Visualizar histórico de revogações e validações"" />
                         </a>

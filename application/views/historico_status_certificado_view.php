@@ -25,11 +25,11 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <html xml:lang="pt-br" lang="pt-br">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href='<?php echo base_url() ?>application/views/includes/css/estilo_admin.css'
+    <link rel="stylesheet" href='<?php echo base_url() ?>assets/css/estilo_admin.css'
           type="text/css"/>
     <script type="text/javascript"
-            src='<?php echo base_url() ?>application/views/includes/js/jquery.js'></script>
-    <script type="text/javascript" src='<?php echo base_url() ?>application/views/includes/js/admin.js'></script>
+            src='<?php echo base_url() ?>assets/js/jquery.js'></script>
+    <script type="text/javascript" src='<?php echo base_url() ?>assets/js/admin.js'></script>
 </head>
 <body>
 

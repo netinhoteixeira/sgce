@@ -41,7 +41,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         </select>
         <input type='text' name='txtPesquisa' id='txtPesquisa' size='40' class="big_input"/>
         <button type="submit">
-            <img src='<?php echo base_url() ?>application/views/includes/images/search.png'
+            <img src='<?php echo base_url() ?>assets/images/search.png'
                  alt="Executar pesquisa" height="15" width="15"/> Pesquisar
         </button>
         <i>(em branco para listar todos)</i>
@@ -52,7 +52,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 
 <div class="botoes_left">
     <button onclick="parent.location='<?php echo base_url() ?>eventos/novo'" type="button" id="botao_novo">
-        <img src='<?php echo base_url() ?>application/views/includes/images/more_32.png'
+        <img src='<?php echo base_url() ?>assets/images/more_32.png'
              alt="Novo"/><br>Novo
     </button>
 </div>
@@ -92,7 +92,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <center>
                         <a href="<?php echo base_url() ?>eventos/editar/<?php echo $row->id_evento ?>"
                            class="edit_command" title="Editar código ">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/edit_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/edit_16.png'
                                  border="0" alt="Editar"
                                  title="Editar código "/>
                         </a>
@@ -103,7 +103,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                         <a href="#"
                            onclick="javascript:confirmaExclusao('<?php echo base_url() ?>eventos/excluir/<?php echo $row->id_evento ?>','de <?php echo $row->nm_evento ?>')"
                            class="delete" title="Excluir">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/cancel_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/cancel_16.png'
                                  border="0" alt="Excluir"
                                  title="Excluir"/>
                         </a>

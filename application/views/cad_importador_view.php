@@ -35,19 +35,19 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <?php echo form_open_multipart(base_url() . 'participantes/uploadRetorno'); ?>
     <div class="botoes_left">
         <button type="submit" id="botao_salvar" name="botao_salvar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/import_32.png'
+            <img src='<?php echo base_url() ?>assets/images/import_32.png'
                  alt="Salvar"/><br>Importar
         </button>
 
         <button onclick="javascript:abrirPopup('<?php echo base_url() ?>participantes/historicoImportacao/'+document.getElementById('txtModelo').value, 950, 300);"
                 title="Visualizar o histórico de importações referentes ao modelo de certificado" type="button">
-            <img src='<?php echo base_url() ?>application/views/includes/images/historico_32.png'
+            <img src='<?php echo base_url() ?>assets/images/historico_32.png'
                  alt="Historico"/><br>Histórico
         </button>
 
         <button onclick="parent.location='<?php echo base_url() ?>sistema/principal'"
                 type="button" id="botao_cancelar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/seta_voltar_32.png'
+            <img src='<?php echo base_url() ?>assets/images/seta_voltar_32.png'
                  alt="Voltar"/><br>Voltar
         </button>
     </div>
@@ -82,7 +82,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <option value="">Selecione...</option>
                 </select>
                 <img id="loading_modelos" class="loading"
-                     src='<?php echo base_url() ?>application/views/includes/images/ajax-loader-preto.gif'/>
+                     src='<?php echo base_url() ?>assets/images/ajax-loader-preto.gif'/>
                 <br/><br/>
 
                 <label for="txtNotificarControladores">Notificar Controladores?</label>
@@ -109,7 +109,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                 <br/><br/><br/>
 
                 <img id="loading_instrucoes" class="loading"
-                     src='<?php echo base_url() ?>application/views/includes/images/ajax-loader-preto.gif'/>
+                     src='<?php echo base_url() ?>assets/images/ajax-loader-preto.gif'/>
             <div id="instrucoes_importacao">
             </div>
             <br/>

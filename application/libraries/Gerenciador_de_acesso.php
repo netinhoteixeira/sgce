@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -25,6 +25,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 class Gerenciador_de_acesso
 {
+
     var $SESSAO_ACESSO_NEGADO = 0;
     var $SESSAO_ACESSO_LOGADO = 1;
     var $ACESSO_PALAVRA_CHAVE = "logado";
@@ -211,3 +212,6 @@ class Gerenciador_de_acesso
     }
 
 }
+
+/* End of file Gerenciador_de_acesso.php */
+/* Location: ./application/libraries/Gerenciador_de_acesso.php */

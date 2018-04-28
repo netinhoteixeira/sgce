@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -99,3 +99,6 @@ function geraLinkControlador($idOrganizador, $statusAtual)
             ";
     return $html;
 }
+
+/* End of file eventos_helper.php */
+/* Location: ./application/helpers/eventos_helper.php */

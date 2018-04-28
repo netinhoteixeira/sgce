@@ -35,12 +35,12 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <a href="javascript:visualizaDetalhesLog('<?php echo $id_log ?>', '<?php echo base_url() ?>')"
        title="Visualizar Detalhes">
         <img alt="Detalhes" title="Detalhes"
-             src="<?php echo base_url() . 'application/views/includes/images/comprovante_16.png' ?>"/>
+             src="<?php echo base_url() . 'assets/images/comprovante_16.png' ?>"/>
         Ver detalhes da Importação
     </a>
     <br/><br/>
     <a href="<?php echo $link_voltar ?>">
-        <img src='<?php echo base_url() ?>application/views/includes/images/seta_voltar.png'
+        <img src='<?php echo base_url() ?>assets/images/seta_voltar.png'
              alt="Voltar" title="Voltar"/>
     </a>
 </center>
@@ -48,7 +48,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <div id="detalhes_log_<?php echo $id_log ?>" class="detalhes_log">
         <a href="javascript:escondeDetalhesLog('<?php echo $id_log ?>')" class="close">
             <img alt="Fechar" title="Fechar"
-                 src="<?php echo base_url() . 'application/views/includes/images/fechar_modal.png' ?>"/>
+                 src="<?php echo base_url() . 'assets/images/fechar_modal.png' ?>"/>
         </a>
         <p class="titulo_tabela">Detalhes da Importação</p>
         <table width="100%" border='0' class="center_table"

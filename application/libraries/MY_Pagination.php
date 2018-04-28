@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -55,3 +55,6 @@ class MY_Pagination extends CI_Pagination
     }
 
 }
+
+/* End of file MY_Pagination.php */
+/* Location: ./application/libraries/MY_Pagination.php */

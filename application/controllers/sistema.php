@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -207,7 +207,6 @@ class Sistema extends CI_Controller
                 }
                 break;
         }
-
     }
 
     function isAdmin($usuario)
@@ -254,7 +253,6 @@ class Sistema extends CI_Controller
      * @param type $usuario
      * @return type
      */
-
     function retornaEventos($usuario)
     {
         $this->load->model('organizadores_model');
@@ -275,7 +273,6 @@ class Sistema extends CI_Controller
      * @param type $usuario
      * @return type
      */
-
     function retornaControlador($usuario)
     {
         $this->load->model('organizadores_model');
@@ -308,7 +305,6 @@ class Sistema extends CI_Controller
             $this->load->view('includes/templates/template', $data);
         }
     }
-
 
     /**
      * Gera uma senha aleatoria para o organizador que solicitou a recuperacao de
@@ -373,7 +369,6 @@ class Sistema extends CI_Controller
         }
     }
 
-
     /**
      * Apartir do idAcesso, enviado no link de alteracao de senha recebido por email,
      * faz a alteracao da senha do organizador
@@ -397,5 +392,7 @@ class Sistema extends CI_Controller
         }
     }
 
-
 }
+
+/* End of file sistema.php */
+/* Location: ./application/controllers/sistema.php */

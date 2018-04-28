@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -58,3 +58,6 @@ function geraLinhaTblDetalheEmail($nrLinha, $descr)
               </tr>";
     return $linha;
 }
+
+/* End of file tabela_detalhes_log_helper.php */
+/* Location: ./application/helpers/tabela_detalhes_log_helper.php */

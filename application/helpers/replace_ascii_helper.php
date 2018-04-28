@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -37,3 +37,6 @@ function replaceAscii($var)
 
     return $nova;
 }
+
+/* End of file replace_ascii_helper.php */
+/* Location: ./application/helpers/replace_ascii_helper.php */

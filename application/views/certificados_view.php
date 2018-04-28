@@ -31,7 +31,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 ?>
 <script type="text/javascript"
-        src='<?php echo base_url() ?>application/views/includes/js/certificados.js'></script>
+        src='<?php echo base_url() ?>assets/js/certificados.js'></script>
 
 <div id="searchRegister" class="center_table">
     <div id="pesq_message" class="form_left">
@@ -45,7 +45,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         </select>
         <input type='text' name='txtPesquisa' id='txtPesquisa' size='40' class="big_input"/>
         <button type="submit">
-            <img src='<?php echo base_url() ?>application/views/includes/images/search.png'
+            <img src='<?php echo base_url() ?>assets/images/search.png'
                  alt="Executar pesquisa" height="15" width="15"/> Pesquisar
         </button>
         <i>(em branco para listar todos)</i>
@@ -114,7 +114,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <center>
                         <a href="javascript:abrirPopup('<?php echo base_url() ?>certificados/historicoStatus/<?php echo $row->id_certificado ?>', 900, 300);"
                            class="edit_command" title="Visualizar histórico de revogações e validações">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/historico_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/historico_16.png'
                                  border="0" alt="Histórico"
                                  title="Visualizar histórico de revogações e validações"" />
                         </a>
@@ -124,7 +124,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <center>
                         <a href="<?php echo base_url() ?>certificados/editar/<?php echo $row->id_certificado ?>"
                            class="edit_command" title="Editar">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/edit_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/edit_16.png'
                                  border="0" alt="Editar"
                                  title="Editar"/>
                         </a>
@@ -133,7 +133,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                 <td>
                     <center>
                         <a href="<?php echo base_url() ?>certificados/validar/<?php echo $row->de_hash ?>">
-                            <img src='<?php echo base_url() ?>application/views/includes/images/comprovante_16.png'
+                            <img src='<?php echo base_url() ?>assets/images/comprovante_16.png'
                                  border="0" alt="Visualizar detalhes"
                                  title="Visualizar detalhes">
                         </a>

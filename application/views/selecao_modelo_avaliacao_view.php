@@ -61,7 +61,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <option value="">Selecione...</option>
                 </select>
                 <img id="loading_modelos" class="loading"
-                     src='<?php echo base_url() ?>application/views/includes/images/ajax-loader-preto.gif'/>
+                     src='<?php echo base_url() ?>assets/images/ajax-loader-preto.gif'/>
                 <br/><br/>
             </p>
         </div>

@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -26,7 +26,6 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 class Valida_email
 {
-
 
     /**
      * PHP Socket resource to remote MTA
@@ -287,3 +286,6 @@ class Valida_email
     }
 
 }
+
+/* End of file Valida_email.php */
+/* Location: ./application/libraries/Valida_email.php */

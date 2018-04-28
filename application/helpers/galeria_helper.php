@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -51,3 +51,6 @@ function exibeGaleria($diretorio = null)
 
     echo "</table>";
 }
+
+/* End of file galeria_helper.php */
+/* Location: ./application/helpers/galeria_helper.php */

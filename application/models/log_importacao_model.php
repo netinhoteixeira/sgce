@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -134,3 +134,6 @@ class Log_importacao_model extends CI_Model
     }
 
 }
+
+/* End of file log_importacao_model.php */
+/* Location: ./application/models/log_importacao_model.php */

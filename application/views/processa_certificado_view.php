@@ -79,7 +79,7 @@ function browser_info($agent = null)
                 <td>
                     <center>
                         <a href="http://br.mozdev.org/" target="_black">
-                            <img src="<?php echo base_url(); ?>application/views/includes/images/mozilla-firefox-logo.jpg"
+                            <img src="<?php echo base_url(); ?>assets/images/mozilla-firefox-logo.jpg"
                                  alt="FireFox"/><br/>
                             FireFox
                         </a>
@@ -88,7 +88,7 @@ function browser_info($agent = null)
                 <td>
                     <center>
                         <a href="http://www.google.com/chrome" target="_balck">
-                            <img src="<?php echo base_url(); ?>application/views/includes/images/google-chrome-logo.gif"
+                            <img src="<?php echo base_url(); ?>assets/images/google-chrome-logo.gif"
                                  alt="Google Chrome"/><br/>
                             Google Chrome
                         </a>
@@ -99,7 +99,7 @@ function browser_info($agent = null)
                 <td>
                     <center>
                         <a href="http://www.apple.com/safari/" target="_black">
-                            <img src="<?php echo base_url(); ?>application/views/includes/images/Apple_Safari-logo.jpg"
+                            <img src="<?php echo base_url(); ?>assets/images/Apple_Safari-logo.jpg"
                                  alt="Safari"/><br/>
                             Safari
                         </a>
@@ -108,7 +108,7 @@ function browser_info($agent = null)
                 <td>
                     <center>
                         <a href="http://www.microsoft.com/brasil/windows/internet-explorer/" target="_black">
-                            <img src="<?php echo base_url(); ?>application/views/includes/images/ie_logo.jpg"
+                            <img src="<?php echo base_url(); ?>assets/images/ie_logo.jpg"
                                  alt="Internet Explorer 8 ou superior"/><br/>
                             Internet Explorer 8 <br/>
                             (ou superior)
@@ -141,7 +141,7 @@ function browser_info($agent = null)
         <br/>
 
         <button type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <img src='<?php echo base_url() ?>application/views/includes/images/ok_32.png'
+            <img src='<?php echo base_url() ?>assets/images/ok_32.png'
                  alt="Entrar" height="15" width="15" border="0">&nbsp;Enviar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </button>
         <?php echo form_close(); ?>

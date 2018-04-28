@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -54,7 +54,6 @@ class Organizadores extends CI_Controller
         }
     }
 
-
     /**
      * Metodo padrao chamado quando invocada a controller.
      *
@@ -109,7 +108,6 @@ class Organizadores extends CI_Controller
 
         $data['corpo_pagina'] = "organizadores_view";
         $this->load->view('includes/templates/template', $data);
-
     }
 
     /**
@@ -203,7 +201,6 @@ class Organizadores extends CI_Controller
         }
     }
 
-
     /**
      * Abre formulario para edicao de um registro de Organizadores.
      * @param Integer $id - Especifica o ID que sera editado.
@@ -248,7 +245,6 @@ class Organizadores extends CI_Controller
             $this->load->view('includes/templates/template', $data);
         }
     }
-
 
     /**
      * Cancela a operacao corrente e retorna para a tela inicial
@@ -335,7 +331,6 @@ class Organizadores extends CI_Controller
             return false;
     }
 
-
     /**
      * Exibe o retorno de uma operacao, com a mensagem passada e a url de direcio
      * namento
@@ -351,5 +346,7 @@ class Organizadores extends CI_Controller
         exibeRetornoOperacao($view, $url);
     }
 
-
 }
+
+/* End of file organizadores.php */
+/* Location: ./application/controllers/organizadores.php */

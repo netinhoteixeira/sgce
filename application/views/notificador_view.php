@@ -31,18 +31,18 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 ?>
     <script type="text/javascript"
-            src='<?php echo base_url() ?>application/views/includes/js/notificacao.js'></script>
+            src='<?php echo base_url() ?>assets/js/notificacao.js'></script>
 
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 <?php echo form_open_multipart(base_url() . 'certificados/enviarNotificacao'); ?>
     <div class="botoes_left">
         <button type="submit">
-            <img src='<?php echo base_url() ?>application/views/includes/images/mail_32.png'
+            <img src='<?php echo base_url() ?>assets/images/mail_32.png'
                  alt="Enviar"/><br>&nbsp;&nbsp;Enviar&nbsp;&nbsp;
         </button>
 
         <button onclick="parent.location='<?php echo base_url() ?>sistema/principal'" type="button" id="botao_cancelar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/cancel_32.png'
+            <img src='<?php echo base_url() ?>assets/images/cancel_32.png'
                  alt="Novo"/><br>Cancelar
         </button>
     </div>
@@ -78,12 +78,12 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                     <option value="">Selecione...</option>
                 </select>
                 <img id="loading_modelos" class="loading"
-                     src='<?php echo base_url() ?>application/views/includes/images/ajax-loader-preto.gif'/>
+                     src='<?php echo base_url() ?>assets/images/ajax-loader-preto.gif'/>
                 <br/><br/>
 
                 <label for='txtDestinatarios'>Destinatários*:
                     <img id="loading_destinatarios" class="loading"
-                         src='<?php echo base_url() ?>application/views/includes/images/ajax-loader-preto.gif'/>
+                         src='<?php echo base_url() ?>assets/images/ajax-loader-preto.gif'/>
                 </label>
                 <select name="txtDestinatarios[]" id="txtDestinatarios"
                         class="combo" size="6" multiple="multiple">

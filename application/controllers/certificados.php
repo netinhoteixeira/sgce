@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -1032,3 +1032,6 @@ class Certificados extends CI_Controller
         return true;
     }
 }
+
+/* End of file certificados.php */
+/* Location: ./application/controllers/certificados.php */

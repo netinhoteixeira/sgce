@@ -30,7 +30,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 ?>
     <div class="botoes_left">
         <button onclick="parent.location='<?php echo base_url() ?>eventos/novo'" type="button" id="botao_novo">
-            <img src='<?php echo base_url() ?>application/views/includes/images/more_32.png'
+            <img src='<?php echo base_url() ?>assets/images/more_32.png'
                  alt="Novo"/><br>Novo
         </button>
     </div>

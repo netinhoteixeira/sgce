@@ -10,12 +10,21 @@
 |
 |	http://example.com/
 |
-| If this is not set then CodeIgniter will guess the protocol, domain and
-| path to your installation.
+| WARNING: You MUST set this value!
+|
+| If it is not set, then CodeIgniter will try guess the protocol and path
+| your installation, but due to security concerns the hostname will be set
+| to $_SERVER['SERVER_ADDR'] if available, or localhost otherwise.
+| The auto-detection mechanism exists only for convenience during
+| development and MUST NOT be used in production!
+|
+| If you need to allow multiple domains, remember that this file is still
+| a PHP script and you can easily do that on your own.
 |
 */
 //$config['base_url']	= 'http://localhost/sgce/';
-$config['base_url']	= 'http://localhost:8888';
+//$config['base_url']	= 'http://localhost:8888';
+$config['base_url']	= 'http://certificados.flisoldf.blog.local:8888';
 
 // Colocar a sigla referente ao sistema
 $config['sigla_sistema'] = 'SGCE';
@@ -73,7 +82,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'pt-br';
+$config['language']	= 'portuguese-br';
 
 /*
 |--------------------------------------------------------------------------
@@ -266,11 +275,13 @@ $config['sess_time_to_update']	= 300;
 | 'cookie_prefix' = Set a prefix if you need to avoid collisions
 | 'cookie_domain' = Set to .your-domain.com for site-wide cookies
 | 'cookie_path'   =  Typically will be a forward slash
+| 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
+$config['cookie_prefix']	= "";
+$config['cookie_domain']	= "";
+$config['cookie_path']		= "/";
+$config['cookie_secure']	= FALSE;
 
 /*
 |--------------------------------------------------------------------------

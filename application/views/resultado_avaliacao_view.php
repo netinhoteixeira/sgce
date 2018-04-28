@@ -32,7 +32,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <?php echo $mensagem; ?>
     <br/>
     <a href="<?php echo $link_voltar ?>">
-        <img src='<?php echo base_url() ?>application/views/includes/images/seta_voltar.png'
+        <img src='<?php echo base_url() ?>assets/images/seta_voltar.png'
              alt="Voltar" title="Voltar"/>
     </a>
 </center>

@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -30,6 +30,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 class Multi_upload
 {
+
     public function __construct()
     {
         //$CI =& get_instance();
@@ -282,5 +283,7 @@ class Multi_upload
         }
     }
 
-    // --------------------------------------------------------------------
 }
+
+/* End of file Multi_upload.php */
+/* Location: ./application/libraries/Multi_upload.php */

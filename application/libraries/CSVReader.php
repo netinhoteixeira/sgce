@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -103,4 +103,8 @@ class CSVReader
         fclose($file);
         return $content;
     }
+
 }
+
+/* End of file CSVReader.php */
+/* Location: ./application/libraries/CSVReader.php */

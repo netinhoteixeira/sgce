@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -24,7 +24,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @copyright NTIC Unipampa 2010
  *
  */
-class modelos_certificados extends CI_Controller
+class Modelos_certificados extends CI_Controller
 {
 
     /**
@@ -234,12 +234,14 @@ class modelos_certificados extends CI_Controller
         if ($id > 0) {
             $this->load->model('eventos_model');
             $this->load->model('modelos_certificado_model');
+
             $data['eventos'] = $this->eventos_model->listarEventos();
             $data['modelo_certificado'] = $this->modelos_certificado_model->getById($id);
             $data['error'] = $errors;
-            $data['corpo_pagina'] = "cad_modelos_certificado_view";
-            $data['titulo_pagina'] = "Alterar Modelo de Certificado";
-            $data['operacao'] = "editar";
+            $data['corpo_pagina'] = 'cad_modelos_certificado_view';
+            $data['titulo_pagina'] = 'Alterar Modelo de Certificado';
+            $data['operacao'] = 'editar';
+
             $this->load->view('includes/templates/template', $data);
         }
     }
@@ -548,3 +550,6 @@ class modelos_certificados extends CI_Controller
     }
 
 }
+
+/* End of file modelos_certificados.php */
+/* Location: ./application/controllers/modelos_certificados.php */

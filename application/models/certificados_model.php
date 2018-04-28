@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -731,3 +731,6 @@ class Certificados_model extends CI_Model
     }
 
 }
+
+/* End of file certificados_model.php */
+/* Location: ./application/models/certificados_model.php */

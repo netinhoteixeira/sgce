@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -52,3 +52,6 @@ function descarregaBuffer($msg = null)
     ob_flush();
     flush();
 }
+
+/* End of file retorno_operacoes_helper.php */
+/* Location: ./application/helpers/retorno_operacoes_helper.php */

@@ -39,7 +39,6 @@
 */
 
 $route['default_controller'] = 'sistema';
-$route['scaffolding_trigger'] = '';
 $route['404_override'] = '';
 
 $route['validar/([A-Z0-9]+)'] = 'certificados/validar/$1';

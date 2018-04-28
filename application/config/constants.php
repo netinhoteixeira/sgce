@@ -18,9 +18,6 @@ define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 
-// DOMPDF
-define("DOMPDF_ENABLE_REMOTE", true);
-
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes
@@ -30,25 +27,32 @@ define("DOMPDF_ENABLE_REMOTE", true);
 |
 */
 
-define('FOPEN_READ', 							'rb');
+define('FOPEN_READ',							'rb');
 define('FOPEN_READ_WRITE',						'r+b');
-define('FOPEN_WRITE_CREATE_DESTRUCTIVE', 		'wb'); // truncates existing file data, use with care
-define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE', 	'w+b'); // truncates existing file data, use with care
-define('FOPEN_WRITE_CREATE', 					'ab');
-define('FOPEN_READ_WRITE_CREATE', 				'a+b');
-define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
+define('FOPEN_WRITE_CREATE_DESTRUCTIVE',		'wb'); // truncates existing file data, use with care
+define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE',	'w+b'); // truncates existing file data, use with care
+define('FOPEN_WRITE_CREATE',					'ab');
+define('FOPEN_READ_WRITE_CREATE',				'a+b');
+define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-
-/* Constantes do sistema */
+/*
+|--------------------------------------------------------------------------
+| Constantes do Sistema
+|--------------------------------------------------------------------------
+|
+| Estas constantes são utilizadas dentro do sistema e não se encontram na
+| tabela de configuração.
+|
+*/
 define('SIGLA_SISTEMA','SGCE');
 define('NOME_SISTEMA', 'Sistema de Gestão de Certificados Eletrônicos');
-define('VERSAO_SISTEMA', '1.0.3');
+define('VERSAO_SISTEMA', '1.5.0');
 define('LIMITE_PESQUISA_PAGINA', 15);
-
-/* Configuracao exclusiva do sistema de certificados */
 define('URL_CERTIFICADO', 'http://localhost/sgce/');
 define('ENDERECO_VALIDACAO', 'validar/');
 define('ENDERECO_EMISSAO', 'emitir/');
+define('DOMPDF_ENABLE_REMOTE', true);
+
 /* End of file constants.php */
-/* Location: ./system/application/config/constants.php */
+/* Location: ./application/config/constants.php */

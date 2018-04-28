@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -17,7 +17,6 @@ junto com este programa, se não, acesse o Portal do Software Público Brasileir
 endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
-
 
 /**
  * Controller para a funcao de Cadastro de participantes
@@ -424,7 +423,6 @@ class Participantes extends CI_Controller
 
         $this->form_validation->set_message('numeric',
             'O campo <span class="message_field">%s</span> deve possuir somente valor num&eacute;rico.');
-
     }
 
     /**
@@ -445,12 +443,13 @@ class Participantes extends CI_Controller
 
         $idLog = $this->log_importacao_model->insert($dados);
 
-        if (count(@$notImp) > 0)
+        if (count(@$notImp) > 0) {
             foreach ($notImp as $linha => $descr) {
                 if ($linha > 0)
                     $this->log_importacao_model
                         ->insertDetalhe($idLog, $linha, $descr);
             }
+        }
 
         return $idLog;
     }
@@ -518,8 +517,10 @@ class Participantes extends CI_Controller
                     $linha->de_descricao);
             }
         }
-        if ($linhas)
+
+        if ($linhas) {
             echo $linhas;
+        }
     }
 
     /**
@@ -538,6 +539,7 @@ class Participantes extends CI_Controller
         if (!$idModelo) {
             return false;
         }
+
         if ($flNotificarControladores != 'S') {
             return false;
         }
@@ -573,6 +575,7 @@ class Participantes extends CI_Controller
         if (!(count($listaControladores) > 0)) {
             return false;
         }
+
         foreach ($listaControladores as $controlador) {
             $this->load->helper('email_helper');
             $this->load->helper('template_mail');
@@ -617,3 +620,6 @@ class Participantes extends CI_Controller
     }
 
 }
+
+/* End of file participantes.php */
+/* Location: ./application/controllers/participantes.php */

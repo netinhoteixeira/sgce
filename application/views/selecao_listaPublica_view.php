@@ -31,7 +31,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <div class="botoes_left">
         <button onclick="parent.location='<?php echo base_url() ?>certificados/processar'"
                 type="button" id="botao_cancelar">
-            <img src='<?php echo base_url() ?>application/views/includes/images/seta_voltar_32.png'
+            <img src='<?php echo base_url() ?>assets/images/seta_voltar_32.png'
                  alt="Voltar"/><br>Voltar
         </button>
     </div>

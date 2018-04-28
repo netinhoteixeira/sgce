@@ -29,7 +29,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <div id="login_info" align="right">
     <?php if($this->session->userdata('logado')):  ?>
         Usu&aacute;rio: <?php echo $this->session->userdata('uid') ?>
-        <a href="<?php echo base_url()?>manual/manual-sgce.pdf" target="_blank"><img src="<?php echo base_url()?>application/views/includes/images/help.png" alt="Ajuda" title="Ajuda"></a>
-        <a href="<?php echo base_url()?>sistema/logout"><img src="<?php echo base_url()?>application/views/includes/images/logout.png" alt="Sair" title="Encerrar Sess&atilde;o"></a>
+        <a href="<?php echo base_url()?>manual/manual-sgce.pdf" target="_blank"><img src="<?php echo base_url()?>assets/images/help.png" alt="Ajuda" title="Ajuda"></a>
+        <a href="<?php echo base_url()?>sistema/logout"><img src="<?php echo base_url()?>assets/images/logout.png" alt="Sair" title="Encerrar Sess&atilde;o"></a>
     <?php endif?>
 </div>

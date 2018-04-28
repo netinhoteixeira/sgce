@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -167,8 +167,8 @@ class Organizadores_evento_model extends CI_Model {
     
     function buscaControladorEspecifico($idEvento) {
         $retorno = null;
+
         if ($idEvento) {
-            
             $this->db->select('organizadores.id_organizador, organizadores.nm_organizador, organizadores.de_email');            
             $this->db->from('organizadores');
             $this->db->join('organizadores_evento', 'organizadores.id_organizador = organizadores_evento.id_organizador');
@@ -177,8 +177,11 @@ class Organizadores_evento_model extends CI_Model {
             $dados = $this->db->get();
             $retorno = $dados->result();            
         }
+
         return $retorno;
     }
-    
-    
+
 }
+
+/* End of file organizadores_evento_model.php */
+/* Location: ./application/models/organizadores_evento_model.php */

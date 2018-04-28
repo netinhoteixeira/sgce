@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -50,3 +50,6 @@ function gerarSenha($tamanho, $maiuscula, $minuscula, $numeros, $codigos)
 
     return $senha;
 }
+
+/* End of file senha_aleatoria_helper.php */
+/* Location: ./application/helpers/senha_aleatoria_helper.php */

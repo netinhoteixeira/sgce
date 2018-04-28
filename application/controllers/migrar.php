@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -64,14 +64,14 @@ class Migrar extends CI_Controller
         echo "<br>Tarefa completada";
     }
 
-
     function migrarModelo($idModelo)
     {
         $this->load->helper('diff_helper');
         $this->load->model('modelos_certificado_model');
         $this->load->model('certificados_model');
-        if (!$idModelo)
+        if (!$idModelo) {
             return false;
+        }
 
         $dadosModelo = $this->modelos_certificado_model->getById($idModelo);
         $certsModelo = $this->certificados_model->listarCertificadosDoModelo($idModelo);
@@ -97,6 +97,7 @@ class Migrar extends CI_Controller
             // fim da migração
             $regs++;
         }
+
         echo "<br>$regs registros migrados.";
     }
 
@@ -105,7 +106,6 @@ class Migrar extends CI_Controller
      * @param type $texto
      * @return type
      */
-
     function getColunasTexto($texto)
     {
         $pattern = '/\b[A-Z]+_+(_*[A-Z]*)+\b/';
@@ -114,6 +114,9 @@ class Migrar extends CI_Controller
             return $matches[0];
         else
             return null;
-
     }
+
 }
+
+/* End of file migrar.php */
+/* Location: ./application/controllers/migrar.php */

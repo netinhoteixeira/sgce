@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -70,3 +70,6 @@ function geraSaida($dados)
     echo "</script>";
     echo $dados;
 }
+
+/* End of file progresso_execucao_helper.php */
+/* Location: ./application/helpers/progresso_execucao_helper.php */

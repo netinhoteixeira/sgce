@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -47,6 +47,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  */
 class Errors
 {
+
     function configureFormErrorMessage($form_validation)
     {
         $form_validation->set_message('required',
@@ -74,4 +75,8 @@ class Errors
             'O <span class="message_field">%s</span> informado n&atilde;o &eacute; v&aacute;lido.');
 
     }
+
 }
+
+/* End of file Errors.php */
+/* Location: ./application/libraries/Errors.php */

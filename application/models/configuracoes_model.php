@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -59,7 +59,6 @@ class Configuracoes_model extends CI_Model
         }
     }
 
-
     /**
      * Obtem a listagem de todos os parametros de configuracao em forma de
      * array associativo: nome do campo = indice do array
@@ -91,4 +90,8 @@ class Configuracoes_model extends CI_Model
         else
             return false;
     }
+
 }
+
+/* End of file configuracoes_model.php */
+/* Location: ./application/models/configuracoes_model.php */
