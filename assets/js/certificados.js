@@ -18,44 +18,46 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
 function exibeDivRevogacao(idCertificado, status) {
-    if(status == 'I') {
+    if (status === 'I') {
         alert("O certificado selecionado já está revogado.");
     } else {
-        var div   = "#" + "div_revogacao_" +idCertificado;
+        let div = "#" + "div_revogacao_" + idCertificado;
         $(div).show('slow')
     }
 }
 
 function exibeDivValidacao(idCertificado, status) {
-    if(status == 'A') {
+    if (status === 'A') {
         alert("O certificado selecionado já está validado.");
     } else {
-        var div   = "#" + "div_validacao_" +idCertificado;
+        let div = "#" + "div_validacao_" + idCertificado;
         $(div).show('slow')
     }
 }
 
 function revogarCertificado(idCertificado, URL) {
-    var div           = "#" + "div_revogacao_"  + idCertificado;
-    var justifElement = "#" + "txtJustifRevog_" + idCertificado;
-    var justificativa = $(justifElement).val();
+    let div = "#" + "div_revogacao_" + idCertificado;
+    let justifElement = "#" + "txtJustifRevog_" + idCertificado;
+    let justificativa = $(justifElement).val();
 
-    if(justificativa == '') {
+    if (justificativa === '') {
         alert('Informe a justificativa.');
         return false;
     }
 
-    var envMailElement = "#" + "txtEnvMailRevog_" + idCertificado;
-    var envMail        = $(envMailElement).val();
+    let envMailElement = "#" + "txtEnvMailRevog_" + idCertificado;
+    let envMail = $(envMailElement).val();
 
-    if(idCertificado > 0) {
-        $.post(URL+'certificados/alterarStatusCertificadoAjax',
-            {id_certificado: idCertificado, 
-             justificativa : justificativa,
-             envia_email: envMail,
-             status : 'I'},
-            function(data) {
-                if(data.length > 0) {
+    if (idCertificado > 0) {
+        $.post(URL + 'certificados/alterarStatusCertificadoAjax',
+            {
+                id_certificado: idCertificado,
+                justificativa: justificativa,
+                envia_email: envMail,
+                status: 'I'
+            },
+            function (data) {
+                if (data.length > 0) {
                     alert(data);
                     window.location.reload();
                 } else {
@@ -67,25 +69,27 @@ function revogarCertificado(idCertificado, URL) {
 }
 
 function validarCertificado(idCertificado, URL) {
-    var div   = "#" + "div_validacao_" +idCertificado;
-    var justifElement = "#" + "txtJustifValid_" + idCertificado;
-    var justificativa = $(justifElement).val();
+    let div = "#" + "div_validacao_" + idCertificado;
+    let justifElement = "#" + "txtJustifValid_" + idCertificado;
+    let justificativa = $(justifElement).val();
 
-    if(justificativa == '') {
+    if (justificativa == '') {
         alert('Informe a justificativa.');
         return false;
     }
 
-    var envMailElement = "#" + "txtEnvMailValid_" + idCertificado;
-    var envMail        = $(envMailElement).val();
+    let envMailElement = "#" + "txtEnvMailValid_" + idCertificado;
+    let envMail = $(envMailElement).val();
 
-    if(idCertificado > 0) {
-        $.post(URL+'certificados/alterarStatusCertificadoAjax',
-            {id_certificado: idCertificado,
-             justificativa : justificativa,
-             envia_email: envMail, status : 'A'},
-            function(data) {
-                if(data.length > 0) {
+    if (idCertificado > 0) {
+        $.post(URL + 'certificados/alterarStatusCertificadoAjax',
+            {
+                id_certificado: idCertificado,
+                justificativa: justificativa,
+                envia_email: envMail, status: 'A'
+            },
+            function (data) {
+                if (data.length > 0) {
                     alert(data);
                     window.location.reload();
                 } else {
@@ -97,12 +101,12 @@ function validarCertificado(idCertificado, URL) {
 }
 
 function cancelarRevogacao(idCertificado) {
-    var div   = "#" + "div_revogacao_" +idCertificado;
+    let div = "#" + "div_revogacao_" + idCertificado;
     $(div).hide('slow')
 }
 
 function cancelarValidacao(idCertificado) {
-    var div   = "#" + "div_validacao_" +idCertificado;
+    let div = "#" + "div_validacao_" + idCertificado;
     $(div).hide('slow')
 }
 
@@ -112,45 +116,47 @@ function cancelarValidacao(idCertificado) {
  */
 function setAllChecks(elemento) {
     if (elemento.checked) {
-        $('.cb').attr('checked','checked');
+        $('.cb').attr('checked', 'checked');
     } else {
-        $('.cb').attr('checked','');
+        $('.cb').attr('checked', '');
     }
 }
 
 function validarAvaliacao() {
-    
-    if(!document.getElementById('txtJustificativa').value) {
+
+    if (!document.getElementById('txtJustificativa').value) {
         alert('Campo Justificativa é obrigatório.');
         document.getElementById('txtJustificativa').focus();
         return false;
     }
-    
-    if(!document.getElementById('txtStatus').value) {
+
+    if (!document.getElementById('txtStatus').value) {
         alert('Campo Status é obrigatório.');
         document.getElementById('txtStatus').focus();
         return false;
-    } 
-    
-    var selecionados = $("input[id='txtAvaliados']").serializeArray();    
-    if (selecionados.length==0) {
+    }
+
+    let selecionados = $("input[id='txtAvaliados']").serializeArray();
+    if (selecionados.length == 0) {
         alert('Selecione ao menos um certificado para avaliação.');
         document.getElementById('txtAvaliados').focus();
         return false;
     }
-       
-    return true;        
+
+    return true;
 }
 
-function marcaStatus(url, evento, modelo, campo) {            
-    $.post(url + 'certificados/atualizaFiltroAvaliacao/', 
-        {evento: evento, 
-         modelo:modelo, 
-         campo:campo.name, 
-         valor:campo.checked},
-            function(data){ 
-                if (data.length >0) {                                                                                
-                    window.location = url+'certificados/novaAvaliacao/'+evento+'/'+modelo;
-                }
-            });
+function marcaStatus(url, evento, modelo, campo) {
+    $.post(url + 'certificados/atualizaFiltroAvaliacao/',
+        {
+            evento: evento,
+            modelo: modelo,
+            campo: campo.name,
+            valor: campo.checked
+        },
+        function (data) {
+            if (data.length > 0) {
+                window.location = url + 'certificados/novaAvaliacao/' + evento + '/' + modelo;
+            }
+        });
 }

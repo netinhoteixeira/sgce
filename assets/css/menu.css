@@ -40,119 +40,165 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 
 /* menu::base */
 div#menu {
-    top:40px;
-    left:0px;
-    width:100%;
+    top: 40px;
+    left: 0px;
+    width: 100%;
 }
 
 #menu {
     margin-top: -5px;
     margin-right: 250px;
     float: right;
-    height:43px;
+    height: 43px;
 }
+
 #menu .menu {
-    position:absolute;
+    position: absolute;
     padding-left: 40px;
-    background:  right top no-repeat; 
+    background: right top no-repeat;
 }
+
 #menu * {
-    list-style:none;
-    border:0;
-    padding:0;
-    margin:0;
+    list-style: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
 }
+
 #menu a {
-    display:block;
-    padding:15px 14px 14px 14px;
-    white-space:nowrap;
+    display: block;
+    padding: 15px 14px 14px 14px;
+    white-space: nowrap;
 }
+
 #menu li {
-    float:left;
-    background:black;
+    float: left;
+    background: black;
 }
+
 #menu li li {
-    float:none;
+    float: none;
 }
+
 #menu div {
-    visibility:hidden;
-    position:absolute;
+    visibility: hidden;
+    position: absolute;
 }
+
 #menu div div {
-    margin:-35px 0 0 -1px;
-    left:100%;
+    margin: -35px 0 0 -1px;
+    left: 100%;
 }
+
 #menu div div div {
-    margin:-35px 0 0 -1px;
-    left:100%;
+    margin: -35px 0 0 -1px;
+    left: 100%;
 }
-#menu li:hover>div { visibility:visible; }
+
+#menu li:hover > div {
+    visibility: visible;
+}
 
 /* menu::special styles */
 /* menu::level 1 */
 #menu a {
-    text-decoration:none;
-    color:#3C4955;/*1*/
-    position:relative;
-    z-index:77;
+    text-decoration: none;
+    color: #3C4955; /*1*/
+    position: relative;
+    z-index: 77;
 }
+
 #menu a:hover {
-    color:black;
+    color: black;
 }
-#menu a:hover span { color:#FFF; }
+
+#menu a:hover span {
+    color: #FFF;
+}
+
 #menu li.current a {
-    color:black;
+    color: black;
 }
+
 #menu li.current span {
-    color:black;
+    color: black;
 }
-#menu>ul>li:hover>a {
+
+#menu > ul > li:hover > a {
     background: left -43px repeat-x;
-    color:#CACFD3;
+    color: #CACFD3;
 }
-#menu>ul>li:hover>a span { color:green; }
+
+#menu > ul > li:hover > a span {
+    color: green;
+}
+
 #menu span {
-    text-transform:uppercase;
-    font:12px 'Lucida Grande','Lucida Sans Unicode',Arial,Verdana,sans-serif;
-    letter-spacing:0.3em;
-    text-decoration:none;
-    color:#333;
+    text-transform: uppercase;
+    font: 12px 'Lucida Grande', 'Lucida Sans Unicode', Arial, Verdana, sans-serif;
+    letter-spacing: 0.3em;
+    text-decoration: none;
+    color: #333;
 }
-#menu li { background: left top no-repeat;}
+
+#menu li {
+    background: left top no-repeat;
+}
+
 /* menu::level >= 2 */
-#menu ul ul {width: 150px;}
-#menu li li{
-	  background:#44494B;
-	  border-bottom:1px solid #BABDBE;}
+#menu ul ul {
+    width: 150px;
+}
+
+#menu li li {
+    background: #44494B;
+    border-bottom: 1px solid #BABDBE;
+}
+
 #menu li li a {
-    position:static;
-    background:#44494B;
-    white-space:normal;
+    position: static;
+    background: #44494B;
+    white-space: normal;
     text-align: left;
-    color:#FFF;
-    padding:0;
-    text-transform:none;
+    color: #FFF;
+    padding: 0;
+    text-transform: none;
     width: 100%;
 }
+
 #menu li.current li a {
     background: none;
-    color:#FFF;
+    color: #FFF;
 }
+
 #menu li.current li span {
-    color:#FFF;
+    color: #FFF;
 }
-#menu li li a:hover { background:#FA7E04; }
-#menu li li a span { color:#fff; line-height: 15px; padding: 10px;	}
-#menu li li a:hover span { color:black; }
-#menu li li a.parent span{
-    background: no-repeat scroll right 50%; z-index:10;
+
+#menu li li a:hover {
+    background: #FA7E04;
+}
+
+#menu li li a span {
+    color: #fff;
+    line-height: 15px;
+    padding: 10px;
+}
+
+#menu li li a:hover span {
+    color: black;
+}
+
+#menu li li a.parent span {
+    background: no-repeat scroll right 50%;
+    z-index: 10;
     color: black;
 }
 
 #menu li li span {
-    display:block;
-    text-transform:none;
-    padding:0px 25px 0px 0px;
-    font-size:12px;
+    display: block;
+    text-transform: none;
+    padding: 0px 25px 0px 0px;
+    font-size: 12px;
     letter-spacing: 0;
 }

@@ -17,86 +17,92 @@ endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Li
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
-function atribuiModelo(nomeModelo) {    
-    $("#nomeModelo").val(nomeModelo);    
+function atribuiModelo(nomeModelo) {
+    $('#nomeModelo').val(nomeModelo);
 }
 
 function escolheModo(tipoModo) {
-    if (tipoModo=='upload') {
+    if (tipoModo === 'upload') {
         $('#upload').show();
     }
-    if ((tipoModo==null) || (tipoModo==''))  {
+
+    if ((tipoModo === null) || (tipoModo === '')) {
         $('#upload').hide();
     }
 }
-/* Cores alternadas - tabelas*/
-function overHighLight(entrada){
 
-    $("#linha_"+entrada).addClass('high_lights');
+/* Cores alternadas - tabelas*/
+function overHighLight(entrada) {
+
+    $("#linha_" + entrada).addClass('high_lights');
 }
 
-function outHighLight(entrada){
+function outHighLight(entrada) {
     $(entrada).removeClass('high_lights');
 }
 
 /* Colore a linha selecionada*/
-function colorRowSelected(i){
+function colorRowSelected(i) {
     //caso exista alguma linha selecionada ele desmarca
     $(actualSelectedLine).removeClass("editing");
+
     //para deixar a linha selecionada para indicar que esta sendo editada
-    actualSelectedLine = "#linha_"+i;
+    actualSelectedLine = "#linha_" + i;
     $(actualSelectedLine).addClass("editing");
 }
 
 /**
-* Funcao generica para abrir as pop-ups do sistema
-**/
+ * Funcao generica para abrir as pop-ups do sistema
+ **/
 function abrirPopup(URL, width, height) {
-    if (!width)
-        var width = 700;
-    if (!height)    
-        var height = 300;
-        
-    var left = 99;
-    var top = 99;
-    window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=yes, fullscreen=no');
+    if (!width) {
+        let width = 700;
+    }
+
+    if (!height) {
+        let height = 300;
+    }
+
+    let left = 99;
+    let top = 99;
+    window.open(URL, 'janela', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left + ', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=yes, fullscreen=no');
 }
 
-function confirmaExclusao( url,nome ) {
-    if ( window.confirm( "Confirmar a exclusão "+nome+" ?" ) ) 
-        window.location.href=url;
+function confirmaExclusao(url, nome) {
+    if (window.confirm("Confirmar a exclusão " + nome + " ?"))
+        window.location.href = url;
 }
 
-function confirmaClonagem( url,nome ) {
-    if ( window.confirm( "Confirma a clonagem "+nome+" ?" ) ) 
-        window.location.href=url;
+function confirmaClonagem(url, nome) {
+    if (window.confirm("Confirma a clonagem " + nome + " ?"))
+        window.location.href = url;
 }
 
 /**
-* Habilita o input para aceitar apenas numeros. passar o campo.
-**/
+ * Habilita o input para aceitar apenas numeros. passar o campo.
+ **/
 function somenteNumero(campo) {
-    var digits = "0123456789";
-    var campoTemp;
-    for (var i=0;i< campo.value.length;i++) {
-        campoTemp = campo.value.substring(i,i+1);
-        if (digits.indexOf(campoTemp)==-1) {
-            campo.value = campo.value.substring(0,i);
+    let digits = "0123456789";
+    let campoTemp;
+    for (let i = 0; i < campo.value.length; i++) {
+        campoTemp = campo.value.substring(i, i + 1);
+        if (digits.indexOf(campoTemp) == -1) {
+            campo.value = campo.value.substring(0, i);
         }
     }
 }
 
-function retornaNum( obj, e ) {
-    var tecla = ( window.event ) ? e.keyCode : e.which;
-    if ( tecla == 8 || tecla == 0 )
+function retornaNum(obj, e) {
+    let tecla = (window.event) ? e.keyCode : e.which;
+    if (tecla == 8 || tecla == 0)
         return true;
-    if (tecla < 48 || tecla > 57 )
+    if (tecla < 48 || tecla > 57)
         return false;
 }
 
 function JumpField(fields) {
     if (fields.value.length == fields.maxLength) {
-        for (var i = 0; i < fields.form.length; i++) {
+        for (let i = 0; i < fields.form.length; i++) {
             if (fields.form[i] == fields && fields.form[(i + 1)] && fields.form[(i + 1)].type != "hidden") {
                 fields.form[(i + 1)].focus();
                 break;
@@ -109,24 +115,24 @@ function JumpField(fields) {
  * Verifica se a data passada e valida. Chamar no onBlur do elemento. passar o valor.
  */
 function verificaData(data) {
-    dia = (data.value.substring(0,2));
-    mes = (data.value.substring(3,5));
-    ano = (data.value.substring(6,10));
+    dia = (data.value.substring(0, 2));
+    mes = (data.value.substring(3, 5));
+    ano = (data.value.substring(6, 10));
 
     situacao = "";
     // verifica o dia valido para cada mes
-    if ((dia < "01")|| (dia < "01" || dia > "30") 
-        && (  mes == "04" || mes == "06" || mes == "09" || mes == "11" ) || dia > "31") {
+    if ((dia < "01") || (dia < "01" || dia > "30")
+        && (mes == "04" || mes == "06" || mes == "09" || mes == "11") || dia > "31") {
         situacao = "falsa";
     }
 
     // verifica se o mes e valido
-    if (mes < "01" || mes > "12" ) {
+    if (mes < "01" || mes > "12") {
         situacao = "falsa";
     }
 
     // verifica se e ano bissexto
-    if (mes == 2 && ( dia < 01 || dia > 29 || ( dia > 28 && (parseInt(ano / 4) != ano / 4)))) {
+    if (mes == 2 && (dia < 01 || dia > 29 || (dia > 28 && (parseInt(ano / 4) != ano / 4)))) {
         situacao = "falsa";
     }
 
@@ -140,71 +146,64 @@ function verificaData(data) {
     }
 }
 
-
 /**
-* Verifica se o email passado e valido - passar o campo.
-**/
+ * Verifica se o email passado e valido - passar o campo.
+ **/
 function validaEmail(campo_email) {
     //Checando se o endereço e-mail não esta vazio
-    if(campo_email=="") {
+    if (campo_email == "") {
         return false;
     }
+    
     //Checando se o endereço de e-mail é válido
-    if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(campo_email.value))) {
+    if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(campo_email.value))) {
         return false;
     }
     return true;
 
 }
 
-
 /**
-/ Verifica se o cpf passado e valido. passar o valor.
-**/
+ / Verifica se o cpf passado e valido. passar o valor.
+ **/
 function validaCpf(s) {
-    var i;
-    var c = s.substr(0,9);
-    var dv = s.substr(9,2);
-    var d1 = 0;
-    for (i = 0; i < 9; i++)
-    {
-        d1 += c.charAt(i)*(10-i);
+    let i;
+    let c = s.substr(0, 9);
+    let dv = s.substr(9, 2);
+    let d1 = 0;
+    for (i = 0; i < 9; i++) {
+        d1 += c.charAt(i) * (10 - i);
     }
-    if (d1 == 0){
+    if (d1 == 0) {
         return false;
     }
     d1 = 11 - (d1 % 11);
     if (d1 > 9) d1 = 0;
-    if (dv.charAt(0) != d1)
-    {
+    if (dv.charAt(0) != d1) {
         return false;
     }
     d1 *= 2;
-    for (i = 0; i < 9; i++)
-    {
-        d1 += c.charAt(i)*(11-i);
+    for (i = 0; i < 9; i++) {
+        d1 += c.charAt(i) * (11 - i);
     }
     d1 = 11 - (d1 % 11);
     if (d1 > 9) d1 = 0;
-    if (dv.charAt(1) != d1)
-    {
-        return false;
-    }
-    return true;
+    
+    return (dv.charAt(1) != d1) ? false : true;
 }
 
-function carregaModelosEvento(idEvento, nmLoading,  URL, nmComboModelo, nmDivInstrucoes) {
-    var combo      = "#" + nmComboModelo;
-    var div        = "#" + nmDivInstrucoes;
+function carregaModelosEvento(idEvento, nmLoading, URL, nmComboModelo, nmDivInstrucoes) {
+    let combo = "#" + nmComboModelo;
+    let div = "#" + nmDivInstrucoes;
+    
     limpaComboModelos(combo, div);
-    if(idEvento > 0) {
-        var loading    = "#" + nmLoading;
+    
+    if (idEvento > 0) {
+        let loading = "#" + nmLoading;
         $(loading).fadeIn('slow');
 
-        $.post(URL+'eventos/carregaModelosEventoAjax',
-            {id_evento: idEvento},
-            function(data) {
-                if(data.length > 0) {
+        $.post(URL + 'eventos/carregaModelosEventoAjax', { id_evento: idEvento }, function (data) {
+                if (data.length > 0) {
                     $(loading).fadeOut('slow');
                     $(combo).html(data);
                 } else {
@@ -212,29 +211,26 @@ function carregaModelosEvento(idEvento, nmLoading,  URL, nmComboModelo, nmDivIns
                     $(combo).html("<option value=''>Nenhum registro encontrado</option>");
                 }
             });
-    } 
+    }
 }
 
 function limpaComboModelos(combo, div) {
     $(combo).html("<option value=''>Selecione...</option>");
     $(div).hide('slow');
-
 }
 
 function carregaInstrucoesImportacao(idModelo, nmLoading, URL, nmDivInstrucoes) {
-    var div      = "#" + nmDivInstrucoes;
-    if(idModelo > 0) {
-        var loading    = "#" + nmLoading;
+    let div = "#" + nmDivInstrucoes;
+    if (idModelo > 0) {
+        let loading = "#" + nmLoading;
         $(loading).fadeIn('slow');
         $(div).hide('slow');
 
-        $.post(URL+'modelos_certificados/carregaInstrucoesImportacaoAjax',
-            {id_modelo: idModelo},
-            function(data) {                
-                if(data.length > 0) {
+        $.post(URL + 'modelos_certificados/carregaInstrucoesImportacaoAjax', { id_modelo: idModelo }, function (data) {
+                if (data.length > 0) {
                     $(loading).fadeOut('slow');
                     $(div).show('slow');
-                    $(div).html("<label for='instrucoes_importacao'>Instruções para Importação:</label><br/>"+data);
+                    $(div).html("<label for='instrucoes_importacao'>Instruções para Importação:</label><br/>" + data);
                 } else {
                     $(loading).fadeOut('slow');
                     $(div).hide('slow');
@@ -243,57 +239,53 @@ function carregaInstrucoesImportacao(idModelo, nmLoading, URL, nmDivInstrucoes) 
     } else {
         $(div).hide('slow')
     }
-
 }
 
 function confirmaRestauracaoConfig(url) {
-    if (window.confirm( "Confirmar a restauração da configuração padrão?" ))
+    if (window.confirm("Confirmar a restauração da configuração padrão?")) {
         window.location.href = url;
+    }
 }
 
 /**
  * Visualiza numa div o detalhe do log
  */
 function visualizaDetalhesLog(idLog, URL) {
-    if(idLog) {
-        var div         = "#detalhes_log_"+idLog;
-        var tdLog       = "#td_log_"+idLog;
-        var posicao     = $(tdLog).offset();        
-               
+    if (idLog) {
+        let div = "#detalhes_log_" + idLog;
+        let tdLog = "#td_log_" + idLog;
+        let posicao = $(tdLog).offset();
+
         $(div).css('margin-top', posicao.top - 50);
         $(div).css('margin-left', posicao.left);
         $(div).show('slow');
 
-        var tbl = "#tbl_detalhes_log_"+idLog;
+        let tbl = "#tbl_detalhes_log_" + idLog;
         $(tbl).html('Aguarde...');
 
-        $.post(URL+'participantes/carregaDetalhesLogTableAjax',
-        {id_log:  idLog},
-            function(data) {
-                if(data.length > 0) {
-                    $(tbl).html(data);
-                } else {
-                    $(tbl).html('Não há informações complementares a exibir.');
-                }
-            });
-
+        $.post(URL + 'participantes/carregaDetalhesLogTableAjax', {id_log: idLog}, function (data) {
+            if (data.length > 0) {
+                $(tbl).html(data);
+            } else {
+                $(tbl).html('Não há informações complementares a exibir.');
+            }
+        });
     }
-
 }
 
 /**
- *Esconde a div de itens do historico
+ * Esconde a div de itens do historico
  */
 function escondeDetalhesLog(idLog) {
-        $('#detalhes_log_'+idLog).hide('slow');
+    $('#detalhes_log_' + idLog).hide('slow');
 }
 
 /**
- * Selecao de tipo de configuracao 
+ * Selecao de tipo de configuracao
  */
 
 function selecionaTipoConfig(config) {
-    if (config =='banco') {
+    if (config === 'banco') {
         $('#configLDAP').hide('fast');
     } else {
         $('#configLDAP').show('fast');
@@ -301,7 +293,7 @@ function selecionaTipoConfig(config) {
 }
 
 function confirmaReimportar(opcao, url) {
-    if (opcao=='S') {
-        if ( window.confirm( "Tem certeza de que deseja repetir a última importação de certificados feita para o modelo? \n\ Caso já exista um certificado, ele será duplicado!" ) ) window.location.href=url;
+    if (opcao === 'S') {
+        if (window.confirm("Tem certeza de que deseja repetir a última importação de certificados feita para o modelo? \n\ Caso já exista um certificado, ele será duplicado!")) window.location.href = url;
     }
 }

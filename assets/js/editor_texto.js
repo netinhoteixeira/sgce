@@ -18,19 +18,19 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
 tinyMCE.init({
-            mode : "textareas",
-            theme : "advanced",
-            plugins : "table,searchreplace,paste,contextmenu,advlink",
+    mode: 'textareas',
+    theme: 'advanced',
+    plugins: 'table,searchreplace,paste,contextmenu,advlink',
 
-            // Theme options
-            theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull, cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo",
-            theme_advanced_buttons2 : "tablecontrols,hr,removeformat,sub,sup",
-            theme_advanced_toolbar_location : "top",
-            theme_advanced_toolbar_align : "left",
-            theme_advanced_statusbar_location : "bottom",
-            theme_advanced_resizing : true,
+    // Theme options
+    theme_advanced_buttons1: 'bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull, cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo',
+    theme_advanced_buttons2: 'tablecontrols,hr,removeformat,sub,sup',
+    theme_advanced_toolbar_location: "top",
+    theme_advanced_toolbar_align: "left",
+    theme_advanced_statusbar_location: "bottom",
+    theme_advanced_resizing: true,
 
-            // Enable translation mode
-            translate_mode : true,
-            language : "pt"
-    });
+    // Enable translation mode
+    translate_mode: true,
+    language: "pt"
+});

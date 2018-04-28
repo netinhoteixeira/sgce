@@ -31,7 +31,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
 
-body{
+body {
+    background: #fff;
     padding: 0px;
     margin: 0px;
     font-family: arial;
@@ -47,31 +48,30 @@ p {
     font-family: arial;
     font-size: 12px;
     border: 1px solid #444;
-    -webkit-box-shadow:#666 0px 2px 15px;
-    -moz-box-shadow:#666 0px 2px 15px;
+    -webkit-box-shadow: #666 0px 2px 15px;
+    -moz-box-shadow: #666 0px 2px 15px;
 }
 
 .center_table_interna {
     font-family: arial;
     font-size: 12px;
     border: 1px solid #444;
-    -webkit-box-shadow:#666 0px 2px 15px;
-    -moz-box-shadow:#666 0px 2px 15px;
+    -webkit-box-shadow: #666 0px 2px 15px;
+    -moz-box-shadow: #666 0px 2px 15px;
 }
 
+#header_place {
+    height: 190px;
+    color: #000000;
+    margin: 0px;
 
-#header_place{
-    height:190px;
-    color:#000000;
-    margin:0px;
-    
 }
 
 #header_place h1 {
     font-size: 1.6em;
 }
 
-#header_logo{
+#header_logo {
     background: url('../images/topo-certificados.jpg') no-repeat;
     height: 190px;
     width: 100%;
@@ -79,40 +79,40 @@ p {
     float: left;
     overflow: visible;
     margin-top: -25px;
-    
+
 }
-    
-#top_right{    
+
+#top_right {
     float: right;
 }
 
-.browserIE #top_right{
+.browserIE #top_right {
     margin-top: 30px;
-    float: right;   
+    float: right;
 }
 
-#top_right_menu{
+#top_right_menu {
     margin-top: -10px;
     margin-right: 10px;
     float: right;
 }
 
-
-#menu_list{
+#menu_list {
     font-size: 15px;
     font-weight: bold;
     list-style: none;
 }
 
-#menu_list li{
+#menu_list li {
     float: right;
     padding: 10px;
     border: 1px solid #ddd;
     background: url('../images/fundo_menu.png') repeat-x #888;
 }
 
-a:link, a:visited{
-    color: #555; text-decoration: none;
+a:link, a:visited {
+    color: #555;
+    text-decoration: none;
 }
 
 a:hover {
@@ -122,40 +122,40 @@ a:hover {
 }
 
 a:active {
-    color: #006613;	
+    color: #006613;
     text-decoration: underline;
     font-weight: bold;
 }
 
-a img{
+a img {
     border-style: none;
 }
 
-#center_place{
+#center_place {
     margin-right: auto;
-    margin-left:  auto;
-    width: 960px;    
+    margin-left: auto;
+    width: 960px;
     text-align: left;
     margin-bottom: 20px;
 }
 
-.center_table{
+.center_table {
     margin-left: auto;
     margin-right: auto;
     color: #222;
 }
 
-.linha_par{
+.linha_par {
     background: #c2d3c6;
     font-weight: normal;
 }
 
-.linha_impar{
+.linha_impar {
     background: #FFF;
     font-weight: normal;
 }
 
-#newRegister{
+#newRegister {
     width: 400px;
     padding: 5px;
     margin-top: 5px;
@@ -165,17 +165,16 @@ a img{
     display: none;
 }
 
-#newRegister table{
+#newRegister table {
     color: #FFF;
     font-weight: bold;
 }
 
-
-#newRegister br{
+#newRegister br {
     clear: left;
 }
 
-#searchRegister{
+#searchRegister {
     width: 955px;
     padding: 5px;
     margin-top: 5px;
@@ -183,65 +182,62 @@ a img{
     color: white;
     background: #666;
 }
-#searchRegister table{
+
+#searchRegister table {
     color: #FFF;
     font-weight: bold;
 }
 
-#searchRegister br{
+#searchRegister br {
     clear: left;
 }
 
-
-
-label{
+label {
     float: left;
     width: 210px;
     font-weight: bold;
     font-size: 12px;
 }
 
-.medium_input{
+.medium_input {
     width: 100px;
     margin-bottom: 5px;
 }
 
-.big_input{
+.big_input {
     width: 300px;
     margin-bottom: 5px;
 }
 
-
-.form_left{
+.form_left {
     float: left;
     margin-left: 30px;
 }
 
-
-.clear{
+.clear {
     clear: both;
 }
 
-.high_lights{
+.high_lights {
     background: #EDEDED;
 }
 
-.editing{
+.editing {
     color: white;
     background: black;
 }
 
-.deleting{
+.deleting {
     color: white;
     background: red;
 }
 
-table{
+table {
     width: 100%;
     text-align: left;
 }
 
-#footer{
+#footer {
     padding-top: 20px;
     color: #777;
     margin-top: 5px;
@@ -254,67 +250,67 @@ table{
     background: url('../images/fundo_header.gif') repeat-x;
 }
 
-.browserIE  #footer{
+.browserIE #footer {
     height: 60px;
 }
 
-.error{
+.error {
     margin-top: 5px;
     margin-bottom: 5px;
-    padding-left:  10px;
+    padding-left: 10px;
     border: 1px solid white;
     font-weight: bold;
     font-size: 12px;
     color: #555;
 }
 
-.message_field{
+.message_field {
     font-size: 18px;
     color: #D50000;
 }
 
-.paginacao{
+.paginacao {
     margin-top: 10px;
     font-size: 18px;
     text-align: center;
 }
 
-.botoes_left{
+.botoes_left {
     right: auto;
     text-align: left;
 }
 
-.titulo_right{
+.titulo_right {
     text-align: right;
     float: right;
     margin-top: -50px;
 }
 
-.titulo_popup{
+.titulo_popup {
     text-align: right;
 }
 
-.browserIE .titulo_right{
+.browserIE .titulo_right {
     margin-top: -45px;
 }
 
-.dialog{
+.dialog {
     display: none;
     position: absolute;
     border: 3px solid white;
     margin-left: 600px;
     color: white;
     background: #333;
-    padding-left:  30px;
-    padding-right:   30px;
+    padding-left: 30px;
+    padding-right: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    opacity:0.95;
-    -webkit-box-shadow:#222 0px 2px 15px;
-    -moz-box-shadow:#222 0px 2px 15px;
+    opacity: 0.95;
+    -webkit-box-shadow: #222 0px 2px 15px;
+    -moz-box-shadow: #222 0px 2px 15px;
 }
 
-#login_place{
+#login_place {
     border: 1px solid #555;
     width: 400px;
     text-align: center;
@@ -328,23 +324,22 @@ table{
     padding-bottom: 10px;
     background: white;
     color: #444;
-    
-    -webkit-box-shadow:#222 0px 2px 15px;
-    -moz-box-shadow:#222 0px 2px 15px;
+
+    -webkit-box-shadow: #222 0px 2px 15px;
+    -moz-box-shadow: #222 0px 2px 15px;
 }
 
-.disabled_input{
+.disabled_input {
     background: #CCC;
     border: none;
 }
 
+.disabled_input_data {
 
-.disabled_input_data{
-    
     border: none;
 }
 
-.ie6message{
+.ie6message {
     color: #880000;
     font-size: 18px;
 }
@@ -354,46 +349,45 @@ button {
     border: 2px double #B0B0B0;
 }
 
-.aviso{
+.aviso {
     color: red;
     font-size: 10px;
     font-weight: bold;
 }
 
 #apDiv1 {
-    position:absolute;
-    left:440px;
-    top:288px;
-    width:227px;
-    height:70px;
-    z-index:1;
+    position: absolute;
+    left: 440px;
+    top: 288px;
+    width: 227px;
+    height: 70px;
+    z-index: 1;
 }
-    
+
 .titulo_tabela {
     text-align: left;
     font-size: 14px;
-    font-weight: bold;    
+    font-weight: bold;
 }
 
 .div_visivel {
-    display : block;
+    display: block;
 }
 
 .div_invisivel {
-    display : none;
+    display: none;
 }
-
 
 .combo {
     width: 335px;
 }
 
-#login_info {    
+#login_info {
     float: right;
     margin-right: 200px;
     top: 2px;
     right: -25px;
-    font-size:12px;
+    font-size: 12px;
     z-index: 10;
     position: relative;
 }
@@ -404,7 +398,7 @@ sup {
     font-family: Verdana;
 }
 
-.form_right{
+.form_right {
     float: left;
     margin-right: 1px;
     margin-left: 5px;
@@ -417,14 +411,13 @@ sup {
 }
 
 .linha1 {
-	height: 20px;
-	text-align: center;
-	font-size: 13px;
+    height: 20px;
+    text-align: center;
+    font-size: 13px;
     color: #fff;
     background-color: #0e6195;
     font-weight: bold;
 }
-
 
 .instrucao_campo {
     text-align: left;
@@ -449,30 +442,30 @@ sup {
 }
 
 #instrucoes_importacao {
-      width:500px;
-      height:50px;
-      padding:10px;
-      background-color: #FFFFF4;
-      border-style: solid;
-      border-width: 1px;
-      opacity:0.95;
-      -webkit-box-shadow:#222 0px 2px 15px;
-      -moz-box-shadow:#222 0px 2px 15px;
-      overflow:auto;
-      display: none;
+    width: 500px;
+    height: 50px;
+    padding: 10px;
+    background-color: #FFFFF4;
+    border-style: solid;
+    border-width: 1px;
+    opacity: 0.95;
+    -webkit-box-shadow: #222 0px 2px 15px;
+    -moz-box-shadow: #222 0px 2px 15px;
+    overflow: auto;
+    display: none;
 }
 
 #progresso {
-      height:25px;
-      width:640px;
-      padding: 20px;
-      background-color: #FFFFF4;
-      border-style: solid;
-      border-width: 1px;
-      opacity:0.95;
-      -webkit-box-shadow:#222 0px 2px 15px;
-      -moz-box-shadow:#222 0px 2px 15px;
-      overflow:auto;
+    height: 25px;
+    width: 640px;
+    padding: 20px;
+    background-color: #FFFFF4;
+    border-style: solid;
+    border-width: 1px;
+    opacity: 0.95;
+    -webkit-box-shadow: #222 0px 2px 15px;
+    -moz-box-shadow: #222 0px 2px 15px;
+    overflow: auto;
 }
 
 .div_status_certificado {
@@ -518,27 +511,26 @@ sup {
 
 /*Estilo window modal*/
 #boxes .window {
-  position:absolute;
-  left:0;
-  top:0;
-  width:440px;
-  height:200px;
-  display:none;
-  z-index:9999;
-  padding:20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 440px;
+    height: 200px;
+    display: none;
+    z-index: 9999;
+    padding: 20px;
 }
 
-
 #header_pesquisa {
-  background-color: #333;
-  border-style: solid;
-  border-width: 1px;
-  width: 95%;
+    background-color: #333;
+    border-style: solid;
+    border-width: 1px;
+    width: 95%;
 }
 
 .close {
-    display:block;
-    text-align:right;
+    display: block;
+    text-align: right;
 }
 
 #img_close {
@@ -546,22 +538,23 @@ sup {
 }
 
 .detalhes_log {
-    position:absolute;
-    left:50px;
-    top:80px;
-    width:650px;
-    height:150px;
-    display:none;
-    z-index:9999;
-    padding:20px;
-    overflow:auto;
+    position: absolute;
+    left: 50px;
+    top: 80px;
+    width: 650px;
+    height: 150px;
+    display: none;
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
     background-color: #FFFFF4;
     border-style: solid;
     border-width: 1px;
-    opacity:0.95;
-    -webkit-box-shadow:#222 0px 2px 15px;
-    -moz-box-shadow:#222 0px 2px 15px;
+    opacity: 0.95;
+    -webkit-box-shadow: #222 0px 2px 15px;
+    -moz-box-shadow: #222 0px 2px 15px;
 }
+
 /*Fim window modal*/
 
 .retorno_operacoes {

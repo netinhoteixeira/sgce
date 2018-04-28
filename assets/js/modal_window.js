@@ -17,17 +17,12 @@ endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Li
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
-$(document).ready(function() {
-
-    $('a[name=modal]').click(function(e) {
-            e.preventDefault();
-            var id = $(this).attr('href');
-            $(id).css('top',  e.pageY);
-            $(id).css('left', e.pageX);
-            $(id).fadeIn('fast');
-
+$(document).ready(function () {
+    $('a[name=modal]').click(function (e) {
+        e.preventDefault();
+        var id = $(this).attr('href');
+        $(id).css('top', e.pageY);
+        $(id).css('left', e.pageX);
+        $(id).fadeIn('fast');
     });
-
-
 });
-

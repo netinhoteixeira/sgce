@@ -19,33 +19,33 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 
 function validaFornecedor() {
 
-    if(!document.getElementById('txtNome').value > 0) {
+    if (!document.getElementById('txtNome').value > 0) {
         alert('Campo nome é obrigatório.');
         document.getElementById('txtNome').focus();
         return false;
     }
-/*
-    if(validaCpf(document.getElementById('txtCPF').value) == false) {
-        alert("CPF Invalido");
-        document.getElementById('txtCPF').focus();
-        return false;
-    }
-    */
+    /*
+        if(validaCpf(document.getElementById('txtCPF').value) == false) {
+            alert("CPF Invalido");
+            document.getElementById('txtCPF').focus();
+            return false;
+        }
+        */
 
-    if(validaEmail(document.getElementById('txtEmail')) == false) {
+    if (validaEmail(document.getElementById('txtEmail')) == false) {
         alert("Email Invalido");
         document.getElementById('txtEmail').focus();
         return false;
     }
 
-    if(!document.getElementById('txtTelefone').value > 0) {
+    if (!document.getElementById('txtTelefone').value > 0) {
         alert('O campo telefone é obrigatório.');
         document.getElementById('txtTelefone').focus();
         return false;
     }
 
 
-    if(!document.getElementById('txtUsuario').value > 0) {
+    if (!document.getElementById('txtUsuario').value > 0) {
         alert('O campo usuario é obrigatório.');
         document.getElementById('txtUsuario').focus();
         return false;

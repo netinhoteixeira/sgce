@@ -17,14 +17,14 @@ endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Li
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
-function carregaDestinatariosModelo(idModelo, nmLoading,  URL, nmComboDest) {
-    var combo      = "#" + nmComboDest;
-    var loading    = "#" + nmLoading;
+function carregaDestinatariosModelo(idModelo, nmLoading, URL, nmComboDest) {
+    let combo = "#" + nmComboDest;
+    let loading = "#" + nmLoading;
 
     $(loading).fadeIn('slow');
-    $.post(URL+'certificados/carregaDestinatariosModeloAjax', {id_modelo: idModelo},
-    function(data){
-            if(data.length >0) {
+    $.post(URL + 'certificados/carregaDestinatariosModeloAjax', {id_modelo: idModelo},
+        function (data) {
+            if (data.length > 0) {
                 $(loading).fadeOut('slow');
                 $(combo).html(data);
             } else {
@@ -32,11 +32,12 @@ function carregaDestinatariosModelo(idModelo, nmLoading,  URL, nmComboDest) {
                 $(combo).html("<option value='0'>Nenhum certificado liberado para notificação!</option>");
                 alert('Nenhum certificado está liberado para notificação do participante.\n\nO Controlador de Qualidade precisa avaliar e liberar os certificados que ainda estiverem pendentes para este evento.')
             }
-    });
+        });
 
 }
 
 function limpaCombo(nmCombo) {
-    var combo = "#" + nmCombo;
+    let combo = "#" + nmCombo;
+
     $(combo).html("<option value='0'>Selecione...</option>");
 }
