@@ -61,7 +61,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <div class="center_table">
     <ul class="tabs">
         <li><a href="#tab1">Autenticação</a></li>
-        <li><a href="#tab2">Upload</a></li>
+        <li><a href="#tab2">Envio de Arquivo</a></li>
         <li><a href="#tab3">Mensagens</a></li>
     </ul>
     <div class="tab_container">
@@ -70,67 +70,53 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
             <p>
                 <label for='txtModoAuth'>Modo de Autenticação*: </label>
                 <select name="txtModoAuth" onchange="selecionaTipoConfig(this.value);">
-                    <option value="ldap"
-                        <?php if (@$tipo_de_autenticacao == 'ldap') {
-                            echo " selected ";
-                        } ?>>LDAP
+                    <option value="ldap" <?php echo (@$tipo_de_autenticacao == 'ldap') ? ' selected' : ''; ?>> LDAP
                     </option>
-
-                    <option value="banco"
-                        <?php if (@$tipo_de_autenticacao == 'banco') {
-                            echo " selected ";
-                        } ?>>Banco de Dados
+                    <option value="banco" <?php echo (@$tipo_de_autenticacao == 'banco') ? ' selected' : ''; ?>> Banco
+                        de Dados
                     </option>
-
-                    <option value="mista"
-                        <?php if (@$tipo_de_autenticacao == 'mista') {
-                            echo " selected ";
-                        } ?>>Mista
+                    <option value="mista" <?php echo (@$tipo_de_autenticacao == 'mista') ? ' selected' : ''; ?>> Mista
                     </option>
                 </select>
-                <fieldset id="configLDAP">
-                    <legend>Dados do Servidor LDAP</legend>
-            <p align="left">
-                <label for='txtServerLDAP'>Servidor LDAP*: </label>
-                <input name="txtServerLDAP" type="text" value="<?php echo @$server_ldap ?>"
-                       id="txtServerLDAP" size="50"/>
-                <br/><br/>
-
-                <label for='txtPortaLDAP'>Porta LDAP*: </label>
-                <input name="txtPortaLDAP" type="text" value="<?php echo @$porta_ldap ?>"
-                       id="txtPortaLDAP" size="50"/>
-                <br/><br/>
-
-                <label for='txtDNBase'>DN Base LDAP*: </label>
-                <input name="txtDNBase" type="text"
-                       value="<?php echo @$base_dn ?>" id="txtDNBase" size="50"/>
-                <br/><br/>
-
-                <label for='txtDNMaster'>DN Master LDAP*: </label>
-                <input name="txtDNMaster" type="text"
-                       value="<?php echo @$master_dn ?>" id="txtDNMaster" size="50"/>
-                <br/><br/>
-
-                <label for='txtDNSearch'>DN Search LDAP*: </label>
-                <input name="txtDNSearch" type="text"
-                       value="<?php echo @$search_dn ?>" id="txtDNSearch" size="50"/>
-                <br/><br/>
-
-                <label for='txtSenhaLDAP'>Senha LDAP*: </label>
-                <input name="txtSenhaLDAP" type="password"
-                       value="<?php echo @$senha_ldap ?>" id="txtSenhaLDAP" size="50"/>
-                <br/><br/>
             </p>
+            <fieldset id="configLDAP">
+                <legend>Dados do Servidor LDAP</legend>
+                <div style="text-align: left;">
+                    <label for='txtServerLDAP'>Servidor LDAP*: </label>
+                    <input name="txtServerLDAP" type="text" value="<?php echo @$server_ldap ?>" id="txtServerLDAP"
+                           size="50"/>
+                    <br/><br/>
+
+                    <label for='txtPortaLDAP'>Porta LDAP*: </label>
+                    <input name="txtPortaLDAP" type="text" value="<?php echo @$porta_ldap ?>" id="txtPortaLDAP"
+                           size="50"/>
+                    <br/><br/>
+
+                    <label for='txtDNBase'>DN Base LDAP*: </label>
+                    <input name="txtDNBase" type="text" value="<?php echo @$base_dn ?>" id="txtDNBase" size="50"/>
+                    <br/><br/>
+
+                    <label for='txtDNMaster'>DN Master LDAP*: </label>
+                    <input name="txtDNMaster" type="text" value="<?php echo @$master_dn ?>" id="txtDNMaster" size="50"/>
+                    <br/><br/>
+
+                    <label for='txtDNSearch'>DN Search LDAP*: </label>
+                    <input name="txtDNSearch" type="text" value="<?php echo @$search_dn ?>" id="txtDNSearch" size="50"/>
+                    <br/><br/>
+
+                    <label for='txtSenhaLDAP'>Senha LDAP*: </label>
+                    <input name="txtSenhaLDAP" type="password" value="<?php echo @$senha_ldap ?>" id="txtSenhaLDAP"
+                           size="50"/>
+                    <br/><br/>
+                </div>
             </fieldset>
-            </p>
-
             <p class="aviso">* Campos Obrigat&oacute;rios</p>
         </div>
 
         <div id="tab2" class="tab_content">
             <br/>
             <p>
-                <label for='txtTamanhoUpload'>Tamanho máximo de Upload*: </label>
+                <label for='txtTamanhoUpload'>Tamanho Máximo do Arquivo*: </label>
                 <select name="txtTamanhoUpload">
                     <option value="1048576" <?php echo (@$max_size == '1048576') ? " selected " : ""; ?> >1Mb
                     </option>
@@ -141,7 +127,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                 </select>
                 <br/><br/>
 
-                <label for='txtCaminhoUpload'>Caminho de Upload*: </label>
+                <label for='txtCaminhoUpload'>Caminho do Arquivo Enviado*: </label>
                 <input name="txtCaminhoUpload" type="text"
                        value="<?php echo @$upload_path ?>"
                        id="txtCaminhoUpload" size="50"/>
