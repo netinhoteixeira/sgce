@@ -26,9 +26,6 @@
 //$config['base_url']	= 'http://localhost:8888';
 $config['base_url']	= 'http://certificados.flisoldf.blog.local:8888';
 
-// Colocar a sigla referente ao sistema
-$config['sigla_sistema'] = 'SGCE';
-
 /*
 |--------------------------------------------------------------------------
 | Index File
