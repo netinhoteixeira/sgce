@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -24,8 +24,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @author Sergio Jr    <sergiojunior@unipampa.edu.br>
  * @copyright NTIC Unipampa 2010
  *
- */
-class Sistema extends CI_Controller
+ */ // MY_Controller
+class Sistema extends MY_Controller
 {
 
     /**
@@ -38,67 +38,79 @@ class Sistema extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->config->load_db_items();
-
-        $this->load->library('gerenciador_de_acesso');
-        $this->lang->load('msg');
+//
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->config->load_db_items();
+//
+//        $this->load->library('gerenciador_de_acesso');
+//        $this->lang->load('msg');
     }
 
 
     function index()
     {
-        $this->showLogin();
+        if (!$this->sessaoAtiva()) {
+            $this->showLogin();
+        } else {
+            $this->principal();
+        }
     }
 
     /**
      * Mostra tela de acesso.
      *
-     * @param array $data = Dados retornados em case de falha no login
+     * @param array $dados Dados retornados em case de falha no login
      */
-    function showLogin($data = null)
+    public function showLogin($dados = null)
     {
-        $this->session->set_userdata('logado', '0');
-        $data['corpo_pagina'] = 'login_view';
-        $this->load->view('includes/templates/template', $data);
+        if (is_null($dados)) {
+            $dados = [];
+        }
+
+        $this->load->view('includes/templates/template', array_merge($dados, [
+            'corpo_pagina' => 'login_view'
+        ]));
     }
 
     function principal()
     {
-        if ($this->session->userdata('logado') == '0') {
-            $retorno = "<br/><span class=\"aviso\">
-                          <b>Você não possui a permissão de acesso necessária. 
-                             Entre em contato com a Comissão Organizadora do seu evento.</b></span>";
-            $this->logout($retorno);
+        if (!$this->sessaoAtiva()) {
+            $retorno = 'Você não possui a permissão de acesso necessária. Entre em contato com a Comissão Organizadora do seu evento.';
+            $this->logout($retorno, FALSE);
         } else {
-            $data['corpo_pagina'] = "principal_view";
-            $this->load->view('includes/templates/template', $data);
+            $this->load->view('includes/templates/template', [
+                'corpo_pagina' => 'principal_view'
+            ]);
         }
     }
 
     /**
      * Metodo para logout
      */
-    function logout($mensagem = null)
+    function logout($mensagem = null, $redirecionar = TRUE)
     {
-        $this->gerenciador_de_acesso->logout();
-        $this->session->set_userdata('logado', '0');
-        $this->session->set_userdata('admin', '0');
-        $this->session->sess_destroy();
-        $data['retorno'] = $mensagem;
-        $data['corpo_pagina'] = "login_view";
-        $this->load->view('includes/templates/template', $data);
+        $this->session->sess_destroy();;
+
+        if ($redirecionar) {
+            redirect(base_url());
+        } else {
+            $this->load->view('includes/templates/template', [
+                'retorno' => $mensagem,
+                'corpo_pagina' => 'login_view'
+            ]);
+        }
     }
 
     function bloqueado()
     {
-        $data["mensagem"] = "No momento, você não tem permissão para realizar esta ação.";
-        $data['corpo_pagina'] = "bloqueado_view";
-        $this->load->view('includes/templates/template', $data);
+        $dados['mensagem'] = 'Você não tem permissão para realizar esta ação.';
+        $dados['corpo_pagina'] = 'bloqueado_view';
+
+        $this->load->view('includes/templates/template', $dados);
     }
 
     /**
@@ -114,15 +126,15 @@ class Sistema extends CI_Controller
 
         switch ($result) {
             case $this->gerenciador_de_acesso->LOGIN_FEEDBACK_ACESSO_NAO_AUTORIZADO:
-                $data['retorno'] = "<br /><b>Usuário não autenticado! Verifique se
-                                         seu login está correto e se você está
-                                         cadastrado como organizador de algum evento.</b>";
-                $this->showLogin($data);
+                $this->showLogin([
+                    'retorno' => 'Usuário não autenticado. Verifique se seu login está correto e se você está cadastrado como organizador de algum evento.'
+                ]);
                 break;
 
             case $this->gerenciador_de_acesso->LOGIN_FEEDBACK_SENHA_ERRADA:
-                $data['retorno'] = "Usuario não autenticado. ";
-                $this->showLogin($data);
+                $this->showLogin([
+                    'retorno' => 'Usuario não autenticado.'
+                ]);
                 break;
 
             case $this->gerenciador_de_acesso->LOGIN_FEEDBACK_ACESSO_AUTORIZADO:
@@ -139,7 +151,7 @@ class Sistema extends CI_Controller
 
                 $this->load->model('organizadores_model');
                 if (!$this->organizadores_model->getByUser($login)) {
-                    $this->logout("Usuário não liberado. Verifique suas permissões de acesso junto aos responsáveis pelo evento.");
+                    $this->logout('Usuário não liberado. Verifique suas permissões de acesso junto aos responsáveis pelo evento.');
                 }
 
                 // Verifica se o usuario e administrador do sistema
@@ -287,7 +299,6 @@ class Sistema extends CI_Controller
                 return $controla;
             }
         }
-
     }
 
     /**
@@ -374,7 +385,6 @@ class Sistema extends CI_Controller
      * faz a alteracao da senha do organizador
      *
      * @param Integer $idAcesso
-     *
      */
     function alterarSenha($idAcesso)
     {

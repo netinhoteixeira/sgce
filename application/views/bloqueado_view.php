@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -25,18 +25,13 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @author     Pedro Conrad Jr. <pedro.junior@unipampa.edu.br>
  * @author     Sergio Jr <sergiojunior@unipampa.edu.br
+ * @author     Francisco Ernesto Teixeira <me@francisco.pro>
  *
  * @copyright Universidade Federal do Pampa - NTIC Campus Alegrete 2010
- *
  */
+
+if (isset($mensagem)) {
 ?>
-<p align='center'>
-<center>
-    <?php echo $mensagem; ?>
-    <br/>
-    <a href="javascript:history.go(-1)">
-        <img src='<?php echo base_url() ?>assets/images/seta_voltar.png'
-             alt="Voltar" title="Voltar"/>
-    </a>
-</center>
-</p>
+<div class="alert alert-danger" role="alert"><?php echo $mensagem; ?></div>
+<?php } ?>
+<button type="button" class="btn btn-light" onclick="history.go(-1);">Voltar</button>

@@ -45,11 +45,10 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | tabela de configuração.
 |
 */
-define('SIGLA_SISTEMA','SGCE');
-define('NOME_SISTEMA', 'Sistema de Gestão de Certificados Eletrônicos');
+define('SIGLA_SISTEMA','GCE');
+define('NOME_SISTEMA', 'Gestão de Certificados Eletrônicos');
 define('VERSAO_SISTEMA', '1.5.0');
 define('LIMITE_PESQUISA_PAGINA', 15);
-define('URL_CERTIFICADO', 'http://localhost/sgce/');
 define('ENDERECO_VALIDACAO', 'validar/');
 define('ENDERECO_EMISSAO', 'emitir/');
 define('DOMPDF_ENABLE_REMOTE', true);

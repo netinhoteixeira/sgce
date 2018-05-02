@@ -24,7 +24,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @copyright NTIC Unipampa 2010
  *
  */
-class Organizadores extends CI_Controller
+class Organizadores extends MY_Controller
 {
 
     /**
@@ -36,22 +36,26 @@ class Organizadores extends CI_Controller
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->helper('retorno_operacoes');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->lang->load('msg');
-        $this->config->load_db_items();
-
-        $this->load->library('Gerenciador_de_acesso');
-        $this->gerenciador_de_acesso->usuarioAuth();
-
-        if ($this->session->userdata('admin') == 0) {
-            redirect('sistema/bloqueado');
-        }
+        parent::__construct(TRUE);
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+//        $this->load->helper('retorno_operacoes');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->lang->load('msg');
+//        $this->config->load_db_items();
+//
+////        $this->load->library('Gerenciador_de_acesso');
+////        $this->gerenciador_de_acesso->usuarioAuth();
+//
+//        if (!$this->isAdmin()) {
+//            $this->acessoBloqueado();
+//        }
+////
+////        if ($this->session->userdata('admin') == 0) {
+////            redirect('sistema/bloqueado');
+////        }
     }
 
     /**
@@ -99,8 +103,8 @@ class Organizadores extends CI_Controller
             $this->session->userdata('ordem_valor'),
             $this->session->userdata('ordem_tipo'));
 
-        if ($resultado == null) {
-            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir';
+        if (count($resultado) === 0) {
+            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir.';
             $data['organizadores'] = null;
         } else {
             $data['organizadores'] = $resultado;

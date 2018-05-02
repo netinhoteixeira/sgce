@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -25,16 +25,16 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @author     Pedro Conrad Jr. <pedro.junior@unipampa.edu.br>
  * @author     Sergio Jr <sergiojunior@unipampa.edu.br
+ * @author     Francisco Ernesto Teixeira <me@francisco.pro>
  *
  * @copyright Universidade Federal do Pampa - NTIC Campus Alegrete 2010
  *
  */
-?>
-<div class="retorno_operacoes">
-    <p align='center'>
-    <center>
+
+if (isset($mensagem)) {
+    ?>
+    <div class="alert alert-success" role="alert">
         <?php echo $mensagem; ?>
-        <br/><br/>
-    </center>
-    </p>
-</div>
+    </div>
+    <?php
+}

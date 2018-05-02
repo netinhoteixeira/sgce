@@ -110,6 +110,7 @@ p {
     background: url('../images/fundo_menu.png') repeat-x #888;
 }
 
+/*
 a:link, a:visited {
     color: #555;
     text-decoration: none;
@@ -130,7 +131,7 @@ a:active {
 a img {
     border-style: none;
 }
-
+*/
 #center_place {
     margin-right: auto;
     margin-left: auto;
@@ -192,12 +193,12 @@ a img {
     clear: left;
 }
 
-label {
-    float: left;
-    width: 210px;
-    font-weight: bold;
-    font-size: 12px;
-}
+/*label {*/
+    /*float: left;*/
+    /*width: 210px;*/
+    /*font-weight: bold;*/
+    /*font-size: 12px;*/
+/*}*/
 
 .medium_input {
     width: 100px;
@@ -254,20 +255,20 @@ table {
     height: 60px;
 }
 
-.error {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding-left: 10px;
-    border: 1px solid white;
-    font-weight: bold;
-    font-size: 12px;
-    color: #555;
-}
+/*.error {*/
+    /*margin-top: 5px;*/
+    /*margin-bottom: 5px;*/
+    /*padding-left: 10px;*/
+    /*border: 1px solid white;*/
+    /*font-weight: bold;*/
+    /*font-size: 12px;*/
+    /*color: #555;*/
+/*}*/
 
-.message_field {
-    font-size: 18px;
-    color: #D50000;
-}
+/*.message_field {*/
+    /*font-size: 18px;*/
+    /*color: #D50000;*/
+/*}*/
 
 .paginacao {
     margin-top: 10px;

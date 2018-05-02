@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -24,39 +24,51 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @copyright NTIC Unipampa 2010
  *
  */
-class Eventos extends CI_Controller
+class Eventos extends MY_Controller
 {
 
     /**
      * Construtor da Classe.
      *
-     * Inicializa helpers e bibliotecas do CodeIgniter e verifica se o usuario
-     * tem permissao para abrir o controller.
-     *
+     * Inicializar os helpers e bibliotecas do CodeIgniter e verificar se o usuários
+     * tem permissão para abrir o controlador.
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->helper('combo_helper');
-        $this->load->helper('retorno_operacoes');
-        $this->load->helper('eventos');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->lang->load('msg');
-        $this->config->load_db_items();
+        parent::__construct(TRUE);
 
-        $this->load->library('Gerenciador_de_acesso');
-        $this->gerenciador_de_acesso->usuarioAuth();
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+        $this->load->helper('combo_helper');
+//        $this->load->helper('retorno_operacoes');
+        $this->load->helper('eventos');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->lang->load('msg');
+//        $this->config->load_db_items();
+//
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+//        $this->load->helper('retorno_operacoes');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->lang->load('msg');
+//        $this->config->load_db_items();
+//
+//        /*
+//                $this->load->helper('progresso_execucao_helper');
+//                $this->load->helper('retorno_operacoes_helper');
+//                $this->lang->load('msg');
+//                $this->config->load_db_items();
+//                 */
     }
 
     /**
-     * Metodo padrao chamado quando invocada a controller.
+     * Método padrão chamado quando é invocado o controlador.
      *
-     * Responsavel por chamar a pagina principal para o usuario
-     *
+     * Responsável por chamar a página principal para o usuário.
      */
     function index()
     {
@@ -65,96 +77,98 @@ class Eventos extends CI_Controller
         $this->session->set_userdata('ordem_valor', null);
         $this->session->set_userdata('ordem_tipo', null);
 
-        // Permissao de listagem
-        $lista = false;
+        // Permissão de listagem
         $listaLocal = false;
         $listaLimitado = false;
 
-        if ($this->session->userdata('admin') != '1') {
-            if (!$this->session->userdata('controlador') == '1') {
+        /*
+        if (((int)$this->session->userdata('admin')) !== 1) {
+            //if (!$this->session->userdata('controlador') == '1') {
+            if (((int)$this->session->userdata('controlador')) === 1) {
+
                 if (!$this->session->userdata('eventos_controlador')) {
                     $lista = false;
                     $listaLimitado = false;
                     $listaLocal = false;
                 }
-                if ($this->session->userdata('eventos_controlador')) { // Se for controlador local, filtra eventos
+
+                // Se for controlador local, filtra eventos
+                if ($this->session->userdata('eventos_controlador')) {
                     $listaLocal = true;
                     $listaLimitado = false;
                     $lista = false;
                 }
+
                 if ($this->session->userdata('admin') == '2') {
                     $listaLimitado = true;
                     $listaLocal = false;
                     $lista = false;
                 }
-            } else { // Se for controlador global, habilita lista                
+            } else {
+                // Se for controlador global, habilita lista
                 $lista = true;
                 $listaLimitado = false;
                 $listaLocal = false;
             }
         } else {
             $lista = true;
-        }
-
-        // Verifica em qual das situacoes o usuario se enquadra
-        if ($lista) {
-            $this->listar(); // Se for administrador ou controlador global, lista todos
+        }*/
+        if ($this->ehAdminOuControlador()) {
+            $this->listar();
+        } elseif ($listaLocal) {
+            $this->selecionarEventoControle();
+        } elseif ($listaLimitado) {
+            $this->selecionarEventosLimitado();
         } else {
-            if ($listaLocal) {
-                $this->selecionarEventoControle();
-            }
-            if ($listaLimitado) {
-                $this->selecionarEventosLimitado();
-            }
-            if ((!$lista) && (!$listaLocal) && (!$listaLimitado)) {
-                redirect("sistema/bloqueado");
-            }
+            $this->acessoBloqueado();
         }
     }
 
     /**
-     * Metodo chamado na pesquisa de registros da view, na paginacao e no index
+     * Método chamado na pesquisa de registro da visão, paginação e índice.
      */
     function listar()
     {
-        $resultado = array();
-        $this->load->model('eventos_model');
-
-        if (@$_POST['hdnPesquisa'] == 'pesquisa') {
-            //se digitou um valor para pesquisa, armazena-o numa sessao.
-            $this->session->set_userdata('valor_pesq', $_POST['txtPesquisa']);
-            $this->session->set_userdata('tipo_pesq', $_POST['cmbPesquisa']);
-        }
-
-        $key = $this->session->userdata('valor_pesq');
-        $tipo = $this->session->userdata('tipo_pesq');
-
-        //parametros paginacao
-        $this->load->library('pagination');
-        $url = 'eventos/listar';
-        $total = $this->eventos_model->getTotal($key, $tipo);
-        $pag = $this->pagination->configPagination($url, $total, LIMITE_PESQUISA_PAGINA);
-        $maximo = $pag["maximo"];
-        $inicio = $pag["inicio"];
-        $data['paginacao'] = $pag["links"];
-
-        $resultado = $this->eventos_model->search($key, $tipo, $maximo, $inicio,
-            $this->session->userdata('ordem_valor'),
-            $this->session->userdata('ordem_tipo'));
-
-        if ($resultado == null) {
-            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir';
-            $data['eventos'] = null;
-        } else {
-            $data['eventos'] = $resultado;
-        }
-
-        if (($this->session->userdata('admin') == 0) && ($this->session->userdata('controlador') == 0)) {
+        if (!$this->ehAdminOuControlador()) {
             redirect('sistema/bloqueado');
         }
 
-        $data['corpo_pagina'] = "eventos_view";
-        $this->load->view('includes/templates/template', $data);
+        $this->load->model('eventos_model');
+
+        // Se foi fornecido um valor para pesquisa
+        if ($this->input->post('hdnPesquisa') === 'pesquisa') {
+            // Armazena-o em uma sessão
+            $this->session->set_userdata('valor_pesq', $this->input->post('txtPesquisa'));
+            $this->session->set_userdata('tipo_pesq', $this->input->post('cmbPesquisa'));
+        }
+
+        $chave = $this->session->userdata('valor_pesq');
+        $tipo = $this->session->userdata('tipo_pesq');
+
+        // Parâmetros para paginação
+        $this->load->library('pagination');
+        $endereco = 'eventos/listar';
+        $total = $this->eventos_model->getTotal($chave, $tipo);
+
+        $paginacao = $this->pagination->configPagination($endereco, $total, LIMITE_PESQUISA_PAGINA);
+        $maximo = $paginacao['maximo'];
+        $inicio = $paginacao['inicio'];
+
+        $dados['paginacao'] = $paginacao['links'];
+
+        $resultado = $this->eventos_model->search($chave, $tipo, $maximo, $inicio,
+            $this->session->userdata('ordem_valor'),
+            $this->session->userdata('ordem_tipo'));
+
+        if (count($resultado) === 0) {
+            $dados['mensagem'] = 'N&atilde;o h&aacute; registros para exibir.';
+            $dados['eventos'] = null;
+        } else {
+            $dados['eventos'] = $resultado;
+        }
+
+        $dados['corpo_pagina'] = 'eventos_view';
+        $this->load->view('includes/templates/template', $dados);
     }
 
     /**
@@ -167,7 +181,7 @@ class Eventos extends CI_Controller
 
         if ($eventosControlador) {
             $data['eventos'] = $eventosControlador;
-            $data['corpo_pagina'] = "selecao_evento_edicao_view";
+            $data['corpo_pagina'] = 'selecao_evento_edicao_view';
             $this->load->view('includes/templates/template', $data);
         } else {
             redirect('sistema/bloqueado');
@@ -185,7 +199,7 @@ class Eventos extends CI_Controller
 
         if ($eventosLimitado) {
             $data['eventos'] = $eventosLimitado;
-            $data['corpo_pagina'] = "selecao_evento_edicao_view";
+            $data['corpo_pagina'] = 'selecao_evento_edicao_view';
             $this->load->view('includes/templates/template', $data);
         } else {
             redirect('sistema/bloqueado');
@@ -197,8 +211,6 @@ class Eventos extends CI_Controller
      */
     function salvar()
     {
-        $errors = '';
-        $dados = $_POST;
         $this->load->library('form_validation');
         $this->form_validation->set_rules('txtNome', 'Nome', 'required');
         $this->form_validation->set_rules('txtSigla', 'Sigla', 'required|max_length[20]');
@@ -206,84 +218,91 @@ class Eventos extends CI_Controller
         $this->form_validation->set_rules('txtCarga', 'Carga Horária', 'required');
         $this->form_validation->set_rules('txtLocal', 'Local de Realização', 'required');
         $this->form_validation->set_rules('txtEmail', 'E-mail do Evento', 'required');
-        $this->_configureFormErrorMessage();
 
-        $id = isset($dados["txtId"]) ? $dados["txtId"] : null;
-        if ($this->form_validation->run() == TRUE) {
+        $this->_configurarMensagensDeErroDoFormulario();
+
+        $id = (int)$this->input->post('txtId');
+        if ($id <= 0) {
+            $id = null;
+        }
+
+        if ($this->form_validation->run() === TRUE) {
             $this->load->model('eventos_model');
-            $data["id_evento"] = $id;
-            $data["nm_evento"] = $dados['txtNome'];
-            $data["sg_evento"] = $dados['txtSigla'];
-            $data["de_carga"] = $dados['txtCarga'];
-            $data["de_local"] = $dados['txtLocal'];
-            $data["de_periodo"] = $dados['txtPeriodo'];
-            $data["de_url"] = $dados['txtURL'];
-            $data["de_email"] = $dados['txtEmail'];
-            $data["dtInclusao"] = $dados['txtDtInclusao'];
-            $data["dtAlteracao"] = $dados['txtDtAlteracao'];
 
-            if (@$dados['idsOrganizadores']) {
-                $data['idsOrganizadores'] = $dados['idsOrganizadores'];
-                $data['idsControladores'] = $dados['idsControladores'];
+            $dados = [];
+            $dados['id_evento'] = $id;
+            $dados['nm_evento'] = $this->input->post('txtNome');
+            $dados['sg_evento'] = $this->input->post('txtSigla');
+            $dados['de_carga'] = $this->input->post('txtCarga');
+            $dados['de_local'] = $this->input->post('txtLocal');
+            $dados['de_periodo'] = $this->input->post('txtPeriodo');
+            $dados['de_url'] = $this->input->post('txtURL');
+            $dados['de_email'] = $this->input->post('txtEmail');
+
+            if ($this->input->post('idsOrganizadores')) {
+                $dados['idsOrganizadores'] = $this->input->post('idsOrganizadores');
+                $dados['idsControladores'] = $this->input->post('idsControladores');
             }
 
-            if ($id) {
-                $this->eventos_model->update($data);
-                $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'eventos/editar/' . $id);
+            if (!is_null($id)) {
+                $this->eventos_model->update($dados);
+                $this->_exibirRetorno('Operação executada com sucesso. Aguarde...',
+                    'eventos/editar/' . $id);
             } else {
-                $regInsert = $this->eventos_model->insert($data);
+                $regInsert = $this->eventos_model->insert($dados);
+
                 if (!$regInsert) {
                     $data["mensagem"] = "Nao foi posivel inserir o registro.";
                     $data['corpo_pagina'] = "mensagem_view";
-                    $this->load->view('includes/templates/template', $data);
+                    $this->load->view('includes/templates/template', $dados);
                 } else {
                     // busca dados do usuario que inseriu o registro
                     $this->load->model('organizadores_model');
                     $dadosOrganizador = $this->organizadores_model->getByUser($this->session->userdata('uid'));
                     $idOrganizador = $dadosOrganizador->id_organizador;
+
                     // Adiciona usuario como organizador e controlador
                     $this->gravaPrimeiroOrganizador($regInsert, $idOrganizador);
-                    $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'eventos/editar/' . $regInsert);
+                    $this->_exibirRetorno('Operação executada com sucesso. Aguarde...',
+                        'eventos/editar/' . $regInsert);
                 }
             }
-        } elseif ($id) {
-            $this->editar($id, $errors);
+        } elseif (!is_null($id)) {
+            $this->editar($id);
         } else {
             $this->novo();
         }
     }
 
     /**
-     * Personaliza mensagens de erro do sistema.
+     * Personaliza as mensagens de erro do formulário.
      */
-    function _configureFormErrorMessage()
+    function _configurarMensagensDeErroDoFormulario()
     {
         $this->form_validation->set_message('required',
             'O campo <span class="message_field">%s</span> &eacute; obrigat&oacute;rio.');
-
         $this->form_validation->set_message('valid_email',
             'O campo <span class="message_field">%s</span> n&atilde;o &eacute; um e-mail v&aacute;lido.');
-
         $this->form_validation->set_message('max_leght',
             'O campo <span class="message_field">%s</span> apresenta um tamanho m&aacute;ximo de 12 caracteres.');
-
         $this->form_validation->set_message('numeric',
             'O campo <span class="message_field">%s</span> deve possuir somente valor num&eacute;rico.');
     }
 
     /**
-     * Exibe o retorno de uma operacao, com a mensagem passada e a url de direcio
-     * namento
+     * Exibe o retorno de uma operação com a mensagem passada e o endereço de
+     * direcionamento.
      *
-     * @param String $mensagem - mensagem de retorno
-     * @param String $url - url de direcionamento
+     * @param string $mensagem Mensagem que deve ser retornada/exibida.
+     * @param string $endereco Endereço do direcionamento (URL).
      */
-    function exibeRetorno($mensagem, $url)
+    function _exibirRetorno($mensagem, $endereco)
     {
         $data['mensagem'] = $mensagem;
-        $data['corpo_pagina'] = "retorno_operacoes_view";
+        $data['corpo_pagina'] = 'retorno_operacoes_view';
         $view = $this->load->view('includes/templates/template', $data, true);
-        exibeRetornoOperacao($view, $url);
+
+        exibeRetornoOperacao($view, $endereco);
     }
 
     /**
@@ -297,9 +316,11 @@ class Eventos extends CI_Controller
         if ($idEvento && $idOrganizador) {
             $this->load->model('organizadores_evento_model');
             $resultadoOrganizador = $this->organizadores_evento_model->gravaOrganizadorEvento($idEvento, $idOrganizador);
+
             if ($resultadoOrganizador) {
                 $resultadoControlador = $this->organizadores_evento_model->atribuiControlador($idEvento, $idOrganizador);
             }
+
             if ($resultadoOrganizador && $resultadoControlador) {
                 // Recarrega permissoes de organizador e controlador
                 $this->recarregaPermissoes($idOrganizador);
@@ -323,10 +344,12 @@ class Eventos extends CI_Controller
             $this->load->model('organizadores_evento_model');
             $this->session->unset_userdata('eventos_permitidos');
             $this->session->unset_userdata('eventos_controlador');
+
             $eventosPermitidos = $this->organizadores_evento_model->listarEventosOrganizador($idOrganizador);
             $eventosControlador = $this->organizadores_evento_model->listarEventosControlador($idOrganizador);
             $this->session->set_userdata('eventos_permitidos', $eventosPermitidos);
             $this->session->set_userdata('eventos_controlador', $eventosControlador);
+
             return true;
         } else {
             return false;
@@ -349,18 +372,18 @@ class Eventos extends CI_Controller
             if ($permitido) {
                 $this->load->model('eventos_model');
                 $data['evento'] = $this->eventos_model->getById($id);
-                $data['organizadores'] = $this->eventos_model
-                    ->listarOrganizadoresEvento($id);
+                $data['organizadores'] = $this->eventos_model->listarOrganizadoresEvento($id);
                 $data['error'] = $errors;
-                $data['corpo_pagina'] = "cad_eventos_view";
-                $data['titulo_pagina'] = "Alterar Evento";
-                $data['operacao'] = "editar";
+                $data['corpo_pagina'] = 'eventos_cadastro_view';
+                $data['titulo_pagina'] = 'Alterar Evento';
+                $data['operacao'] = 'editar';
+
                 $this->load->view('includes/templates/template', $data);
             } else {
-                redirect("sistema/bloqueado");
+                redirect('sistema/bloqueado');
             }
         } else {
-            redirect("eventos");
+            redirect('eventos');
         }
     }
 
@@ -404,12 +427,13 @@ class Eventos extends CI_Controller
     {
         if ($this->session->userdata('admin') != '0') {
             $data['errors'] = $errors;
-            $data['corpo_pagina'] = "cad_eventos_view";
-            $data['titulo_pagina'] = "Novo Evento";
-            $data['operacao'] = "novo";
+            $data['corpo_pagina'] = 'eventos_cadastro_view';
+            $data['titulo_pagina'] = 'Novo Evento';
+            $data['operacao'] = 'novo';
+
             $this->load->view('includes/templates/template', $data);
         } else {
-            redirect("sistema/bloqueado");
+            redirect('sistema/bloqueado');
         }
     }
 
@@ -431,7 +455,7 @@ class Eventos extends CI_Controller
 
                     $this->load->view('includes/templates/template', $data);
                 } else {
-                    $this->exibeRetorno('Operação executada com sucesso. Aguarde...', 'eventos');
+                    $this->_exibirRetorno('Operação executada com sucesso. Aguarde...', 'eventos');
                 }
             } else {
                 $data['corpo_pagina'] = "mensagem_view";
@@ -553,8 +577,9 @@ class Eventos extends CI_Controller
         if ($idEvento && $idOrganizador) {
             $this->load->model('organizadores_evento_model');
             $resultado = $this->organizadores_evento_model->gravaOrganizadorEvento($idEvento, $idOrganizador);
+
             if ($resultado) {
-                echo "OK";
+                echo 'OK';
             } else {
                 echo null;
             }
@@ -574,8 +599,9 @@ class Eventos extends CI_Controller
         if ($idEvento && $idOrganizador) {
             $this->load->model('organizadores_evento_model');
             $resultado = $this->organizadores_evento_model->removeOrganizador($idEvento, $idOrganizador);
+
             if ($resultado) {
-                echo "OK";
+                echo 'OK';
             } else {
                 echo null;
             }

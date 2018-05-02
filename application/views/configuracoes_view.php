@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -25,168 +25,187 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @author     Pedro Conrad Jr. <pedro.junior@unipampa.edu.br>
  * @author     Sergio Jr <sergiojunior@unipampa.edu.br
- *
+ * @author     Francisco Ernesto Teixeira <me@francisco.pro>
  * @copyright Universidade Federal do Pampa - NTIC Campus Alegrete 2010
- *
  */
+
+echo form_open(base_url() . 'configuracoes/salvar');
 ?>
-<script type="text/javascript" src='<?php echo base_url() ?>assets/js/eventos.js'></script>
-<link rel="stylesheet" href='<?php echo base_url() ?>assets/css/tabs.css' type="text/css"/>
-<script type="text/javascript" src='<?php echo base_url() ?>assets/js/tabs.js'></script>
-
-<!-- Inicializacao de editor de texto -->
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/editor_texto.js"></script>
-
-<?php echo validation_errors('<div class="error">', '</div>'); ?>
-<?php echo form_open(base_url() . 'configuracoes/salvar'); ?>
-
-<div class="botoes_left">
-    <button type="submit" id="botao_salvar" name="botao_salvar">
-        <img src='<?php echo base_url() ?>assets/images/salvar_32.png' alt="Salvar"/><br>&nbsp;&nbsp;Salvar&nbsp;&nbsp;
-    </button>
-
-    <button onclick="confirmaRestauracaoConfig('<?php echo base_url() ?>configuracoes/restaurar');" type="button"
-            id="botao_restaurar" title="Restaurar a configuração padrão">
-        <img src='<?php echo base_url() ?>assets/images/restaurar_32.png' alt="Cancelar"/><br>Restaur.
-    </button>
-
-    <button onclick="parent.location='<?php echo base_url() ?>configuracoes/cancelar'" type="button"
-            id="botao_cancelar">
-        <img src='<?php echo base_url() ?>assets/images/cancel_32.png' alt="Cancelar"/><br>Cancelar
-    </button>
-</div>
-
-<div class="titulo_right"><h1>Configurações do Sistema</h1></div>
-<div class="center_table">
-    <ul class="tabs">
-        <li><a href="#tab1">Autenticação</a></li>
-        <li><a href="#tab2">Envio de Arquivo</a></li>
-        <li><a href="#tab3">Mensagens</a></li>
-    </ul>
-    <div class="tab_container">
-        <div id="tab1" class="tab_content">
-            <br/>
-            <p>
-                <label for='txtModoAuth'>Modo de Autenticação*: </label>
-                <select name="txtModoAuth" onchange="selecionaTipoConfig(this.value);">
-                    <option value="ldap" <?php echo (@$tipo_de_autenticacao == 'ldap') ? ' selected' : ''; ?>> LDAP
-                    </option>
-                    <option value="banco" <?php echo (@$tipo_de_autenticacao == 'banco') ? ' selected' : ''; ?>> Banco
-                        de Dados
-                    </option>
-                    <option value="mista" <?php echo (@$tipo_de_autenticacao == 'mista') ? ' selected' : ''; ?>> Mista
-                    </option>
-                </select>
-            </p>
-            <fieldset id="configLDAP">
-                <legend>Dados do Servidor LDAP</legend>
-                <div style="text-align: left;">
-                    <label for='txtServerLDAP'>Servidor LDAP*: </label>
-                    <input name="txtServerLDAP" type="text" value="<?php echo @$server_ldap ?>" id="txtServerLDAP"
-                           size="50"/>
-                    <br/><br/>
-
-                    <label for='txtPortaLDAP'>Porta LDAP*: </label>
-                    <input name="txtPortaLDAP" type="text" value="<?php echo @$porta_ldap ?>" id="txtPortaLDAP"
-                           size="50"/>
-                    <br/><br/>
-
-                    <label for='txtDNBase'>DN Base LDAP*: </label>
-                    <input name="txtDNBase" type="text" value="<?php echo @$base_dn ?>" id="txtDNBase" size="50"/>
-                    <br/><br/>
-
-                    <label for='txtDNMaster'>DN Master LDAP*: </label>
-                    <input name="txtDNMaster" type="text" value="<?php echo @$master_dn ?>" id="txtDNMaster" size="50"/>
-                    <br/><br/>
-
-                    <label for='txtDNSearch'>DN Search LDAP*: </label>
-                    <input name="txtDNSearch" type="text" value="<?php echo @$search_dn ?>" id="txtDNSearch" size="50"/>
-                    <br/><br/>
-
-                    <label for='txtSenhaLDAP'>Senha LDAP*: </label>
-                    <input name="txtSenhaLDAP" type="password" value="<?php echo @$senha_ldap ?>" id="txtSenhaLDAP"
-                           size="50"/>
-                    <br/><br/>
-                </div>
-            </fieldset>
-            <p class="aviso">* Campos Obrigat&oacute;rios</p>
-        </div>
-
-        <div id="tab2" class="tab_content">
-            <br/>
-            <p>
-                <label for='txtTamanhoUpload'>Tamanho Máximo do Arquivo*: </label>
-                <select name="txtTamanhoUpload">
-                    <option value="1048576" <?php echo (@$max_size == '1048576') ? " selected " : ""; ?> >1Mb
-                    </option>
-                    <option value="2097152" <?php echo (@$max_size == '2097152') ? " selected " : ""; ?> >2Mb
-                    </option>
-                    <option value="4194304" <?php echo (@$max_size == '4194304') ? " selected " : ""; ?> >4Mb
-                    </option>
-                </select>
-                <br/><br/>
-
-                <label for='txtCaminhoUpload'>Caminho do Arquivo Enviado*: </label>
-                <input name="txtCaminhoUpload" type="text"
-                       value="<?php echo @$upload_path ?>"
-                       id="txtCaminhoUpload" size="50"/>
-                <br/><br/>
-
-                <label for='txtExtensoesUpload'>Extensões Permitidas:*: </label>
-                <input name="txtExtensoesUpload" type="text"
-                       value="<?php echo @$allowed_types ?>"
-                       id="txtExtensoesUpload" size="50"/>
-                <span class="instrucao_campo">separar as extensões com o caracter '|' </span>
-                <br/><br/>
-            </p>
-            <p class="aviso">* Campos Obrigat&oacute;rios</p>
-        </div>
-
-        <div id="tab3" class="tab_content">
-            <br/>
-            <p>
-                <label for="txtEmailPadrao">E-mail padrão do sistema:</label>
-                <input name="txtEmailPadrao"
-                       id="txtEmaiPadrao" type="text"
-                       value="<?php echo @$email_from_address ?>"
-                       size="50"/>
-                <br/><br/>
-
-                <label for="txtServidorDNS">IP Servidor DNS:</label>
-                <input name="txtServidorDNS"
-                       id="txtServidorDNS" type="text"
-                       value="<?php echo @$servidor_dns ?>"
-                       size="10"/>
-                <br/>
-                <span class="instrucao_campo">O e-mail padrão e o IP do Servidor DNS são necess&aacute;rios para testes de validade de e-mail e ambos devem existir e estar ativos.</span>
-                <br/><br/>
-
-                <label for='txtMsgNotificacao'>Texto Mensagem de Notificação*: </label>
-                <textarea name="txtMsgNotificacao" rows="4" cols="40"><?php echo @$msg_notificacao ?></textarea>
-                <br/><br/>
-
-                <label for='txtMsgAlteracaoStatus'>Texto Mensagem de Validação/Revogação/Teste*: </label>
-                <textarea name="txtMsgAlteracaoStatus"
-                          rows="4" cols="40"><?php echo @$msg_alteracao_status ?></textarea>
-                <br/><br/>
-
-                <label for='txtMsgNotifQualidade'>Texto Mensagem de Notificação de Qualidade*: </label>
-                <textarea name="txtMsgNotifQualidade"
-                          rows="4" cols="40"><?php echo @$msg_notificacao_qualidade ?></textarea>
-                <br/><br/>
-            </p>
-            <p class="aviso">* Campos Obrigat&oacute;rios</p>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Configurações do Sistema</h1>
+            <hr/>
+            <?php echo validation_errors('<div class="alert alert-danger" role="alert">', '</div>'); ?>
         </div>
     </div>
-    <div class="clear"></div>
-</div>
-
-<?php echo form_close() ?>
-
+    <div class="row toolbar">
+        <div class="col-sm-12">
+            <div class="pull-right">
+                <button type="button" class="btn btn-secondary"
+                        onclick="confirmaRestauracaoConfig('<?php echo base_url() ?>configuracoes/restaurar');">
+                    Restaurar valores padrões
+                </button>&nbsp;
+                <button type="submit" class="btn btn-danger pull-right">Salvar</button>
+            </div>
+            <button type="button" class="btn btn-primary"
+                    onclick="parent.location='<?php echo base_url() ?>configuracoes/cancelar'">Cancelar
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <fieldset>
+                <legend>Autenticação</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtModoAuth">Modo de autenticação</label>
+                        <select class="form-control" id="txtModoAuth" name="txtModoAuth"
+                                onchange="selecionaTipoConfig(this.value);">
+                            <option value="banco" <?php echo (@$tipo_de_autenticacao == 'banco') ? ' selected' : ''; ?>>
+                                Banco de Dados
+                            </option>
+                            <option value="ldap" <?php echo (@$tipo_de_autenticacao == 'ldap') ? ' selected' : ''; ?>>
+                                LDAP
+                            </option>
+                            <option value="mista" <?php echo (@$tipo_de_autenticacao == 'mista') ? ' selected' : ''; ?>>
+                                Mista
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="configLDAP">
+                <legend>Dados do Servidor LDAP</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="txtServerLDAP">Servidor</label>
+                        <input type="text" class="form-control" id="txtServerLDAP" name="txtServerLDAP"
+                               placeholder="Servidor" value="<?php echo @$server_ldap; ?>" maxlength="50">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="txtPortaLDAP">Porta</label>
+                        <input type="number" class="form-control" id="txtPortaLDAP" name="txtPortaLDAP"
+                               placeholder="Porta" value="<?php echo @$porta_ldap; ?>" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtDNBase">DN Base</label>
+                        <input type="text" class="form-control" id="txtDNBase" name="txtDNBase"
+                               placeholder="DN Base" value="<?php echo @$base_dn; ?>" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtDNMaster">DN Master</label>
+                        <input type="text" class="form-control" id="txtDNMaster" name="txtDNMaster"
+                               placeholder="DN Master" value="<?php echo @$master_dn; ?>" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtDNSearch">DN Search</label>
+                        <input type="text" class="form-control" id="txtDNSearch" name="txtDNSearch"
+                               placeholder="DN Search" value="<?php echo @$search_dn; ?>" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtSenhaLDAP">Senha</label>
+                        <input type="password" class="form-control" id="txtSenhaLDAP" name="txtSenhaLDAP"
+                               placeholder="Senha" value="<?php echo @$senha_ldap; ?>" maxlength="50">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Envio de Arquivo</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtTamanhoUpload">Tamanho Máximo do Arquivo</label>
+                        <select class="form-control" id="txtTamanhoUpload" name="txtTamanhoUpload">
+                            <option value="1048576" <?php echo (@$max_size == '1048576') ? " selected " : ""; ?> >1
+                                MB
+                            </option>
+                            <option value="2097152" <?php echo (@$max_size == '2097152') ? " selected " : ""; ?> >2
+                                MB
+                            </option>
+                            <option value="4194304" <?php echo (@$max_size == '4194304') ? " selected " : ""; ?> >4
+                                MB
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtCaminhoUpload">Caminho do Arquivo Enviado</label>
+                        <input type="text" class="form-control" id="txtCaminhoUpload" name="txtCaminhoUpload"
+                               placeholder="Caminho do Arquivo Enviado" value="<?php echo @$upload_path; ?>"
+                               maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtExtensoesUpload">Extensões Permitidas</label>
+                        <input type="text" class="form-control" id="txtExtensoesUpload" name="txtExtensoesUpload"
+                               placeholder="Extensões Permitidas" value="<?php echo @$allowed_types; ?>"
+                               maxlength="50">
+                        <small id="txtExtensoesUploadHelp" class="form-text text-muted">Separar as extensões com o
+                            caracter <strong>'|'</strong>.
+                        </small>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Mensagens</legend>
+                <p>O e-mail padrão e o IP do Servidor DNS são necess&aacute;rios para testes de validade de e-mail e
+                    ambos devem existir e estar ativos.</p>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtEmailPadrao">E-mail Padrão do Sistema</label>
+                        <input type="email" class="form-control" id="txtEmailPadrao" name="txtEmailPadrao"
+                               placeholder="E-mail Padrão do Sistema" value="<?php echo @$email_from_address; ?>"
+                               maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtServidorDNS">Endereço IP do Servidor DNS</label>
+                        <input type="text" class="form-control" id="txtServidorDNS" name="txtServidorDNS"
+                               placeholder="Endereço IP do Servidor DNS" value="<?php echo @$servidor_dns; ?>"
+                               maxlength="10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtMsgNotificacao">Mensagem de Notificação</label>
+                        <textarea class="summernote" id="txtMsgNotificacao" name="txtMsgNotificacao"
+                                  rows="4"><?php echo @$msg_notificacao; ?></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtMsgAlteracaoStatus">Mensagem de Validação/Revogação/Teste</label>
+                        <textarea class="summernote" id="txtMsgAlteracaoStatus" name="txtMsgAlteracaoStatus"
+                                  rows="4"><?php echo @$msg_alteracao_status; ?></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtMsgNotifQualidade">Mensagem de Notificação de Qualidade</label>
+                        <textarea class="summernote" id="txtMsgNotifQualidade" name="txtMsgNotifQualidade"
+                                  rows="4"><?php echo @$msg_notificacao_qualidade; ?></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <br/>
 <?php
+echo form_close();
 
-if (@$tipo_de_autenticacao == 'banco') {
-    echo '<script>selecionaTipoConfig("banco");</script>';
+if (@$tipo_de_autenticacao === 'banco') {
+    echo '<script>window.onload = function () { selecionaTipoConfig("banco"); };</script>';
 }
-?>
+
+/* End of file configuracoes_view.php */
+/* Location: ./application/views/configuracoes_view.php */

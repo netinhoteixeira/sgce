@@ -41,7 +41,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                         color: <?php echo @$certificado->de_cor_texto_titulo?>;
                         font-size: <?php echo @$certificado->de_tamanho_titulo?>pt;">
 
-                <p><b><?php echo $certificado->de_titulo?></b></p>
+                <p><b><?php echo $certificado->de_titulo; ?></b></p>
             </div>
             <div class="corpo"
                  style="padding-top: <?php echo @$certificado->de_posicao_texto?>%;
@@ -50,7 +50,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                         color: <?php echo @$certificado->de_cor_texto_texto?>;
                         font-size: <?php echo @$certificado->de_tamanho_texto?>pt;">
                 
-                <p><?php echo $certificado->de_texto?></p>
+                <p><?php echo $certificado->de_texto; ?></p>
             </div>
             <br /><br />
             <div class="linha_validacao"
@@ -61,7 +61,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                 <br/><br/><br/>
                 <p>
                     a autenticidade deste documento pode ser verificada através da URL:<br/>
-                    <?php echo URL_CERTIFICADO.ENDERECO_VALIDACAO.'#MODELO#'?>
+                    <?php echo base_url() . ENDERECO_VALIDACAO . '#MODELO#'; ?>
                 </p>
             </div>
         </div>

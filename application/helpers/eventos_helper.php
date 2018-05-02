@@ -72,7 +72,7 @@ function geraLinkExcluir($idOrganizador, $idEvento)
                 <center>
                 <a href=\"javascript:removeOrganizadorTable('" . base_url() . "', " . $idOrganizador . ",$idEvento);\"'
                     class='delete' title='Excluir Organizador' >
-                    <img src='" . base_url() . "application/views/includes/images/cancel_16.png'
+                    <img src='" . base_url() . "assets/images/cancel_16.png'
                          border='0' alt='Excluir Organizador'
                          title='Excluir Organizadores' />
                 </a>
@@ -91,7 +91,7 @@ function geraLinkControlador($idOrganizador, $statusAtual)
                 <center>
                 <a href=\"javascript:alteraControladorTable('" . base_url() . "', " . $idOrganizador . ");\"'
                     class='delete' title='Status de Controlador' >
-                    <img src='" . base_url() . "application/views/includes/images/controlador_" . strtolower($statusAtual) . "_16.png'
+                    <img src='" . base_url() . "assets/images/controlador_" . strtolower($statusAtual) . "_16.png'
                          border='0' alt='Alterar Status de Controlador'
                          title='Alterar Status de Controlador' />
                 </a>

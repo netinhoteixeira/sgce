@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -18,17 +18,18 @@ endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Li
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 ?>
-
-<div id="header_logo"></div>
-<div id="header_place" align="left">
-    <div id="top_right">
-        <?php if ($this->session->userdata('logado') == '1'): ?>
-            <div id="top_right_menu">
-                <?php $this->load->view('includes/templates/login_info_view'); ?>
-                <br/>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="<?php echo base_url(); ?>"><?php echo NOME_SISTEMA; ?></a>
+        <?php if (((int)$this->session->userdata('logado')) === 1) { ?>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
                 <?php $this->load->view('includes/templates/menu_view'); ?>
+                <?php $this->load->view('includes/templates/login_info_view'); ?>
             </div>
-        <?php endif; ?>
-    </div>
-</div>
-<br/><br/>
+        <?php } ?>
+    </nav>
+</header>

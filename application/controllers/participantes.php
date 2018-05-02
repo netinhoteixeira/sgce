@@ -24,7 +24,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @copyright NTIC Unipampa 2010
  *
  */
-class Participantes extends CI_Controller
+class Participantes extends MY_Controller
 {
 
     /**
@@ -36,20 +36,21 @@ class Participantes extends CI_Controller
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->helper('retorno_operacoes');
-        $this->load->helper('progresso_execucao_helper');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->lang->load('msg');
+        parent::__construct(TRUE);
+//
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+//        $this->load->helper('retorno_operacoes');
+//        $this->load->helper('progresso_execucao_helper');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->lang->load('msg');
         $this->load->model('eventos_model');
-        $this->config->load_db_items();
-
-        $this->load->library('Gerenciador_de_acesso');
-        $this->gerenciador_de_acesso->usuarioAuth();
+//        $this->config->load_db_items();
+//
+////        $this->load->library('Gerenciador_de_acesso');
+////        $this->gerenciador_de_acesso->usuarioAuth();
     }
 
     /**
@@ -97,8 +98,8 @@ class Participantes extends CI_Controller
             $this->session->userdata('ordem_valor'),
             $this->session->userdata('ordem_tipo'));
 
-        if ($resultado == null) {
-            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir';
+        if (count($resultado) === 0) {
+            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir.';
             $data['participantes'] = null;
         } else {
             $data['participantes'] = $resultado;

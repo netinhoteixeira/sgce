@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -17,19 +17,21 @@ junto com este programa, se não, acesse o Portal do Software Público Brasileir
 endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
-?>
 
-<?php
 /**
  * Description of logininfo_view
  *
  * @author Pedro Conrad Jr
  */
 ?>
-<div id="login_info" align="right">
-    <?php if($this->session->userdata('logado')):  ?>
-        Usu&aacute;rio: <?php echo $this->session->userdata('uid') ?>
-        <a href="<?php echo base_url()?>manual/manual-sgce.pdf" target="_blank"><img src="<?php echo base_url()?>assets/images/help.png" alt="Ajuda" title="Ajuda"></a>
-        <a href="<?php echo base_url()?>sistema/logout"><img src="<?php echo base_url()?>assets/images/logout.png" alt="Sair" title="Encerrar Sess&atilde;o"></a>
-    <?php endif?>
-</div>
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link"><?php echo $this->session->userdata('uid'); ?></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url(); ?>manual/manual-sgce.pdf" target="_blank">Manual</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url(); ?>sistema/logout">Sair</a>
+    </li>
+</ul>

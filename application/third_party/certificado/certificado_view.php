@@ -54,15 +54,14 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                          font-size: <?php echo @$certificado->de_tamanho_texto ?>pt;">
 
                 <p><?php echo $certificado->de_texto_certificado ?></p>
-                <? if (@$certificado->fl_ativo == 'P'): ?>
+                <?php if (@$certificado->fl_ativo == 'P') { ?>
                     <div style="color: #FF0000;
                          font-size: 20px;">
                         <p align="center">
                             DOCUMENTO DE TESTE - A VALIDADE DEVE SER DESCONSIDERADA
                         </p>
                     </div>
-                <? endif; ?>
-
+                <?php } ?>
             </div>
             <br/><br/>
             <div class="linha_validacao"
@@ -72,15 +71,15 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                          color: <?php echo @$certificado->de_cor_texto_validacao ?>;">
                 <br/><br/><br/>
                 <p>
-                    <? if (@$certificado->fl_ativo != 'P'): ?>
+                    <?php if (@$certificado->fl_ativo != 'P') { ?>
                         a autenticidade deste documento pode ser verificada através da URL:<br/>
-                        <?php echo URL_CERTIFICADO . ENDERECO_VALIDACAO . $certificado->de_hash ?>
-                    <? endif ?>
+                        <?php echo base_url() . ENDERECO_VALIDACAO . $certificado->de_hash ?>
+                    <?php } ?>
                 </p>
             </div>
         </div>
     </div>
-<? if (!@$certificado->de_texto_verso) : ?>
+<?php if (!@$certificado->de_texto_verso) { ?>
     </body>
     </html>
-<? endif; ?>
+<?php } ?>

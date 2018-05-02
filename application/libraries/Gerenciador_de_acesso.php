@@ -28,12 +28,11 @@ class Gerenciador_de_acesso
 
     var $SESSAO_ACESSO_NEGADO = 0;
     var $SESSAO_ACESSO_LOGADO = 1;
-    var $ACESSO_PALAVRA_CHAVE = "logado";
+    var $ACESSO_PALAVRA_CHAVE = 'logado';
 
     var $LOGIN_FEEDBACK_ACESSO_NAO_AUTORIZADO = 0;
     var $LOGIN_FEEDBACK_SENHA_ERRADA = 1;
     var $LOGIN_FEEDBACK_ACESSO_AUTORIZADO = 2;
-
 
     var $tipoDeAutenticacao;
     var $AUTENTICACAO_LDAP = 'ldap';
@@ -186,10 +185,13 @@ class Gerenciador_de_acesso
 
     function usuarioLogado()
     {
+        $CI =& get_instance();
+
         if ($CI->session->userdata($this->ACESSO_PALAVRA_CHAVE) !=
             $this->SESSAO_ACESSO_LOGADO) {
             return false;
         }
+
         return true;
     }
 
@@ -201,12 +203,21 @@ class Gerenciador_de_acesso
     }
 
     /**
-     * Verifica se o usuario esta autenticado no sistema. Caso nao esteja, � feito um direcionamento para a view de login
+     * Informa se a sessão está ou não ativa.
      */
-    function usuarioAuth()
+    public function sessaoEstaAtiva()
     {
         $CI =& get_instance();
-        if (!($CI->session->userdata('logado') == '1')) {
+        return (((int) $CI->session->userdata('logado')) === 1);
+    }
+
+    /**
+     * Valida a sessão se está ativa, caso não esteja, é redirecionado para solicitar o acesso.
+     */
+    public function validarSessaoAtiva()
+    {
+        $CI =& get_instance();
+        if (((int) $CI->session->userdata('logado')) !== 1) {
             redirect('sistema/showLogin');
         }
     }

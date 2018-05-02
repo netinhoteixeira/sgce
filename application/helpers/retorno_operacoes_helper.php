@@ -28,18 +28,22 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 function exibeRetornoOperacao($view, $redirect)
 {
     descarregaBuffer($view);
+
     $secWait = 1;
     sleep($secWait);
+
     $redirect = base_url() . $redirect;
-    direcionarURLOperacao($redirect);
+    direcionaParaEndereco($redirect);
 }
 
 /**
- * Finaliza pagina temporaria de exibicao do progresso
+ * Direciona a página para o endereço fornecido. O direcionamento é em JavaScript.
+ *
+ * @param string $endereco Endereço para qual o navegador precisa ser direcionado.
  */
-function direcionarURLOperacao($urlDestino)
+function direcionaParaEndereco($endereco)
 {
-    echo "<script>window.location.href = '$urlDestino'; </script>";
+    echo '<script>window.location.href = \'' . $endereco . '\';</script>';
 }
 
 /**
@@ -47,8 +51,10 @@ function direcionarURLOperacao($urlDestino)
  */
 function descarregaBuffer($msg = null)
 {
-    if ($msg)
+    if ($msg) {
         echo $msg;
+    }
+    
     ob_flush();
     flush();
 }

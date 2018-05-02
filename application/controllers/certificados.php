@@ -23,66 +23,56 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @author Pedro Jr     <pedro.junior@unipampa.edu.br>
  * @author Sergio Jr     <sergiojunior@unipampa.edu.br>
  * @copyright NTIC Unipampa 2010
- *
  */
-class Certificados extends CI_Controller
+class Certificados extends MY_Controller
 {
 
     /**
      * Construtor da Classe.
      *
-     * Inicializa helpers e bibliotecas do CodeIgniter e verifica se o usuario
-     * tem permissao para abrir o controller.
-     *
+     * Inicializar os helpers e bibliotecas do CodeIgniter e verificar se o usuários
+     * tem permissão para abrir o controlador.
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->helper('progresso_execucao_helper');
-        $this->load->helper('retorno_operacoes_helper');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->lang->load('msg');
-        $this->config->load_db_items();
+        parent::__construct(TRUE);
 
-        $this->load->library('Gerenciador_de_acesso');
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+//        $this->load->helper('progresso_execucao_helper');
+//        $this->load->helper('retorno_operacoes_helper');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->lang->load('msg');
+//        $this->config->load_db_items();
     }
 
     /**
-     * Metodo padrao chamado quando invocada a controller.
+     * Método padrão chamado quando é invocado o controlador.
      *
-     * Responsavel por chamar a pagina principal para o usuario
-     *
+     * Responsável por chamar a página principal para o usuário.
      */
     function index()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $this->session->set_userdata('valor_pesq', null);
         $this->session->set_userdata('tipo_pesq', null);
         $this->session->set_userdata('ordem_valor', null);
         $this->session->set_userdata('ordem_tipo', null);
         $this->session->set_userdata('id_evento', null);
+
         $this->selecionarEvento();
     }
 
     /**
-     * Metodo chamado na pesquisa de registros da view, na paginacao e no index
+     * Método chamado na pesquisa de registros da visão, na paginação e no índice.
      */
     function listar()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
-
         $resultado = array();
         $this->load->model('certificados_model');
 
-        if (@$_POST["txtEvento"]) {
+        if (@$_POST['txtEvento']) {
             $this->session->set_userdata('id_evento', $_POST['txtEvento']);
         }
 
@@ -101,10 +91,9 @@ class Certificados extends CI_Controller
         $url = 'certificados/listar';
         $total = $this->certificados_model->getTotal($key, $tipo, $idEvento);
         $pag = $this->pagination->configPagination($url, $total, LIMITE_PESQUISA_PAGINA);
-        $maximo = $pag["maximo"];
-        $inicio = $pag["inicio"];
-        $data['paginacao'] = $pag["links"];
-
+        $maximo = $pag['maximo'];
+        $inicio = $pag['inicio'];
+        $data['paginacao'] = $pag['links'];
 
         $this->load->model('eventos_model');
         $dadosEvento = $this->eventos_model->getById($idEvento);
@@ -114,14 +103,14 @@ class Certificados extends CI_Controller
 
         if ($resultado == null) {
             $data['nome_evento'] = $nomeEvento;
-            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir';
+            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir.';
             $data['certificados'] = null;
         } else {
             $data['certificados'] = $resultado;
             $data['nome_evento'] = $nomeEvento;
         }
 
-        $data['corpo_pagina'] = "certificados_view";
+        $data['corpo_pagina'] = 'certificados_view';
         $this->load->view('includes/templates/template', $data);
     }
 
@@ -133,13 +122,11 @@ class Certificados extends CI_Controller
      */
     function novo($errors = null)
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $data['errors'] = $errors;
-        $data['corpo_pagina'] = "cad_certificados_view";
-        $data['titulo_pagina'] = "Novo Certificado";
-        $data['operacao'] = "novo";
+        $data['corpo_pagina'] = 'cad_certificados_view';
+        $data['titulo_pagina'] = 'Novo Certificado';
+        $data['operacao'] = 'novo';
+
         $this->load->view('includes/templates/template', $data);
     }
 
@@ -148,9 +135,6 @@ class Certificados extends CI_Controller
      */
     function salvar()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $errors = '';
         $dados = $_POST;
         $this->load->library('form_validation');
@@ -190,10 +174,6 @@ class Certificados extends CI_Controller
      */
     function editar($id, $errors = null)
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
-
         if ($id > 0) {
             $this->load->model('certificados_model');
             $data['certificado'] = $this->certificados_model->recuperaCertificado($id);
@@ -212,9 +192,6 @@ class Certificados extends CI_Controller
      */
     function excluir($idCertificado)
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         if ($idCurso > 0) {
             $this->load->model('certificados_model');
             $resultado = $this->certificados_model->delete($idCertificado);
@@ -244,9 +221,6 @@ class Certificados extends CI_Controller
      */
     function ordenar($campo)
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $ordemTipo = 'ASC';
         if ($this->session->userdata('ordem_valor') == $campo) {
             if ($this->session->userdata('ordem_tipo') == 'ASC') {
@@ -293,9 +267,7 @@ class Certificados extends CI_Controller
                     echo $html;
                 }
             } else {
-                $data["mensagem"] = "<h1>Emissão de Certificados</h1><br><br>
-                                      Os dados do certificado informado não estão
-                                      disponíveis no momento,<br> ou o certificado foi revogado.<br/>";
+                $data["mensagem"] = "<h1>Emissão de Certificados</h1><br><br>Os dados do certificado informado não estão disponíveis no momento,<br> ou o certificado foi revogado.<br/>";
                 $data['corpo_pagina'] = "mensagem_view";
                 $this->load->view('includes/templates/template', $data);
             }
@@ -307,8 +279,9 @@ class Certificados extends CI_Controller
      */
     function processar()
     {
-        $data['corpo_pagina'] = "processa_certificado_view";
-        $this->load->view('includes/templates/template', $data);
+        $this->load->view('includes/templates/template', [
+            'corpo_pagina' => 'processa_certificado_view'
+        ]);
     }
 
     /**
@@ -350,8 +323,7 @@ class Certificados extends CI_Controller
                 $data['corpo_pagina'] = "validacao_view";
                 $this->load->view('includes/templates/template', $data);
             } else {
-                $data["mensagem"] = "<h1>Validação de Certificado</h1><br><br>Os dados do certificado informado não estão disponíveis no momento.
-                                     <br>Tente novamente mais tarde.<br><br>";
+                $data["mensagem"] = "<h1>Validação de Certificado</h1><br><br>Os dados do certificado informado não estão disponíveis no momento.<br>Tente novamente mais tarde.<br><br>";
                 $data['corpo_pagina'] = "mensagem_view";
                 $this->load->view('includes/templates/template', $data);
             }
@@ -369,9 +341,11 @@ class Certificados extends CI_Controller
         if ($this->session->userdata('logado') != 1) {
             $this->gerenciador_de_acesso->usuarioAuth();
         }
+
         if ($idCertificado) {
             $this->certificados_model->alteraSituacao($idCertificado);
         }
+
         redirect('certificados');
     }
 
@@ -382,9 +356,6 @@ class Certificados extends CI_Controller
      */
     function notificar($errors = null)
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $this->load->model('eventos_model');
         $this->load->model('modelos_certificado_model');
 
@@ -400,17 +371,20 @@ class Certificados extends CI_Controller
      */
     function carregaDestinatariosModeloAjax()
     {
-        $idModelo = $_POST["id_modelo"];
+        $idModelo = $_POST['id_modelo'];
+
         if ($idModelo) {
             $this->load->model('certificados_model');
             $this->load->helper('combo_helper');
-            $dadosDestinatarios = $this->certificados_model
-                ->carregaDestinatariosModelo($idModelo);
+            $dadosDestinatarios = $this->certificados_model->carregaDestinatariosModelo($idModelo);
+
             if ($dadosDestinatarios) {
                 $options = '';
+
                 foreach ($dadosDestinatarios as $dest) {
                     $options .= retornaOptionCombo($dest->id_participante, $dest->nm_participante);
                 }
+
                 echo $options;
             }
         }
@@ -421,9 +395,6 @@ class Certificados extends CI_Controller
      */
     function enviarNotificacao()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         set_time_limit(0);
         $logEmail = array();
         $errors = '';
@@ -435,14 +406,13 @@ class Certificados extends CI_Controller
         $this->_configureFormErrorMessage();
 
         if ($this->form_validation->run() == TRUE) {
-
             $this->load->model('certificados_model');
             $this->load->helper('email_helper');
             $this->load->library('email');
             $this->load->library('Gerenciador_de_email');
 
-            $participantes = $this->certificados_model
-                ->carregaDadosEmail($dados['txtModelo'], $dados['txtDestinatarios']);
+            $participantes = $this->certificados_model->carregaDadosEmail($dados['txtModelo'],
+                $dados['txtDestinatarios']);
 
             if (!valid_email($participantes[0]->email_evento)) {
                 $data['mensagem'] = "O email do evento não é válido, por favor verifique o cadastro do evento.";
@@ -473,7 +443,8 @@ class Certificados extends CI_Controller
                             if ($testeOk) {
 
                                 $emailOk = $this->gerenciador_de_email
-                                    ->enviaEmailPessoa($participante->de_email, 'Emissão de Certificado Digital - ' . $participante->nm_evento, $textoEmail, 'Sistema de Gestão de Certificados Eletrônicos', $participante->email_evento);
+                                    ->enviaEmailPessoa($participante->de_email, 'Emissão de Certificado Digital - ' . $participante->nm_evento, $textoEmail,
+                                        NOME_SISTEMA, $participante->email_evento);
 
                                 if ($emailOk) {
                                     $enviados++;
@@ -511,13 +482,15 @@ class Certificados extends CI_Controller
      */
     function gerarTextoEmailNotificacao($participante, $evento, $site_evento, $email_evento, $hash)
     {
-        $url = URL_CERTIFICADO . ENDERECO_EMISSAO . $hash;
+        $url = base_url() . ENDERECO_EMISSAO . $hash;
+
         $msg = $this->config->item('msg_notificacao');
         $msg = str_replace('NOME_PARTICIPANTE', $participante, $msg);
         $msg = str_replace('NOME_EVENTO', $evento, $msg);
         $msg = str_replace('SITE_EVENTO', $site_evento, $msg);
         $msg = str_replace('EMAIL_EVENTO', $email_evento, $msg);
         $msg = str_replace('LINK_CERTIFICADO', $url, $msg);
+
         return $msg;
     }
 
@@ -527,24 +500,25 @@ class Certificados extends CI_Controller
      */
     function exibeResultadoNotificacao($enviados)
     {
-
         $this->load->helper('tabela_detalhes_log');
 
         if ($enviados) {
             $linhas = geraCabecTblDetalheEmail();
             $i = 0;
+
             foreach ($enviados as $linha) {
                 $i++;
                 $linhas .= geraLinhaTblDetalheEmail($i, $linha);
             }
-            if ($linhas)
+
+            if ($linhas) {
                 $dadosEnvio = $linhas;
+            }
 
             $data["detalhes"] = $dadosEnvio;
         } else {
             $data["detalhes"] = "Nenhum e-mail foi enviado.";
         }
-
 
         $data['link_voltar'] = base_url() . 'certificados/notificar';
         $data['corpo_pagina'] = "resultado_notificacao_view";
@@ -559,8 +533,7 @@ class Certificados extends CI_Controller
      */
     function exibeResultadoAvaliacao($total)
     {
-        $data["mensagem"] = "Avaliação concluída.<br /> " .
-            "Total de certificados avaliados: $total";
+        $data["mensagem"] = "Avaliação concluída.<br />Total de certificados avaliados: $total";
         $data['link_voltar'] = base_url() . 'sistema/principal';
         $data['corpo_pagina'] = "resultado_avaliacao_view";
         $this->load->view('includes/templates/template', $data);
@@ -572,13 +545,9 @@ class Certificados extends CI_Controller
     function _configureFormErrorMessage()
     {
         $this->form_validation->set_message('required', 'O campo <span class="message_field">%s</span> &eacute; obrigat&oacute;rio.');
-
         $this->form_validation->set_message('valid_email', 'O campo <span class="message_field">%s</span> n&atilde;o &eacute; um e-mail v&aacute;lido.');
-
         $this->form_validation->set_message('max_leght', 'O campo <span class="message_field">%s</span> apresenta um tamanho m&aacute;ximo de 12 caracteres.');
-
         $this->form_validation->set_message('numeric', 'O campo <span class="message_field">%s</span> deve possuir somente valor num&eacute;rico.');
-
         $this->form_validation->set_message('is_natural_no_zero', 'O campo <span class="message_field">%s</span> &eacute; obrigat&oacute;rio.');
     }
 
@@ -596,10 +565,7 @@ class Certificados extends CI_Controller
             $this->load->model('certificados_model');
             $altOk = $this->certificados_model->alterarStatus($idCertificado, $justificativa, $envMail, $status);
 
-            if ($altOk)
-                echo "Certificado alterado com sucesso.";
-            else
-                echo "Ocorreu um erro. Operação não efetuada.";
+            echo ($altOk) ? "Certificado alterado com sucesso." : "Ocorreu um erro. Operação não efetuada.";
         }
     }
 
@@ -610,13 +576,10 @@ class Certificados extends CI_Controller
      */
     function historicoStatus($idCertificado)
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         if ($idCertificado) {
             $this->load->model('certificados_model');
-            $historico = $this->certificados_model
-                ->listarHistoricoStatus($idCertificado);
+            $historico = $this->certificados_model->listarHistoricoStatus($idCertificado);
+
             if ($historico == null) {
                 $data['mensagem'] = 'Nenhum registro encontrado.';
                 $data['historico'] = null;
@@ -627,6 +590,7 @@ class Certificados extends CI_Controller
             $data['mensagem'] = 'Nenhum registro encontrado.';
             $data['historico'] = null;
         }
+
         $data['titulo_pagina'] = "Histórico de Alterações no Status";
         $this->load->view('historico_status_certificado_view', $data);
     }
@@ -636,10 +600,6 @@ class Certificados extends CI_Controller
      */
     function selecionarEvento()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
-
         $this->load->model('eventos_model');
         $data['eventos'] = $this->eventos_model->listarEventos();
         $data['titulo_pagina'] = "Consulta Certificados de Evento";
@@ -653,12 +613,9 @@ class Certificados extends CI_Controller
      */
     function selecionarModeloParaAvaliacao()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $this->load->model('eventos_model');
-        $data['eventos'] = $this->eventos_model
-            ->listarEventosControlador($this->session->userdata('uid'));
+        $data['eventos'] = $this->eventos_model->listarEventosControlador($this->session->userdata('uid'));
+
         if ($data['eventos']) {
             $data['titulo_pagina'] = "Selecionar Modelo Para Avaliação";
             $data['corpo_pagina'] = "selecao_modelo_avaliacao_view";
@@ -672,29 +629,24 @@ class Certificados extends CI_Controller
     /**
      * Listagem dos certificados para avaliacao.
      * Visivel apenas para os administradores do sistema.
-     *
-     * @return type
      */
     function obterEventoModeloAvaliacao()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
-
         $idEvento = isset($_POST["txtEvento"]) ? $_POST["txtEvento"] : null;
         $idModelo = isset($_POST["txtModelo"]) ? $_POST["txtModelo"] : null;
 
-        if (!$idEvento || !$idModelo)
+        if ((!$idEvento) || (!$idModelo)) {
             redirect('sistema/bloqueado');
+        }
 
         $this->session->set_userdata('evento_avaliacao', $idEvento);
         $this->session->set_userdata('modelo_avaliacao', $idModelo);
 
-        redirect("certificados/novaAvaliacao/");
+        redirect('certificados/novaAvaliacao');
     }
 
     /**
-     * Cancela a avaliacao de certificados
+     * Cancela a avaliação de certificados.
      */
     function cancelarAvaliacao()
     {
@@ -702,26 +654,24 @@ class Certificados extends CI_Controller
     }
 
     /**
-     * Salva a avaliacao do certificado
+     * Salva a avaliacao do certificado.
      */
     function salvarAvaliacao()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $dados = $_POST;
         $this->load->library('form_validation');
         $this->form_validation->set_rules('txtJustificativa', 'Justificativa', 'required');
         $this->form_validation->set_rules('txtStatus', 'Status', 'required');
         $this->_configureFormErrorMessage();
 
-        $idEvento = $dados["txtEvento"];
-        $idModelo = $dados["txtModelo"];
+        $idEvento = $dados['txtEvento'];
+        $idModelo = $dados['txtModelo'];
+
         if ($this->form_validation->run() == TRUE) {
-            $justificativa = $dados["txtJustificativa"];
-            $envMail = $dados["txtEnvMail"];
-            $status = $dados["txtStatus"];
-            $avaliados = $dados["txtAvaliados"];
+            $justificativa = $dados['txtJustificativa'];
+            $envMail = $dados['txtEnvMail'];
+            $status = $dados['txtStatus'];
+            $avaliados = $dados['txtAvaliados'];
 
             if ($status == 'D') {
                 $this->_apagarSelecionados($dados);
@@ -730,37 +680,39 @@ class Certificados extends CI_Controller
             $this->load->model('certificados_model');
             $total = 0;
             foreach ($avaliados as $idCertificado) {
-                if ($idCertificado > 0)
-                    $altOk = $this->certificados_model
-                        ->alterarStatus($idCertificado, $justificativa, $envMail, $status);
-                if ($altOk)
+                if ($idCertificado > 0) {
+                    $altOk = $this->certificados_model->alterarStatus($idCertificado,
+                        $justificativa, $envMail, $status);
+                }
+
+                if ($altOk) {
                     $total++;
+                }
             }
+
             redirect('certificados/exibeResultadoAvaliacao/' . $total);
-        } else
+        } else {
             $this->novaAvaliacao();
+        }
     }
 
     /**
-     * Carrega um formulario para avaliacao de certificado
+     * Carrega um formulário para avaliação de certificado.
      *
      * @param integer $idEvento
      * @param integer $idModelo
-     * @return type
      */
     function novaAvaliacao()
     {
-        if ($this->session->userdata('logado') != 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
         $idEvento = $this->session->userdata('evento_avaliacao');
         $idModelo = $this->session->userdata('modelo_avaliacao');
 
-        if (!$idEvento || !$idModelo)
+        if ((!$idEvento) || (!$idModelo)) {
             redirect('sistema/bloqueado');
+        }
 
         if (@$_POST['hdnPesquisa'] == 'pesquisa') {
-            //se digitou um valor para pesquisa, armazena-o numa sessao.
+            // Se digitou um valor para pesquisa, armazena-o em uma sessão
             $this->session->set_userdata('valor_pesq', $_POST['txtPesquisa']);
             $this->session->set_userdata('tipo_pesq', $_POST['cmbPesquisa']);
         }
@@ -773,7 +725,7 @@ class Certificados extends CI_Controller
         $dadosEvento = $this->eventos_model->getById($idEvento);
         $nomeEvento = $dadosEvento->nm_evento;
 
-        //parametros paginacao
+        // Parâmetros de paginação
         $this->load->library('pagination');
         $url = 'certificados/novaAvaliacao/';
         $total = $this->certificados_model->totalCertificadosAvaliacao($idModelo, $key, $tipo);
@@ -782,13 +734,12 @@ class Certificados extends CI_Controller
         $inicio = $pag["inicio"];
         $data['paginacao'] = $pag["links"];
 
-        $resultado = $this->certificados_model
-            ->listarCertificadosAvaliacao($idModelo, $key, $tipo, $maximo, $inicio);
+        $resultado = $this->certificados_model->listarCertificadosAvaliacao($idModelo, $key, $tipo, $maximo, $inicio);
 
-        if ($resultado == null) {
+        if (count($resultado) === 0) {
             $data['nome_evento'] = $nomeEvento;
             $data['certificados'] = null;
-            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir';
+            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir.';
         } else {
             $data['nome_evento'] = $nomeEvento;
             $data['certificados'] = $resultado;
@@ -804,7 +755,7 @@ class Certificados extends CI_Controller
      * Gera log de notificacao de participantes, chamando o metodo equivalente
      * na camada de modelo para a gravacao em banco de dados.
      */
-    function geraLogEmail($id_modelo, $msg)
+    function geraLogEmail($idModelo, $msg)
     {
         $this->load->model('log_importacao_model');
         $this->load->helper('date');
@@ -816,12 +767,13 @@ class Certificados extends CI_Controller
 
         $idLog = $this->log_importacao_model->insert($dados);
 
-        if (count(@$notImp) > 0)
+        if (count(@$notImp) > 0) {
             foreach ($notImp as $linha => $descr) {
-                if ($linha > 0)
-                    $this->log_importacao_model
-                        ->insertDetalhe($idLog, $linha, $descr);
+                if ($linha > 0) {
+                    $this->log_importacao_model->insertDetalhe($idLog, $linha, $descr);
+                }
             }
+        }
 
         return $idLog;
     }
@@ -833,12 +785,14 @@ class Certificados extends CI_Controller
             $idModelo = $_POST['modelo'];
             $campo = $_POST['campo'];
             $valor = $_POST['valor'];
-            if ($valor == 'false')
-                $this->session->unset_userdata($campo);
-            else
-                $this->session->set_userdata($campo, $valor);
 
-            echo "OK";
+            if ($valor == 'false') {
+                $this->session->unset_userdata($campo);
+            } else {
+                $this->session->set_userdata($campo, $valor);
+            }
+
+            echo 'OK';
             $this->novaAvaliacao();
         }
     }
@@ -848,14 +802,12 @@ class Certificados extends CI_Controller
         $this->load->library('email');
         $this->load->library('Gerenciador_de_email');
 
-        if ($emailDestinatario && $emailRemetente) {
+        if (($emailDestinatario) && ($emailRemetente)) {
             $teste = $this->gerenciador_de_email->testarEmail($emailDestinatario, $emailRemetente);
 
-            if ($teste == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return ($teste == 1);
+        } else {
+            return false;
         }
     }
 
@@ -872,17 +824,22 @@ class Certificados extends CI_Controller
             $envMail = $dados["txtEnvMail"];
             $status = $dados["txtStatus"];
             $avaliados = $dados["txtAvaliados"];
+
             if ($status == 'D') {
                 $this->load->model('certificados_model');
                 $total = 0;
+
                 foreach ($avaliados as $idCertificado) {
-                    if ($idCertificado > 0)
-                        $altOk = $this->certificados_model
-                            ->delete($idCertificado);
-                    if ($altOk)
+                    if ($idCertificado > 0) {
+                        $altOk = $this->certificados_model->delete($idCertificado);
+                    }
+
+                    if ($altOk) {
                         $total++;
+                    }
                 }
             }
+
             redirect('certificados/exibeResultadoAvaliacao/' . $total);
         }
     }
@@ -892,6 +849,7 @@ class Certificados extends CI_Controller
         if (!$dadosCertificado) {
             return false;
         }
+
         $this->load->model('modelos_certificado_model');
         $this->load->model('certificados_model');
 
@@ -906,22 +864,22 @@ class Certificados extends CI_Controller
         // Parei aqui... recuperar dados do modelo de certificado
         $dados = $this->modelos_certificado_model->getById($dadosCertificado->id_modelo_certificado);
 
-        // Efetua substituicao de texto no campo de texto
+        // Efetua substituição de texto no campo de texto
         $textoCertificado = $dados->de_texto;
         $textoVerso = $dados->de_texto_verso;
 
         foreach (array_keys($colunasCertificado) as $colunaModelo) {
-
-            $textoCertificado = str_replace($colunaModelo, utf8_encode($colunasCertificado[$colunaModelo]), $textoCertificado);
-
+            $textoCertificado = str_replace($colunaModelo, utf8_encode($colunasCertificado[$colunaModelo]),
+                $textoCertificado);
             $textoVerso = str_replace($colunaModelo, utf8_encode($colunasCertificado[$colunaModelo]), $textoVerso);
         }
 
-        // Monta matriz de gravacao de  certificado no banco de dados
+        // Monta matriz de gravação de  certificado no banco de dados
         $dataCert['id_certificado'] = $dadosCertificado->id_certificado;
         $dataCert['de_texto_certificado'] = $textoCertificado;
         $dataCert['de_complementar'] = $textoVerso;
         $atualizacao = $this->certificados_model->atualizaCertificado($dataCert);
+
         return $atualizacao;
     }
 
@@ -935,8 +893,9 @@ class Certificados extends CI_Controller
     function exibeRetorno($mensagem, $url)
     {
         $data['mensagem'] = $mensagem;
-        $data['corpo_pagina'] = "retorno_operacoes_view";
+        $data['corpo_pagina'] = 'retorno_operacoes_view';
         $view = $this->load->view('includes/templates/template', $data, true);
+
         exibeRetornoOperacao($view, $url);
     }
 
@@ -947,11 +906,11 @@ class Certificados extends CI_Controller
     {
         $this->load->model('eventos_model');
         $data['eventos'] = $this->eventos_model->listarEventosPublicos();
-        $data['corpo_pagina'] = "selecao_listaPublica_view";
-        $data['titulo_pagina'] = "Seleção de Evento";
+        $data['corpo_pagina'] = 'selecao_listaPublica_view';
+        $data['titulo_pagina'] = 'Seleção de Evento';
         $this->load->view('includes/templates/template', $data);
 
-        //zera a pesquisa corrente
+        // Limpa a pesquisa corrente
         $this->session->unset_userdata('valor_pesq');
         $this->session->unset_userdata('tipo_pesq');
     }
@@ -966,7 +925,7 @@ class Certificados extends CI_Controller
         $this->load->model('certificados_model');
 
         if (@$_POST['hdnPesquisa'] == 'pesquisa') {
-            //se digitou um valor para pesquisa, armazena-o numa sessao.
+            // Se digitou um valor para pesquisa, armazena-o em uma sessão.
             $this->session->set_userdata('valor_pesq', $_POST['txtPesquisa']);
             $this->session->set_userdata('tipo_pesq', $_POST['cmbPesquisa']);
         }
@@ -983,7 +942,7 @@ class Certificados extends CI_Controller
             $dadosEvento = $this->eventos_model->getById($idEvento);
             $data['nome_evento'] = $dadosEvento->nm_evento;
 
-            //parametros paginacao
+            // Parâmetros paginação
             $this->load->library('pagination');
             $url = 'certificados/listaCertificadosPublicos';
             $total = $this->certificados_model->getTotalPublicos($idEvento, $key, $tipo);
@@ -992,7 +951,8 @@ class Certificados extends CI_Controller
             $inicio = $pag["inicio"];
             $data['paginacao'] = $pag["links"];
 
-            $listaCertificados = $this->certificados_model->listaCertificadosPublicos($idEvento, $key, $tipo, $maximo, $inicio);
+            $listaCertificados = $this->certificados_model->listaCertificadosPublicos($idEvento, $key, $tipo,
+                $maximo, $inicio);
             if ($listaCertificados) {
                 $data['certificados'] = $listaCertificados;
             } else {
@@ -1012,25 +972,27 @@ class Certificados extends CI_Controller
     function gravaLogEmail($idEvento, $idModelo, $mensagem = null, $hash = null)
     {
         $this->load->helper('file');
+
+        $textoLog = '[' . date('d-m-Y H:i:s') . ']';
+
         if ($mensagem) {
-            $textoLog = "";
-            $textoLog .= "[" . date('d-m-Y H:i:s') . "]";
-            $textoLog .= " $hash: " . $mensagem . "\n";
+            $textoLog .= ' $hash: ' . $mensagem . "\n";
         } else {
-            $textoLog = "";
-            $textoLog .= "[" . date('d-m-Y H:i:s') . "]";
-            $textoLog .= " ..............................\n";
+            $textoLog .= ' ..............................' . "\n";
         }
 
         $caminho = $this->config->item('upload_path') . 'logs';
 
-        if (!file_exists($caminho))
+        if (!file_exists($caminho)) {
             mkdir($caminho, 0775);
+        }
 
-        $arquivo = "$caminho/log-notif-$idModelo.log";
+        $arquivo = $caminho . '/log-notif-' . $idEvento . '_' . $idModelo . '.log';
         write_file($arquivo, $textoLog, 'a');
+
         return true;
     }
+
 }
 
 /* End of file certificados.php */

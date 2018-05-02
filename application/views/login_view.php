@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -24,48 +24,84 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  *
  * @author     Pedro Conrad Jr. <pedro.junior@unipampa.edu.br>
  * @author     Sergio Jr <sergiojunior@unipampa.edu.br
+ * @author     Francisco Ernesto Teixeira <me@francisco.pro>
  *
  * @copyright Universidade Federal do Pampa - NTIC Campus Alegrete 2010
- *
  */
 ?>
 
-<br/>
-<div id="login_place">
-    <br/>
-    <br/>
-    <?php echo form_open('sistema/login'); ?>
-    <b>Usu&aacute;rio:</b>&nbsp;&nbsp;&nbsp;
-    <input type='text' name='login' id='login'
-           class="medium_input" value=""/>
-    <br/>
-    <b>Senha:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type='password' name='senha' id='senha'
-           class="medium_input" value=""/>
-    <br/>
-    <a href="<?php echo base_url() ?>sistema/recuperarSenha/"><i>&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;
-            Recuperar Senha</i>
-    </a>
-
-    <div id="message">
-        <?php if (@$mensagem):
-            echo @$mensagem;
-        endif; ?>
+<div class="row">
+    <div class="col-sm-12">
+        <?php if (isset($mensagem)) { ?>
+            <div class="alert alert-danger" role="alert"><?php echo $mensagem; ?></div>
+        <?php } ?>
+        <?php if (isset($retorno)) { ?>
+            <div class="alert alert-danger" role="alert"><?php echo $retorno; ?></div>
+        <?php } ?>
     </div>
-    <br/>
-
-    <button type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <img src='<?php echo base_url() ?>assets/images/ok_32.png'
-             alt="Entrar" height="15" width="15" border="0">&nbsp;Entrar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </button>
-    <?php echo form_close(); ?>
-    <br/>
-    <a href="<?php echo base_url() ?>certificados/processar/">Clique aqui para emitir ou verificar a validade de um
-        certificado</a>
-    <br/>
-    <?php echo @$retorno; ?>
 </div>
-<div class="clear"></div>
+
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6" style="display: none;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Autenticação/Emissão do Certificado</h5>
+                <p class="card-text">Forneça as informações necessárias para a autenticação ou emissão do seu certificado.</p>
+                <?php echo form_open('certificados/recebeCodigo'); ?>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtHash">Código de Identicação</label>
+                        <input type="text" class="form-control" id="txtHash" name="txtHash"
+                               placeholder="Código de Identicação" value="" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="txtOperacaoValidar" id="txtOperacaoValidar" value="validar" checked>
+                            <label class="form-check-label" for="txtOperacaoValidar">Validar Certificado</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="txtOperacao" id="txtOperacaoEmitir" value="emitir">
+                            <label class="form-check-label" for="txtOperacaoEmitir">Emitir Certificado</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Fazer Pedido</button>
+                <br/>
+                <a href="<?php echo base_url('listaPublica'); ?>" class="card-link">Não recebi nenhum código</a>
+                <?php echo form_close(); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Acessar</h5>
+                <p class="card-text">Forneça as informações necessárias para o acessar a área restrita do sistema.</p>
+                <?php echo form_open('sistema/login'); ?>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="login">Usuário</label>
+                        <input type="text" class="form-control" id="login" name="login"
+                               placeholder="Usuário" value="" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="senha">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha"
+                               placeholder="Senha" value="" maxlength="50">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                <br/>
+<!--                <a href="--><?php //echo base_url('sistema/recuperarSenha'); ?><!--" class="card-link">Esqueci a senha</a>-->
+                <?php echo form_close(); ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+<br/>

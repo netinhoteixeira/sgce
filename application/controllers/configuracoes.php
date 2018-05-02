@@ -19,16 +19,14 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
 /**
- * Controller Configuracoes
  * Controlador das Configurações do Sistema.
  *
  * @author Pedro Jr     <pedro.junior@unipampa.edu.br>
  * @author Sergio Jr    <sergiojunior@unipampa.edu.br>
  * @author Francisco Ernesto Teixeira <me@francisco.pro>
  * @copyright NTIC Unipampa 2010
- *
  */
-class Configuracoes extends CI_Controller
+class Configuracoes extends MY_Controller
 {
 
     /**
@@ -39,18 +37,7 @@ class Configuracoes extends CI_Controller
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->helper('retorno_operacoes');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->lang->load('msg');
-        $this->config->load_db_items();
-
-        $this->load->library('gerenciador_de_acesso');
-        $this->gerenciador_de_acesso->usuarioAuth();
+        parent::__construct(TRUE);
     }
 
     /**
@@ -60,8 +47,8 @@ class Configuracoes extends CI_Controller
      */
     function index()
     {
-        if (((int)$this->session->userdata('admin')) !== 1) {
-            redirect('sistema/bloqueado');
+        if (!$this->ehAdmin()) {
+            $this->acessoBloqueado();
         } else {
             $this->editar();
         }
@@ -73,10 +60,10 @@ class Configuracoes extends CI_Controller
     function editar()
     {
         $this->load->model('configuracoes_model');
-        $data = $this->configuracoes_model->obtemTodosParametrosArray();
-        $data['corpo_pagina'] = 'configuracoes_view';
+        $dados = $this->configuracoes_model->obter();
+        $dados['corpo_pagina'] = 'configuracoes_view';
 
-        $this->load->view('includes/templates/template', $data);
+        $this->load->view('includes/templates/template', $dados);
     }
 
     /**
@@ -84,10 +71,6 @@ class Configuracoes extends CI_Controller
      */
     function salvar()
     {
-        if (((int)$this->session->userdata('logado')) !== 1) {
-            $this->gerenciador_de_acesso->usuarioAuth();
-        }
-
         $this->load->library('form_validation');
 
         // Autenticação
@@ -156,7 +139,7 @@ class Configuracoes extends CI_Controller
             $dados['msg_notificacao_qualidade'] = $this->input->post('txtMsgNotifQualidade');
 
             $this->configuracoes_model->update($dados);
-            $this->_configurarInformacoesDoSistema($dados);
+            $this->_aplicarConfiguracoes($dados);
 
             $this->_exibirRetorno('Operação executada com sucesso. Aguarde...', 'configuracoes/editar/');
         } else {
@@ -182,19 +165,17 @@ class Configuracoes extends CI_Controller
     }
 
     /**
-     * Configura as informações do sistema com os dados fornecidos.
+     * Aplica as configurações do sistema com os dados fornecidos.
      *
-     * @param $dados Dados que atualizam o sistema.
+     * @param array $dados Dados que serão aplicados ao sistema.
      */
-    function _configurarInformacoesDoSistema($dados)
+    function _aplicarConfiguracoes($dados)
     {
         if (is_array($dados)) {
             $this->config->load('email');
-            $chaves = array_keys($dados);
-            $valores = array_values($dados);
 
-            for ($i = 0; $i < count($chaves); $i++) {
-                $this->config->set_item($chaves[$i], $valores[$i]);
+            foreach ($dados as $chave => $valor) {
+                $this->config->set_item($chave, $valor);
             }
         }
     }
@@ -208,11 +189,11 @@ class Configuracoes extends CI_Controller
      */
     function _exibirRetorno($mensagem, $endereco)
     {
-        $data['mensagem'] = $mensagem;
-        $data['corpo_pagina'] = 'retorno_operacoes_view';
-        $view = $this->load->view('includes/templates/template', $data, true);
+        $dados['mensagem'] = $mensagem;
+        $dados['corpo_pagina'] = 'retorno_operacoes_view';
+        $visao = $this->load->view('includes/templates/template', $dados, TRUE);
 
-        exibeRetornoOperacao($view, $endereco);
+        exibeRetornoOperacao($visao, $endereco);
     }
 
     /**
@@ -229,7 +210,7 @@ class Configuracoes extends CI_Controller
     function restaurar()
     {
         $this->load->model('configuracoes_model');
-        $this->configuracoes_model->restaurarPadrao();
+        $this->configuracoes_model->restaurarValoresPadroes();
 
         $this->_exibirRetorno('Operação executada com sucesso. Aguarde...',
             'configuracoes/editar/');

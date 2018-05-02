@@ -63,9 +63,9 @@ class Configuracoes_model extends CI_Model
      * Obtem a listagem de todos os parametros de configuracao em forma de
      * array associativo: nome do campo = indice do array
      *
-     * @return Array
+     * @return array
      */
-    function obtemTodosParametrosArray()
+    function obter()
     {
         $record = $this->db->get($this->table);
         $dados = $record->result();
@@ -82,7 +82,7 @@ class Configuracoes_model extends CI_Model
      * Restaurar as configuracoes padroes do sistema
      * @return Boolean
      */
-    function restaurarPadrao()
+    function restaurarValoresPadroes()
     {
         $sql = "UPDATE config_sistema SET vl_parametro = vl_padrao";
         if ($this->db->query($sql))

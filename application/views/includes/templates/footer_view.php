@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -17,13 +17,15 @@ junto com este programa, se não, acesse o Portal do Software Público Brasileir
 endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Livre(FSF)
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
-?>
 
-<?php
 /**
  * Description of footer_view
  *
  * @author Daniel Michelon De Carli
  */
 ?>
-<div id="footer">Desenvolvido: NTIC - Universidade Federal Do Pampa</div>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">Desenvolvido: NTIC - Universidade Federal Do Pampa</span>
+    </div>
+</footer>

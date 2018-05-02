@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 Copyright 2010 UNIPAMPA - Universidade Federal do Pampa
 
@@ -18,51 +18,39 @@ endereço www.softwarepublico.gov.br ou escreva para a Fundação do Software Li
 Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 ?>
-
-<div id="menu">
-    <ul class="menu">
-        <li><a href="#" class="parent"><span>Cadastros</span></a>
-            <div>
-                <ul>
-                    <li><a href="<?php echo base_url().'eventos'?>"><span>Eventos</span></a>
-                    </li>
-                    <li><a href="<?php echo base_url().'organizadores'?>"><span>Usuários</span></a>
-                    </li>
-                    <li><a href="<?php echo base_url().'participantes'?>"><span>Participantes</span></a>
-                    </li>
-               </ul>
-            </div>
-        </li>
-        
-        <li><a href="#" class="parent"><span>Certificados</span></a>
-            <div>
-                <ul>
-                    <li><a href="<?php echo base_url().'certificados'?>"><span>Listagem de Certificados</span></a>
-                    </li>
-                    <li><a href="<?php echo base_url().'modelos_certificados'?>"><span>Modelos de Certificados</span></a>
-                    </li>                    
-                    <li><a href="<?php echo base_url().'participantes/formImporta'?>"><span>Importar Dados</span></a>
-                    </li>
-                    <li><a href="<?php echo base_url().'certificados/selecionarModeloParaAvaliacao'?>"><span>Avaliação de Certificados</span></a>
-                    </li>
-                    <li><a href="<?php echo base_url().'certificados/notificar'?>"><span>Notificação de Participantes</span></a>
-                    </li>
-               </ul>
-            </div>
-        </li>
-        
-        <li><a href="#" class="parent"><span>Sistema</span></a>
-            <div>
-                <ul>
-                    <li><a href="<?php echo base_url().'configuracoes'?>"><span>Configurações</span></a>
-                    </li>
-               </ul>
-            </div>
-        </li>
-
-    </ul>
-</div>
-
-
-
-
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Cadastros
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?php echo base_url('eventos'); ?>">Eventos</a>
+            <a class="dropdown-item" href="<?php echo base_url('modelos_certificados'); ?>">Modelos de Certificados</a>
+            <a class="dropdown-item" href="<?php echo base_url('organizadores'); ?>">Organizadores</a>
+            <a class="dropdown-item" href="<?php echo base_url('participantes'); ?>">Participantes</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Certificados
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?php echo base_url('participantes/formImporta'); ?>">Importar
+                Participantes</a>
+            <a class="dropdown-item" href="<?php echo base_url('certificados'); ?>">Listagem</a>
+            <a class="dropdown-item" href="<?php echo base_url('certificados/selecionarModeloParaAvaliacao'); ?>">Avaliar</a>
+            <a class="dropdown-item" href="<?php echo base_url('certificados/notificar'); ?>">Notificar</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Sistema
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="<?php echo base_url('configuracoes'); ?>">Configurações</a>
+        </div>
+    </li>
+</ul>

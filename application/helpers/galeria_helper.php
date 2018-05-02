@@ -26,7 +26,7 @@ function exibeGaleria($diretorio = null)
 {
     $i = 0;
     $open = opendir($diretorio);
-    $imgOk = base_url() . 'application/views/includes/images/ok_16.png';
+    $imgOk = base_url() . 'assets/images/ok_16.png';
     echo '<table width="500px" border="0" cellspacing="0" cellpadding="0"><tr>';
     while ($ler = readdir($open)) {
 

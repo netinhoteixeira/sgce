@@ -24,7 +24,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  * @copyright NTIC Unipampa 2010
  *
  */
-class Modelos_certificados extends CI_Controller
+class Modelos_certificados extends MY_Controller
 {
 
     /**
@@ -36,19 +36,20 @@ class Modelos_certificados extends CI_Controller
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->helper('data');
-        $this->load->helper('replace_ascii');
-        $this->load->helper('retorno_operacoes');
-        $this->load->library('session');
-        $this->load->library('pagination');
-        $this->lang->load('msg');
-        $this->config->load_db_items();
+        parent::__construct(TRUE);
 
-        $this->load->library('Gerenciador_de_acesso');
-        $this->gerenciador_de_acesso->usuarioAuth();
+//        $this->load->helper('url');
+//        $this->load->helper('form');
+//        $this->load->helper('data');
+//        $this->load->helper('replace_ascii');
+//        $this->load->helper('retorno_operacoes');
+//        $this->load->library('session');
+//        $this->load->library('pagination');
+//        $this->lang->load('msg');
+//        $this->config->load_db_items();
+//
+////        $this->load->library('gerenciador_de_acesso');
+////        $this->gerenciador_de_acesso->validarSessaoAtiva();
     }
 
     /**
@@ -96,8 +97,8 @@ class Modelos_certificados extends CI_Controller
             $this->session->userdata('ordem_valor'),
             $this->session->userdata('ordem_tipo'));
 
-        if ($resultado == null) {
-            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir';
+        if (count($resultado) === 0) {
+            $data['mensagem'] = 'N&atilde;o h&aacute; registros para exibir.';
             $data['modelos_certificado'] = null;
         } else {
             $data['modelos_certificados'] = $resultado;
@@ -452,15 +453,17 @@ class Modelos_certificados extends CI_Controller
      * Exibe o retorno de uma operacao, com a mensagem passada e a url de direcio
      * namento
      *
-     * @param String $mensagem - mensagem de retorno
-     * @param String $url - url de direcionamento
+     * @param string $mensagem Mensagem de retorno.
+     * @param string $endereco Endereco de direcionamento.
      */
-    function exibeRetorno($mensagem, $url)
+    function exibeRetorno($mensagem, $endereco)
     {
-        $data['mensagem'] = $mensagem;
-        $data['corpo_pagina'] = "retorno_operacoes_view";
-        $view = $this->load->view('includes/templates/template', $data, true);
-        exibeRetornoOperacao($view, $url);
+        $view = $this->load->view('includes/templates/template', [
+            'mensagem' => $mensagem,
+            'corpo_pagina' => 'retorno_operacoes_view'
+        ], TRUE);
+
+        exibeRetornoOperacao($view, $endereco);
     }
 
     /**
