@@ -47,6 +47,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/css/estilo_admin.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/bootstrap/css/bootstrap.min.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/mdb/css/mdb.css' type="text/css"/>
+    <link rel="stylesheet" href='<?php echo base_url() ?>assets/selecty/dist/css/selecty.min.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/summernote/dist/summernote-bs4.css' type="text/css"/>
 
     <style>
@@ -136,6 +137,44 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         code {
             font-size: 80%;
         }
+
+        /** Selecty Fix **/
+        .selecty .selecty-selected {
+            /*height: 32px;*/
+            /*line-height: 32px;*/
+            height: 38.6px;
+            line-height: 38.6px;
+            border-bottom: 1px solid #ced4da;
+        }
+
+        .selecty .selecty-selected::after {
+            border-top: 4px dashed #212529;
+        }
+
+        .form-group.md-style {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+
+        .form-group.md-style label {
+            position: absolute;
+            top: 0.65rem;
+            left: 4px;
+            -webkit-transition: 0.2s ease-out;
+            -o-transition: 0.2s ease-out;
+            transition: 0.2s ease-out;
+            cursor: text;
+            color: #757575;
+            font-size: 0.8rem;
+            -webkit-transform: translateY(-140%);
+            -ms-transform: translateY(-140%);
+            transform: translateY(-140%);
+        }
+
+        /** MDB Fix **/
+        .md-form label {
+            left: 4px;
+        }
     </style>
 
     <title><?php echo SIGLA_SISTEMA . ' - ' . NOME_SISTEMA ?></title>
@@ -159,10 +198,13 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 <script type="text/javascript" src='<?php echo base_url() ?>assets/bootstrap/js/bootstrap.bundle.min.js'></script>
 <script type="text/javascript" src='<?php echo base_url() ?>assets/mdb/js/popper.min.js'></script>
 <script type="text/javascript" src='<?php echo base_url() ?>assets/mdb/js/mdb.js'></script>
+<script type="text/javascript" src='<?php echo base_url() ?>assets/selecty/dist/js/selecty.min.js'></script>
 <script type="text/javascript" src='<?php echo base_url() ?>assets/summernote/dist/summernote-bs4.min.js'></script>
 <script type="text/javascript" src='<?php echo base_url() ?>assets/summernote/dist/lang/summernote-pt-BR.min.js'></script>
 <script>
     $(document).ready(function () {
+        $('select').selecty();
+
         $('.summernote').summernote({
             toolbar: [
                 // [groupName, [list of button]]

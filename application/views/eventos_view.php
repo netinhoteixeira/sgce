@@ -53,7 +53,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         <div class="col-sm-12">
             <fieldset>
                 <div class="form-row">
-                    <div class="form-group col-md-2">
+                    <div class="form-group md-style col-md-2">
                         <label for="cmbPesquisa">Termo</label>
                         <select class="form-control" id="cmbPesquisa" name="cmbPesquisa">
                             <option value="D">Nome</option>
@@ -65,15 +65,15 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
                             -->
                         </select>
                     </div>
-                    <div class="form-group col-md-8">
+                    <div class="form-group md-form col-md-8">
                         <label for="txtPesquisa">Pesquisar por</label>
                         <input type="text" class="form-control" id="txtPesquisa" name="txtPesquisa"
-                               placeholder="Pesquisar por" value="" maxlength="50">
-                        <small id="txtPesquisaHelp" class="form-text text-muted">Em branco para listar todos.</small>
+                               maxlength="50">
+                        <small id="txtPesquisaHelp" class="form-text text-muted">Forneça o valor em branco para listar todos.</small>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="btnPesquisaSubmit">&nbsp;</label>
-                        <button type="submit" class="form-control btn btn-block btn-primary pull-right">
+                        <button type="submit" class="form-control btn btn-sm btn-block btn-primary pull-right">
                             Pesquisar
                         </button>
                     </div>
