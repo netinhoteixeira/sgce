@@ -30,12 +30,9 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
  *
  */
 ?>
-<p align='center'>
-<center>
-    <h2>Bem-vindo ao <?php echo NOME_SISTEMA ?></h2>
-    <br/>
-    <img src="<?php echo base_url() ?>assets/images/marca_sgce.png"
-         alt="<?php echo NOME_SISTEMA ?>" title="<?php echo NOME_SISTEMA ?>"/>
-    <br/>
-</center>
-</p>
+<div class="row justify-content-md-center">
+    <div class="col-md-auto text-center">
+        <h2>Bem-vindo ao <?php echo NOME_SISTEMA; ?></h2><br />
+        <img src="<?php echo base_url() ?>assets/images/logo/logo.svg" width="300" />
+    </div>
+</div>

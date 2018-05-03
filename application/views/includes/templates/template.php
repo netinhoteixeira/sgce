@@ -46,6 +46,7 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 ?>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/css/estilo_admin.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/bootstrap/css/bootstrap.min.css' type="text/css"/>
+    <link rel="stylesheet" href='<?php echo base_url() ?>assets/fontawesome/css/fontawesome-all.min.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/mdb/css/mdb.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/selecty/dist/css/selecty.min.css' type="text/css"/>
     <link rel="stylesheet" href='<?php echo base_url() ?>assets/summernote/dist/summernote-bs4.css' type="text/css"/>

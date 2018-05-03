@@ -19,9 +19,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
 */
 
 /**
- * View de Lista de modelos_certificados
- *
- * Utilizada para Listar Modelos de Certificados cadastrados
+ * Visão Lista de Modelos de Certificados
+ * Utilizada para listar modelos de certificados cadastrados.
  *
  * @author     Pedro Conrad Jr. <pedro.junior@unipampa.edu.br>
  * @author     Sergio Jr <sergiojunior@unipampa.edu.br
@@ -34,7 +33,8 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
     <div class="col-sm-12">
         <div class="pull-right">
             <button type="button" class="btn btn-light pull-right"
-                    onclick="parent.location='<?php echo base_url(); ?>modelos_certificados/novo'">Adicionar
+                    onclick="parent.location='<?php echo base_url(); ?>modelos_certificados/novo'"><i class="fas fa-plus"></i>
+                Adicionar
             </button>
         </div>
         <h1>Cadastro de Modelos de Certificados</h1>
@@ -45,91 +45,108 @@ Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
         <?php } ?>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <h5>Filtro</h5>
 
-<?php echo form_open('modelos_certificados/listar'); ?>
-<div class="search_form">
-    <input type='hidden' name='hdnPesquisa' id='hdnPesquisa' value='pesquisa'/>
-    <div class="row">
-        <div class="col-sm-12">
-            <fieldset>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="cmbPesquisa">Termo</label>
-                        <select class="form-control" id="cmbPesquisa" name="cmbPesquisa">
-                            <option value="D">Nome</option>
-                            <option value="C">Código</option>
-                            <option value="E">Evento</option>
-                            <!--
-                        <option value="mista" <?php echo (@$tipo_de_autenticacao == 'mista') ? ' selected' : ''; ?>>
-                            Mista
-                        </option>
-                        -->
-                        </select>
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="txtPesquisa">Pesquisar por</label>
-                        <input type="text" class="form-control" id="txtPesquisa" name="txtPesquisa"
-                               placeholder="Pesquisar por" value="" maxlength="50">
-                        <small id="txtPesquisaHelp" class="form-text text-muted">Em branco para listar todos.</small>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="btnPesquisaSubmit">&nbsp;</label>
-                        <button type="submit" class="form-control btn btn-block btn-primary pull-right">Pesquisar
-                        </button>
-                    </div>
+        <?php echo form_open('participantes/listar'); ?>
+        <div class="search_form">
+            <input type='hidden' name='hdnPesquisa' id='hdnPesquisa' value='pesquisa'/>
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="form-group md-style col-md-2">
+                                <label for="cmbPesquisa">Termo</label>
+                                <select class="form-control" id="cmbPesquisa" name="cmbPesquisa">
+                                    <option value="D">Nome</option>
+                                    <option value="C">Código</option>
+                                    <option value="E">Evento</option>
+                                    <!--
+                            <option value="mista" <?php echo (@$tipo_de_autenticacao == 'mista') ? ' selected' : ''; ?>>
+                                Mista
+                            </option>
+                            -->
+                                </select>
+                            </div>
+                            <div class="form-group md-form col-md-8">
+                                <label for="txtPesquisa">Pesquisar por</label>
+                                <input type="text" class="form-control" id="txtPesquisa" name="txtPesquisa"
+                                       maxlength="50">
+                                <small id="txtPesquisaHelp" class="form-text text-muted">Forneça o valor em branco
+                                    para
+                                    listar todos os registros.
+                                </small>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="btnPesquisaSubmit">&nbsp;</label>
+                                <button type="submit"
+                                        class="form-control btn btn-sm btn-block btn-primary pull-right">
+                                    <i class="fas fa-search"></i> Pesquisar
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-            </fieldset>
+            </div>
         </div>
+        <?php echo form_close(); ?>
     </div>
 </div>
-<?php echo form_close(); ?>
+<div class="row">
+    <div class="col-sm-12">
+        <?php if (!isset($mensagem)) { ?>
+            <h5>Registros</h5>
 
-<!--Table-->
-<table class="table table-hover">
+            <!--Table-->
+            <table class="table table-hover">
 
-    <!--Table head-->
-    <thead>
-    <tr>
-        <th><a href="<?php echo base_url('modelos_certificados/ordenar/codigo'); ?>">C&oacute;digo</a></th>
-        <th><a href="<?php echo base_url('modelos_certificados/ordenar/evento'); ?>">Evento</a></th>
-        <th><a href="<?php echo base_url('modelos_certificados/ordenar/nome'); ?>">Nome</a></th>
-        <th></th>
-    </tr>
-    </thead>
-    <!--Table head-->
+                <!--Table head-->
+                <thead>
+                <tr>
+                    <th><a href="<?php echo base_url('modelos_certificados/ordenar/codigo'); ?>">C&oacute;digo</a></th>
+                    <th><a href="<?php echo base_url('modelos_certificados/ordenar/evento'); ?>">Evento</a></th>
+                    <th><a href="<?php echo base_url('modelos_certificados/ordenar/nome'); ?>">Nome</a></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <!--Table head-->
 
-    <!--Table body-->
-    <tbody>
+                <!--Table body-->
+                <tbody>
+                <?php foreach ($modelos_certificados as $row) { ?>
+                    <tr>
+                        <th scope="row"><?php echo $row->id_certificado_modelo; ?></th>
+                        <td><?php echo $row->nm_evento; ?></td>
+                        <td><?php echo $row->nm_modelo; ?></td>
+                        <td>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-sm btn-success"
+                                        onclick="confirmaClonagem('<?php echo base_url('modelos_certificados/clonar/' . $row->id_certificado_modelo); ?>','de <?php echo $row->nm_modelo; ?>')">
+                                    <i class="fas fa-clone"></i> Clonar
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary"
+                                        onclick="location.href='<?php echo base_url('modelos_certificados/editar/' . $row->id_certificado_modelo); ?>'">
+                                    <i class="fas fa-pencil-alt"></i> Editar
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="confirmaExclusao('<?php echo base_url('modelos_certificados/excluir/' . $row->id_certificado_modelo); ?>','de <?php echo $row->nm_modelo; ?>')">
+                                    <i class="fas fa-trash-alt"></i> Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+                <!--Table body-->
 
-    <?php if (!isset($mensagem)) { ?>
-        <?php foreach ($modelos_certificados as $row) { ?>
-            <tr>
-                <th scope="row"><?php echo $row->id_certificado_modelo; ?></th>
-                <td><?php echo $row->nm_evento; ?></td>
-                <td><?php echo $row->nm_modelo; ?></td>
-                <td>
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-sm btn-success"
-                                onclick="confirmaClonagem('<?php echo base_url('modelos_certificados/excluir/' . $row->id_certificado_modelo); ?>','de <?php echo $row->nm_modelo; ?>')">
-                            Clonar
-                        </button>
-                        <button type="button" class="btn btn-sm btn-primary"
-                                onclick="location.href='<?php echo base_url('modelos_certificados/editar/' . $row->id_certificado_modelo); ?>'">
-                            Editar
-                        </button>
-                        <button type="button" class="btn btn-sm btn-danger"
-                                onclick="confirmaExclusao('<?php echo base_url('modelos_certificados/excluir/' . $row->id_certificado_modelo); ?>','de <?php echo $row->nm_modelo; ?>')">
-                            Excluir
-                        </button>
-                    </div>
-                </td>
-            </tr>
+            </table>
+            <!--Table-->
+
+            <div class="paginacao"><?php echo @$paginacao; ?></div>
         <?php } ?>
-    <?php } ?>
-    </tbody>
-    <!--Table body-->
-
-</table>
-<!--Table-->
-
-<div class="paginacao"><?php echo @$paginacao; ?></div>
+    </div>
+</div>
+<?php
+/* End of file modelos_certificado_view.php */
+/* Location: ./application/views/modelos_certificado_view.php */

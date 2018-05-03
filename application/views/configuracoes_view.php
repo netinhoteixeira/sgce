@@ -43,12 +43,12 @@ echo form_open(base_url() . 'configuracoes/salvar');
             <div class="pull-right">
                 <button type="button" class="btn btn-secondary"
                         onclick="confirmaRestauracaoConfig('<?php echo base_url() ?>configuracoes/restaurar');">
-                    Restaurar valores padrões
+                    <i class="fas fa-retweet"></i> Restaurar valores padrões
                 </button>&nbsp;
-                <button type="submit" class="btn btn-danger pull-right">Salvar</button>
+                <button type="submit" class="btn btn-danger pull-right"><i class="fas fa-save"></i> Salvar</button>
             </div>
             <button type="button" class="btn btn-primary"
-                    onclick="parent.location='<?php echo base_url() ?>configuracoes/cancelar'">Cancelar
+                    onclick="parent.location='<?php echo base_url() ?>configuracoes/cancelar'"><i class="fas fa-times"></i> Cancelar
             </button>
         </div>
     </div>
